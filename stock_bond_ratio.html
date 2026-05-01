@@ -103,6 +103,27 @@ body.manual-landscape #c {
   height: calc(100vh - 140px);
   min-height: 200px;
 }
+
+/* 图表旋转90° */
+body.rotated .cw{
+  transform:rotate(90deg);
+  transform-origin:bottom left;
+  width:100vh;
+  height:100vw;
+  position:fixed;
+  bottom:0;
+  left:0;
+  z-index:9999;
+  background:#0d1117;
+  padding:0;
+}
+body.rotated .hdr,
+body.rotated .sb,
+body.rotated .fr,
+body.rotated #tt{display:none!important;}
+body.rotated #c{height:100%!important;}
+
+/* 旋转时重新初始化图表尺寸 */
 </style>
 </head>
 <body>
@@ -153,19 +174,21 @@ const ERP_MEAN=4.46;
 const ERP_STD=2.34;
 
 // ===== ROTATE =====
-let manualRotate = false;
+let rotated = false;
 
 function toggleRotate() {
-  manualRotate = !manualRotate;
+  rotated = !rotated;
   const icon = document.getElementById('rotico');
-  icon.textContent = manualRotate ? '↺' : '↻';
-  if (manualRotate) {
-    document.body.classList.add('manual-landscape');
+  if (rotated) {
+    document.body.classList.add('rotated');
+    icon.textContent = '↺';
+    toast('图表已旋转90°，再次点击恢复');
   } else {
-    document.body.classList.remove('manual-landscape');
+    document.body.classList.remove('rotated');
+    icon.textContent = '↻';
+    toast('已恢复');
   }
-  render();
-  toast(manualRotate ? '已切换为横屏布局' : '已恢复自动布局');
+  setTimeout(() => { chart.resize(); }, 120);
 }
 
 // ===== CHART =====
@@ -182,7 +205,7 @@ function isLandscape(){return window.innerWidth>window.innerHeight;}
 
 function render(){
   const m=isMobile();
-  const ls = manualRotate ? true : (m && isLandscape());
+  const ls = rotated ? true : (m && isLandscape());
   const cur=erpArr[erpArr.length-1];
   const sig=document.getElementById('v-sig');
   if(cur>ERP_MEAN+ERP_STD){sig.textContent='极度低估';sig.style.color='#f85149';}
