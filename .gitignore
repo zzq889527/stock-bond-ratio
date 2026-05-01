@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Large data files (only html is needed, it embeds all data)
+daily_data.json
+bond_rate.json
+index_pe.json
+sh_monthly.json
+bond_data.json
+
+# WorkBuddy internal
+.workbuddy/
+
+# Misc temp
+*.txt
+0
+Thumbs.db
