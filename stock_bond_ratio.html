@@ -209,6 +209,7 @@ function isLandscape(){return window.innerWidth>window.innerHeight;}
 function render(){
   const m=isMobile();
   const ls = rotated ? true : (m && isLandscape());
+  const r = rotated; // 旋转模式额外内边距
   const cur=erpArr[erpArr.length-1];
   const sig=document.getElementById('v-sig');
   if(cur>ERP_MEAN+ERP_STD){sig.textContent='极度低估';sig.style.color='#f85149';}
@@ -251,7 +252,7 @@ function render(){
       }
     },
     legend:{
-      show:true,top:ls?0:(m?4:6),left:'center',
+      show:true,top:r?8:(ls?0:(m?4:6)),left:'center',
       textStyle:{color:'#c9d1d9',fontSize:ls?8:(m?9:11)},
       itemWidth:ls?12:(m?16:22),itemHeight:ls?2:(m?3:4),itemGap:ls?6:(m?10:18),
       data:[
@@ -262,7 +263,7 @@ function render(){
         {name:'±1σ',icon:'roundRect',textStyle:{color:'#8b949e'}}
       ]
     },
-    grid:{top:ls?30:(m?40:52),bottom:ls?40:(m?50:60),left:ls?8:(m?8:65),right:ls?8:(m?8:85),containLabel:!m||ls},
+    grid:{top:r?42:(ls?30:(m?40:52)),bottom:r?58:(ls?40:(m?50:60)),left:r?16:(ls?8:(m?8:65)),right:r?16:(ls?8:(m?8:85)),containLabel:!m||ls},
     xAxis:{
       type:'category',data:dates,
       axisLine:{lineStyle:{color:'#30363d'}},
@@ -281,7 +282,7 @@ function render(){
     ],
     dataZoom:[
       {type:'inside',start:0,end:100},
-      {type:'slider',bottom:ls?2:(m?4:8),height:ls?14:(m?18:22),borderColor:'#30363d',
+      {type:'slider',bottom:r?10:(ls?2:(m?4:8)),height:r?20:(ls?14:(m?18:22)),borderColor:'#30363d',
        fillerColor:'rgba(88,166,255,0.08)',handleStyle:{color:'#58a6ff'},
        textStyle:{color:'#8b949e',fontSize:ls?7:(m?8:10)},
        startValue:dates[0],end:100}
