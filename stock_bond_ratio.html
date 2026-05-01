@@ -47,7 +47,7 @@ body{background:#0d1117;color:#e6edf3;font-family:"PingFang SC","Microsoft YaHei
 /* 竖屏手机：压缩图表高度，避免Y轴过长 */
 @media(max-width:767px) and (orientation:portrait){
   .cw{padding:2px 4px;}
-  #c{height:calc(100vh - 380px) !important;min-height:180px !important;}
+  #c{height:calc(100vh - 420px) !important;min-height:150px !important;}
 }
 
 /* DESKTOP */
@@ -98,13 +98,13 @@ body.rotated .cw{
   transform-origin:center center;
   z-index:9999;
   background:#0d1117;
-  padding:0;
+  padding:20px 24px;
 }
 body.rotated .hdr,
 body.rotated .sb,
 body.rotated .fr,
 body.rotated #tt{display:none!important;}
-body.rotated #c{width:100%!important;height:100%!important;}
+body.rotated #c{width:100%!important;height:100%!important;padding:0 8px;}
 body.rotated{overflow:hidden;}
 
 /* 浮动恢复按钮：仅旋转时显示 */
