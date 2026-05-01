@@ -44,6 +44,12 @@ body{background:#0d1117;color:#e6edf3;font-family:"PingFang SC","Microsoft YaHei
 #tt{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#161b22;border:1px solid #30363d;color:#e6edf3;padding:8px 14px;border-radius:8px;font-size:12px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;white-space:nowrap;}
 #tt.show{opacity:1;}
 
+/* 竖屏手机：压缩图表高度，避免Y轴过长 */
+@media(max-width:767px) and (orientation:portrait){
+  .cw{padding:2px 4px;}
+  #c{height:calc(100vh - 380px) !important;min-height:180px !important;}
+}
+
 /* DESKTOP */
 @media(min-width:768px){
 .hdr{padding:14px 28px 10px;}
@@ -118,7 +124,14 @@ body.rotated{overflow:hidden;}
   -webkit-tap-highlight-color:transparent;
   box-shadow:0 2px 12px rgba(0,0,0,0.5);
 }
-body.rotated #restoreBtn{display:block;}
+body.rotated #restoreBtn{
+  display:block;
+  bottom:auto;
+  top:24px;
+  left:auto;
+  right:24px;
+  transform:none;
+}
 
 /* 旋转时重新初始化图表尺寸 */
 </style>
