@@ -50,3 +50,8 @@ backend/data/*.json
 
 # Build outputs
 *.log
+
+# Misc temp
+*.txt
+0
+Thumbs.db
