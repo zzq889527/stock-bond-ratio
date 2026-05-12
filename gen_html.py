@@ -383,8 +383,8 @@ function render(){
     backgroundColor:'#0d1117',
     tooltip:{
       trigger:'axis',backgroundColor:'#161b22ee',borderColor:'#30363d',
-      textStyle:{color:'#e6edf3',fontSize:ls?10:(m?11:12},
-      axisPointer:{type:'cross',crossStyle:{color:'#444'},lineStyle:{color:'#444'},
+      textStyle:{color:'#e6edf3',fontSize:ls?10:(m?11:12)},
+      axisPointer:{type:'cross',crossStyle:{color:'#444'},lineStyle:{color:'#444'}},
       formatter:function(ps){
         if(!ps||!ps.length)return'';
         const i=ps[0].dataIndex,d=dates[i];if(!d)return'';
@@ -409,7 +409,7 @@ function render(){
     },
     legend:{
       show:true,top:ls?0:(m?4:6),left:'center',
-      textStyle:{color:'#c9d1d9',fontSize:ls?8:(m?9:11},
+      textStyle:{color:'#c9d1d9',fontSize:ls?8:(m?9:11)},
       itemWidth:ls?12:(m?16:22),itemHeight:ls?2:(m?3:4),itemGap:ls?6:(m?10:18),
       data:[
         {name:'沪深300',icon:'roundRect',textStyle:{color:'#26c6da'}},
@@ -444,22 +444,34 @@ function render(){
       startValue:dates[0],end:100}
     ],
     series:[
-      {name:'沪深300',type:'line',yAxisIndex:1,data:hsClose,
-      lineStyle:{color:'#26c6da',width:ls?1.3:(m?1.5:1.8)},itemStyle:{color:'#26c6da'},symbol:'none',
-      areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(38,198,218,0.06)'},{offset:1,color:'rgba(38,198,218,0.01)'}]),z:4},
-      {name:'全收益',type:'line',yAxisIndex:1,data:hsTR,
-      lineStyle:{color:'#ff6f00',width:ls?1.5:(m?1.8:2.2)},itemStyle:{color:'#ff6f00'},symbol:'none',
-      areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(255,111,0,0.08)'},{offset:1,color:'rgba(255,111,0,0.01)'}]),z:5},
-      {name:'ERP',type:'line',yAxisIndex:0,data:erpArr,
-      lineStyle:{color:'#fdd835',width:ls?1.6:(m?2:2.5)},itemStyle:{color:function(p){return erpColor(erpArr[p.dataIndex]);}},symbol:'none',
-      areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(253,216,53,0.25)'},{offset:1,color:'rgba(253,216,53,0.02)'}]),z:10},
-      {name:'均值线',type:'line',yAxisIndex:0,data:ml,
-      lineStyle:{color:'#90caf9',width:ls?0.8:(m?1:1.5),type:'dashed'},itemStyle:{color:'#90caf9'},symbol:'none',z:6},
-      {name:'±1σ',type:'line',yAxisIndex:0,data:ul,
-      lineStyle:{color:'#a5d6a7',width:ls?0.8:(m?1:1.2),type:[4,3]},itemStyle:{color:'#a5d6a7'},symbol:'none',z:5,
-      areaStyle:{color:'rgba(165,214,167,0.06)'}},
-      {name:'±1σ',type:'line',yAxisIndex:0,data:ll,
-      lineStyle:{color:'#ef9a9a',width:ls?0.8:(m?1:1.2),type:[4,3]},itemStyle:{color:'#ef9a9a'},symbol:'none',z:5}
+      {
+        name:'沪深300',type:'line',yAxisIndex:1,data:hsClose,
+        lineStyle:{color:'#26c6da',width:ls?1.3:(m?1.5:1.8)},itemStyle:{color:'#26c6da'},symbol:'none',
+        areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(38,198,218,0.06)'},{offset:1,color:'rgba(38,198,218,0.01)'}]),z:4}
+      },
+      {
+        name:'全收益',type:'line',yAxisIndex:1,data:hsTR,
+        lineStyle:{color:'#ff6f00',width:ls?1.5:(m?1.8:2.2)},itemStyle:{color:'#ff6f00'},symbol:'none',
+        areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(255,111,0,0.08)'},{offset:1,color:'rgba(255,111,0,0.01)'}]),z:5}
+      },
+      {
+        name:'ERP',type:'line',yAxisIndex:0,data:erpArr,
+        lineStyle:{color:'#fdd835',width:ls?1.6:(m?2:2.5)},itemStyle:{color:function(p){return erpColor(erpArr[p.dataIndex]);}},symbol:'none',
+        areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(253,216,53,0.25)'},{offset:1,color:'rgba(253,216,53,0.02)'}]),z:10}
+      },
+      {
+        name:'均值线',type:'line',yAxisIndex:0,data:ml,
+        lineStyle:{color:'#90caf9',width:ls?0.8:(m?1:1.5),type:'dashed'},itemStyle:{color:'#90caf9'},symbol:'none',z:6
+      },
+      {
+        name:'±1σ',type:'line',yAxisIndex:0,data:ul,
+        lineStyle:{color:'#a5d6a7',width:ls?0.8:(m?1:1.2),type:[4,3]},itemStyle:{color:'#a5d6a7'},symbol:'none',z:5,
+        areaStyle:{color:'rgba(165,214,167,0.06)'}
+      },
+      {
+        name:'±1σ',type:'line',yAxisIndex:0,data:ll,
+        lineStyle:{color:'#ef9a9a',width:ls?0.8:(m?1:1.2),type:[4,3]},itemStyle:{color:'#ef9a9a'},symbol:'none',z:5
+      }
     ]
   },true);
 }
@@ -656,9 +668,7 @@ html = HTML_TEMPLATE
 for k, v in PLACEHOLDERS.items():
     html = html.replace(f'__{k}__', v)
 
-# 修复脚本中的一些小错误
-html = html.replace('+(prevTR*(1+rt+ddr)).toFixed(2);', '+(prevTR*(1+rt+ddr)).toFixed(2);')
-html = html.replace('validErps.reduce((sum,val)=>sum+Math.pow(val-ERP_MEAN,2),0)/validErps.length)', 'validErps.reduce((sum,val)=>sum+Math.pow(val-ERP_MEAN,2),0)/validErps.length)')
+
 
 outpath = os.path.join(DATA_DIR, 'stock_bond_ratio.html')
 with open(outpath, 'w', encoding='utf-8') as f:
