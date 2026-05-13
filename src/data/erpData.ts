@@ -1,4 +1,3 @@
-
 export interface ERPDataItem {
   date: string;
   erp: number;
@@ -14,7 +13,6 @@ export interface ERPDataItem {
 }
 
 let cachedData: ERPDataItem[] | null = null;
-const API_BASE = 'http://localhost:8000';
 
 async function fetchERPData(refresh = false): Promise<ERPDataItem[]> {
   if (cachedData && !refresh) {
@@ -22,16 +20,14 @@ async function fetchERPData(refresh = false): Promise<ERPDataItem[]> {
   }
 
   try {
-    const url = `${API_BASE}/api/erp-data${refresh ? '?refresh=true' : ''}`;
-    const response = await fetch(url);
+    const response = await fetch('./erp_data.json');
     
     if (!response.ok) {
       throw new Error('Failed to fetch data');
     }
     
-    const result = await response.json();
-    cachedData = result.data;
-    return result.data;
+    cachedData = await response.json();
+    return cachedData;
   } catch (error) {
     console.warn('Using mock data:', error);
     return getMockData();
