@@ -45,8 +45,8 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
     const minERP = Math.min(...erpValues);
     const maxERP = Math.max(...erpValues);
 
-    const minHS300 = Math.min(...hs300Values);
-    const maxHS300 = Math.max(...hs300Values);
+    const minHS300 = Math.min(...hs300Values, ...totalReturnValues);
+    const maxHS300 = Math.max(...hs300Values, ...totalReturnValues);
     const hs300Padding = (maxHS300 - minHS300) * 0.1;
 
     // 横屏模式下的图表配置
