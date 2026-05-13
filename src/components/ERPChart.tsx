@@ -416,31 +416,6 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           },
           animationDuration: 1500,
           animationDelay: 1000
-        },
-        {
-          name: '当前日期',
-          type: 'scatter',
-          data: [[dates.length - 1, -4.5]],
-          symbol: 'rect',
-          symbolSize: [isLandscape ? 60 : 50, 20],
-          itemStyle: {
-            color: 'rgba(6, 182, 212, 0.9)',
-            borderColor: '#22d3ee',
-            borderWidth: 1,
-            borderRadius: 4
-          },
-          label: {
-            show: true,
-            position: 'bottom',
-            color: '#fff',
-            fontSize: isLandscape ? 9 : 10,
-            fontWeight: 500,
-            formatter: dates[dates.length - 1]
-          },
-          animationDuration: 1500,
-          animationDelay: 1500,
-          xAxisIndex: 1,
-          yAxisIndex: 2
         }
       ]
     };
