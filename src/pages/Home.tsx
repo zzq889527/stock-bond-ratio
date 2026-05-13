@@ -40,20 +40,20 @@ export default function Home() {
       {isLandscape && (
         <div className="landscape-rotate">
           <div className="landscape-content">
-            <header className="relative backdrop-blur-sm bg-slate-900/50 border-b border-slate-700/30">
+            <header className="relative backdrop-blur-sm bg-slate-900/80 border-b border-slate-700/30">
               <div className="max-w-7xl mx-auto px-4 py-2">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="relative">
                       <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-lg blur opacity-75" />
-                      <div className="relative w-8 h-8 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-lg flex items-center justify-center">
-                        <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <div className="relative w-7 h-7 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-lg flex items-center justify-center">
+                        <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                           <path d="M3 3v18h18M7 16l4-4 4 4 6-8" />
                         </svg>
                       </div>
                     </div>
                     <div>
-                      <h1 className="text-base font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">股债收益比</h1>
+                      <h1 className="text-sm font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">股债收益比</h1>
                       <p className="text-[10px] text-slate-400">ERP</p>
                     </div>
                   </div>
@@ -67,9 +67,9 @@ export default function Home() {
                 </div>
               </div>
             </header>
-            <main className="p-3">
-              <div className="flex flex-col gap-3">
-                <div className="flex items-center gap-4 bg-gradient-to-r from-slate-800/80 to-slate-900/80 backdrop-blur-sm rounded-lg border border-slate-700/30 p-2">
+            <main className="flex-1 p-3 overflow-hidden">
+              <div className="h-full flex flex-col gap-2">
+                <div className="flex items-center gap-3 bg-gradient-to-r from-slate-800/80 to-slate-900/80 backdrop-blur-sm rounded-lg border border-slate-700/30 px-3 py-1.5">
                   <div>
                     <div className="flex items-baseline gap-1">
                       <span className="text-lg font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -79,7 +79,7 @@ export default function Home() {
                     </div>
                     <p className="text-[10px] text-slate-400">{displayData?.percentile}分位</p>
                   </div>
-                  <div className="flex gap-3 text-xs">
+                  <div className="flex gap-3 text-xs flex-1">
                     <div><span className="text-slate-500">均值</span><p className="font-semibold text-emerald-400">{displayData?.mean.toFixed(2)}%</p></div>
                     <div><span className="text-slate-500">PE</span><p className="font-semibold text-cyan-400">{displayData?.pe_ttm.toFixed(1)}x</p></div>
                     <div><span className="text-slate-500">国债</span><p className="font-semibold text-violet-400">{displayData?.bond_10y.toFixed(2)}%</p></div>
@@ -88,14 +88,14 @@ export default function Home() {
                 </div>
                 <div className="flex-1 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-lg border border-slate-700/30 overflow-hidden">
                   {loading ? (
-                    <div className="h-[300px] flex items-center justify-center">
+                    <div className="h-full flex items-center justify-center">
                       <div className="relative">
                         <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full blur-xl opacity-50 animate-pulse" />
                         <div className="relative w-10 h-10 border-4 border-slate-700 border-t-cyan-400 rounded-full animate-spin" />
                       </div>
                     </div>
                   ) : (
-                    <div className="h-[300px]">
+                    <div className="h-full">
                       <ERPChart data={data} isLandscape={true} />
                     </div>
                   )}
@@ -103,7 +103,7 @@ export default function Home() {
                 <div className="grid grid-cols-3 gap-2">
                   <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-lg border border-slate-700/30 p-2">
                     <p className="text-[10px] font-semibold text-slate-200 mb-1">柱状图</p>
-                    <div className="flex gap-1">
+                    <div className="flex gap-1 items-center">
                       <div className="w-3 h-2 bg-emerald-500 rounded" />
                       <span className="text-[9px] text-emerald-400">高于均值</span>
                       <div className="w-3 h-2 bg-red-500 rounded" />
@@ -298,23 +298,18 @@ export default function Home() {
         
         .landscape-rotate {
           position: absolute;
-          top: 0;
-          left: 0;
           width: 100vh;
           height: 100vw;
+          top: 50%;
+          left: 50%;
           transform-origin: center center;
-          transform: rotate(90deg);
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          transform: translate(-50%, -50%) rotate(90deg);
           overflow: hidden;
         }
         
         .landscape-content {
-          width: 100vh;
-          height: 100vw;
-          overflow-y: auto;
-          overflow-x: hidden;
+          width: 100%;
+          height: 100%;
           display: flex;
           flex-direction: column;
         }
