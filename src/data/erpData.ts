@@ -99,10 +99,14 @@ function getMockData(): ERPDataItem[] {
       let signal = '均衡';
       if (erp > mean + sigma) {
         signal = '极度低估';
-      } else if (erp > mean) {
+      } else if (erp > mean + 0.5 * sigma) {
         signal = '低估';
-      } else if (erp < mean - sigma) {
+      } else if (erp >= mean - 0.5 * sigma) {
+        signal = '均衡';
+      } else if (erp >= mean - sigma) {
         signal = '高估';
+      } else {
+        signal = '极度高估';
       }
       
       const tr_p = Math.round((totalReturn / hs300) * 100) / 100;
