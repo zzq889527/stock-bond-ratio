@@ -257,6 +257,9 @@ export function ERPChart({ data }: ERPChartProps) {
             handleStyle: {
               color: '#22d3ee',
               borderColor: '#67e8f9'
+            },
+            handleLabel: {
+              show: false
             }
           }
         }
