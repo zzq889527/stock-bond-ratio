@@ -9,6 +9,8 @@ export default function Home() {
   const [latest, setLatest] = useState<ERPDataItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [lastUpdate, setLastUpdate] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
+  const [isRotated, setIsRotated] = useState(false);
 
   async function loadData(refresh = false) {
     setLoading(true);
@@ -25,6 +27,15 @@ export default function Home() {
   }
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
     loadData();
   }, []);
 
@@ -32,10 +43,23 @@ export default function Home() {
     loadData(true);
   };
 
+  const toggleRotate = () => {
+    setIsRotated(!isRotated);
+  };
+
   const displayData = latest;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white relative overflow-hidden">
+    <div className={`min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white relative overflow-hidden transition-all duration-500 ${
+      isRotated ? 'rotate-90 -translate-y-full translate-x-full' : ''
+    }`} style={{
+      transformOrigin: 'center center',
+      width: isRotated ? '100vh' : '100%',
+      height: isRotated ? '100vw' : '100%',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+    }}>
       {/* 背景装饰 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
@@ -63,6 +87,29 @@ export default function Home() {
               </div>
             </div>
             <div className="flex items-center gap-3">
+              {isMobile && (
+                <button
+                  onClick={toggleRotate}
+                  className="p-2 rounded-full bg-slate-800/80 hover:bg-slate-700/80 transition-all duration-300 shadow-lg backdrop-blur-sm"
+                  title={isRotated ? '竖屏显示' : '横屏显示'}
+                >
+                  <svg
+                    className={`w-5 h-5 text-cyan-400 transition-transform duration-300 ${
+                      isRotated ? 'rotate-90' : ''
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
+                  </svg>
+                </button>
+              )}
               <span className="text-xs sm:text-sm text-slate-400 hidden sm:block">
                 {loading ? '获取中...' : lastUpdate}
               </span>

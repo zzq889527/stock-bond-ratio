@@ -20,7 +20,6 @@ export function ERPChart({ data }: ERPChartProps) {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<echarts.ECharts | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [isRotated, setIsRotated] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -30,15 +29,6 @@ export function ERPChart({ data }: ERPChartProps) {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
-  const toggleRotate = () => {
-    setIsRotated(!isRotated);
-    setTimeout(() => {
-      if (chartInstance.current) {
-        chartInstance.current.resize();
-      }
-    }, 300);
-  };
 
   useEffect(() => {
     if (!chartRef.current || data.length === 0) return;
@@ -405,50 +395,8 @@ export function ERPChart({ data }: ERPChartProps) {
   }, [data, isMobile]);
 
   return (
-    <div className="relative">
-      {isMobile && (
-        <button
-          onClick={toggleRotate}
-          className="absolute top-2 right-2 z-10 p-2 rounded-full bg-slate-800/80 hover:bg-slate-700/80 transition-all duration-300 shadow-lg backdrop-blur-sm"
-          title={isRotated ? '竖屏显示' : '横屏显示'}
-        >
-          <svg
-            className={`w-5 h-5 text-cyan-400 transition-transform duration-300 ${
-              isRotated ? 'rotate-90' : ''
-            }`}
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-            />
-          </svg>
-        </button>
-      )}
-      <div
-        className={`overflow-auto transition-transform duration-500 ease-out ${
-          isRotated ? 'rotate-90 -translate-y-full translate-x-full' : ''
-        }`}
-        style={{
-          transformOrigin: 'center center',
-          width: isRotated ? '100vh' : '100%',
-          maxWidth: isRotated ? '100vh' : '100%',
-        }}
-      >
-        <div
-          ref={chartRef}
-          className={`transition-all duration-300 ${
-            isRotated ? 'w-[500px] h-[350px]' : 'w-full h-[400px] sm:h-[500px]'
-          }`}
-          style={{
-            minWidth: isRotated ? '500px' : '100%',
-          }}
-        />
-      </div>
+    <div className="w-full h-[400px] sm:h-[500px]">
+      <div ref={chartRef} className="w-full h-full" />
     </div>
   );
 }
