@@ -162,125 +162,104 @@ export default function Home() {
   );
 
   const LandscapeView = () => (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between bg-gradient-to-r from-slate-800/80 to-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-700/30 p-3">
-        <div className="flex items-center gap-4">
+    <div className="flex flex-col gap-3">
+      <div className="flex items-center justify-between bg-gradient-to-r from-slate-800/80 to-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-700/30 p-2">
+        <div className="flex items-center gap-3">
           <div>
             <div className="flex items-baseline gap-2">
-              <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                 {displayData?.erp.toFixed(2)}%
               </span>
               {displayData && <SignalCard signal={displayData.signal} />}
             </div>
             <p className="text-slate-400 text-xs">ERP</p>
           </div>
-          <div className="h-8 w-px bg-slate-700/50" />
-          <div className="flex gap-4 text-sm">
+          <div className="h-6 w-px bg-slate-700/50" />
+          <div className="flex gap-3 text-xs">
             <div>
-              <span className="text-slate-400 text-xs">均值</span>
+              <span className="text-slate-500">均值</span>
               <p className="font-semibold text-emerald-400">{displayData?.mean.toFixed(2)}%</p>
             </div>
             <div>
-              <span className="text-slate-400 text-xs">标准差</span>
+              <span className="text-slate-500">标准差</span>
               <p className="font-semibold text-amber-400">{displayData?.sigma.toFixed(2)}%</p>
             </div>
             <div>
-              <span className="text-slate-400 text-xs">PE</span>
+              <span className="text-slate-500">PE</span>
               <p className="font-semibold text-cyan-400">{displayData?.pe_ttm.toFixed(1)}x</p>
             </div>
             <div>
-              <span className="text-slate-400 text-xs">国债</span>
+              <span className="text-slate-500">国债</span>
               <p className="font-semibold text-violet-400">{displayData?.bond_10y.toFixed(2)}%</p>
-            </div>
-            <div>
-              <span className="text-slate-400 text-xs">沪深300</span>
-              <p className="font-semibold text-pink-400">{displayData?.hs300.toLocaleString()}</p>
             </div>
           </div>
         </div>
         <div className="text-right">
-          <div className="text-xl font-semibold text-slate-200">{displayData?.percentile}分位</div>
+          <div className="text-lg font-semibold text-slate-200">{displayData?.percentile}分位</div>
           <p className="text-xs text-slate-400">历史百分位</p>
         </div>
       </div>
 
-      <div className="flex gap-4">
-        <div className="flex-1 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 overflow-hidden shadow-xl shadow-black/20">
-          {loading ? (
-            <div className="h-[400px] flex items-center justify-center">
-              <div className="text-center">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full blur-xl opacity-50 animate-pulse" />
-                  <div className="relative w-12 h-12 border-4 border-slate-700 border-t-cyan-400 rounded-full animate-spin mx-auto mb-3" />
-                </div>
-                <p className="text-slate-400 text-sm">加载中...</p>
+      <div className="flex-1 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 overflow-hidden shadow-xl shadow-black/20">
+        {loading ? (
+          <div className="h-[500px] flex items-center justify-center">
+            <div className="text-center">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full blur-xl opacity-50 animate-pulse" />
+                <div className="relative w-12 h-12 border-4 border-slate-700 border-t-cyan-400 rounded-full animate-spin mx-auto mb-3" />
+              </div>
+              <p className="text-slate-400 text-sm">加载中...</p>
+            </div>
+          </div>
+        ) : (
+          <div className="h-[500px]">
+            <ERPChart data={data} isLandscape={true} />
+          </div>
+        )}
+      </div>
+
+      <div className="grid grid-cols-3 gap-3">
+        <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-3">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-1.5 h-1.5 bg-gradient-to-r from-emerald-400 to-red-400 rounded-full" />
+            <span className="text-xs font-semibold text-slate-200">柱状图说明</span>
+          </div>
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-3 bg-gradient-to-t from-emerald-600 to-emerald-400 rounded opacity-80" />
+              <div>
+                <p className="text-[10px] font-medium text-emerald-400">高于均值</p>
               </div>
             </div>
-          ) : (
-            <div className="h-[400px]">
-              <ERPChart data={data} isLandscape={true} />
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-3 bg-gradient-to-t from-red-600 to-red-400 rounded opacity-80" />
+              <div>
+                <p className="text-[10px] font-medium text-red-400">低于均值</p>
+              </div>
             </div>
-          )}
+          </div>
         </div>
 
-        <div className="w-64 flex flex-col gap-3">
-          <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-3">
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-1.5 h-1.5 bg-gradient-to-r from-emerald-400 to-red-400 rounded-full" />
-              <span className="text-xs font-semibold text-slate-200">柱状图说明</span>
-            </div>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-4 bg-gradient-to-t from-emerald-600 to-emerald-400 rounded opacity-80" />
-                <div>
-                  <p className="text-xs font-medium text-emerald-400">高于均值</p>
-                  <p className="text-[10px] text-slate-400">股票便宜</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-4 bg-gradient-to-t from-red-600 to-red-400 rounded opacity-80" />
-                <div>
-                  <p className="text-xs font-medium text-red-400">低于均值</p>
-                  <p className="text-[10px] text-slate-400">股票较贵</p>
-                </div>
-              </div>
-            </div>
+        <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-3">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-1.5 h-1.5 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full" />
+            <span className="text-xs font-semibold text-slate-200">信号规则</span>
           </div>
+          <div className="grid grid-cols-2 gap-1">
+            <span className="px-1.5 py-0.5 bg-green-500/20 text-green-400 rounded text-[10px]">极度低估</span>
+            <span className="px-1.5 py-0.5 bg-cyan-500/20 text-cyan-400 rounded text-[10px]">低估</span>
+            <span className="px-1.5 py-0.5 bg-yellow-500/20 text-yellow-400 rounded text-[10px]">均衡</span>
+            <span className="px-1.5 py-0.5 bg-red-500/20 text-red-400 rounded text-[10px]">高估</span>
+          </div>
+        </div>
 
-          <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-3">
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-1.5 h-1.5 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full" />
-              <span className="text-xs font-semibold text-slate-200">信号规则</span>
-            </div>
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between text-xs">
-                <span className="px-1.5 py-0.5 bg-green-500/20 text-green-400 rounded text-[10px]">极度低估</span>
-                <span className="text-slate-500 text-[10px]">&gt; μ+1σ</span>
-              </div>
-              <div className="flex items-center justify-between text-xs">
-                <span className="px-1.5 py-0.5 bg-cyan-500/20 text-cyan-400 rounded text-[10px]">低估</span>
-                <span className="text-slate-500 text-[10px]">&gt; μ</span>
-              </div>
-              <div className="flex items-center justify-between text-xs">
-                <span className="px-1.5 py-0.5 bg-yellow-500/20 text-yellow-400 rounded text-[10px]">均衡</span>
-                <span className="text-slate-500 text-[10px]">≈ μ</span>
-              </div>
-              <div className="flex items-center justify-between text-xs">
-                <span className="px-1.5 py-0.5 bg-red-500/20 text-red-400 rounded text-[10px]">高估</span>
-                <span className="text-slate-500 text-[10px]">&lt; μ-1σ</span>
-              </div>
-            </div>
+        <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-3">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-1.5 h-1.5 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full" />
+            <span className="text-xs font-semibold text-slate-200">数据来源</span>
           </div>
-
-          <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-3">
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-1.5 h-1.5 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full" />
-              <span className="text-xs font-semibold text-slate-200">数据来源</span>
-            </div>
-            <p className="text-[10px] text-slate-400 mb-0.5">📊 PE: 乐咕乐股</p>
-            <p className="text-[10px] text-slate-400 mb-0.5">📈 国债: 中债登</p>
-            <p className="text-[10px] text-slate-500 mt-1">{data.length.toLocaleString()} 个数据点</p>
-          </div>
+          <p className="text-[10px] text-slate-400">📊 PE: 乐咕乐股</p>
+          <p className="text-[10px] text-slate-400">📈 国债: 中债登</p>
         </div>
       </div>
     </div>
