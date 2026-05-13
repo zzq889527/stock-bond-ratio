@@ -289,11 +289,11 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           data: hs300Values,
           lineStyle: {
             color: '#00d4ff',
-            width: isLandscape ? 2.5 : 1.5,
-            opacity: 0.95
+            width: isLandscape ? 1.8 : 1.5,
+            opacity: 0.9
           },
           showSymbol: false,
-          smooth: 0.2,
+          smooth: 0.3,
           animationDuration: 0
         },
         {
@@ -302,11 +302,11 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           data: totalReturnValues,
           lineStyle: {
             color: '#ef4444',
-            width: isLandscape ? 3.5 : 2.5,
-            opacity: 0.95
+            width: isLandscape ? 2.2 : 2,
+            opacity: 0.9
           },
           showSymbol: false,
-          smooth: 0.2,
+          smooth: 0.3,
           animationDuration: 0,
           yAxisIndex: 1
         },
@@ -316,16 +316,16 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           data: erpValues,
           lineStyle: {
             color: '#f59e0b',
-            width: isLandscape ? 4 : 3,
+            width: isLandscape ? 2.5 : 2.5,
             opacity: 1
           },
           showSymbol: false,
-          smooth: 0.3,
+          smooth: 0.35,
           animationDuration: 0,
           areaStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: 'rgba(245, 158, 11, 0.45)' },
-              { offset: 1, color: 'rgba(245, 158, 11, 0.08)' }
+              { offset: 0, color: 'rgba(245, 158, 11, 0.35)' },
+              { offset: 1, color: 'rgba(245, 158, 11, 0.05)' }
             ])
           }
         },
@@ -334,10 +334,10 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           type: 'line',
           data: meanValues,
           lineStyle: {
-            color: '#9ca3af',
-            width: isLandscape ? 2.5 : 1.5,
+            color: '#6b7280',
+            width: isLandscape ? 1.2 : 1,
             type: 'dashed',
-            opacity: 0.9
+            opacity: 0.7
           },
           showSymbol: false,
           animationDuration: 1500
@@ -348,9 +348,9 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           data: sigmaUpper,
           lineStyle: {
             color: '#84cc16',
-            width: isLandscape ? 2 : 1.5,
+            width: isLandscape ? 1 : 1,
             type: 'dashed',
-            opacity: 0.8
+            opacity: 0.6
           },
           showSymbol: false,
           animationDuration: 0
@@ -361,9 +361,9 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           data: sigmaLower,
           lineStyle: {
             color: '#84cc16',
-            width: isLandscape ? 2 : 1.5,
+            width: isLandscape ? 1 : 1,
             type: 'dashed',
-            opacity: 0.8
+            opacity: 0.6
           },
           showSymbol: false,
           animationDuration: 0
@@ -385,7 +385,7 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
                     { offset: 0, color: '#ef4444' },
                     { offset: 1, color: '#dc2626' }
                   ]),
-              opacity: isLandscape ? 0.85 : 0.8
+              opacity: isLandscape ? 0.7 : 0.8
             }
           })),
           barWidth: isLandscape ? '50%' : '60%',
