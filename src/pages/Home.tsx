@@ -35,10 +35,8 @@ export default function Home() {
 
   const displayData = latest;
 
-  // 竖屏模式 - 原有布局
   const PortraitView = () => (
     <>
-      {/* 指标卡片区域 */}
       <div className="mb-6 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 p-4 sm:p-6 shadow-xl shadow-black/20">
         {displayData && (
           <div className="mb-6">
@@ -61,74 +59,15 @@ export default function Home() {
         )}
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-          <MetricCard 
-            label="均值" 
-            value={displayData?.mean.toFixed(2) || '--'} 
-            color="#10b981" 
-            suffix="%"
-            icon={
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M2 12h4l3 9 6-18 3 9h4" />
-              </svg>
-            }
-          />
-          <MetricCard 
-            label="标准差" 
-            value={displayData?.sigma.toFixed(2) || '--'} 
-            color="#f59e0b" 
-            suffix="%"
-            icon={
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-              </svg>
-            }
-          />
-          <MetricCard 
-            label="PE(TTM)" 
-            value={displayData?.pe_ttm.toFixed(1) || '--'} 
-            color="#06b6d4" 
-            suffix="x"
-            icon={
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            }
-          />
-          <MetricCard 
-            label="10Y国债" 
-            value={displayData?.bond_10y.toFixed(2) || '--'} 
-            color="#8b5cf6" 
-            suffix="%"
-            icon={
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M3 6l9-3 9 3v12l-9 3-9-3V6z" />
-              </svg>
-            }
-          />
-          <MetricCard 
-            label="沪深300" 
-            value={displayData?.hs300.toLocaleString() || '--'} 
-            color="#ec4899" 
-            icon={
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-              </svg>
-            }
-          />
-          <MetricCard 
-            label="全收益" 
-            value={displayData?.total_return.toFixed(1) || '--'} 
-            color="#f97316" 
-            icon={
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-              </svg>
-            }
-          />
+          <MetricCard label="均值" value={displayData?.mean.toFixed(2) || '--'} color="#10b981" suffix="%" icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 12h4l3 9 6-18 3 9h4" /></svg>} />
+          <MetricCard label="标准差" value={displayData?.sigma.toFixed(2) || '--'} color="#f59e0b" suffix="%" icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>} />
+          <MetricCard label="PE(TTM)" value={displayData?.pe_ttm.toFixed(1) || '--'} color="#06b6d4" suffix="x" icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>} />
+          <MetricCard label="10Y国债" value={displayData?.bond_10y.toFixed(2) || '--'} color="#8b5cf6" suffix="%" icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6l9-3 9 3v12l-9 3-9-3V6z" /></svg>} />
+          <MetricCard label="沪深300" value={displayData?.hs300.toLocaleString() || '--'} color="#ec4899" icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>} />
+          <MetricCard label="全收益" value={displayData?.total_return.toFixed(1) || '--'} color="#f97316" icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>} />
         </div>
       </div>
 
-      {/* 图表区域 */}
       <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 overflow-hidden shadow-xl shadow-black/20 mb-4">
         {loading ? (
           <div className="h-[400px] sm:h-[500px] flex items-center justify-center">
@@ -145,7 +84,6 @@ export default function Home() {
         )}
       </div>
 
-      {/* 底部说明区域 */}
       <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-4 mb-6">
         <div className="flex items-center gap-2 mb-3">
           <div className="w-2 h-2 bg-gradient-to-r from-emerald-400 to-red-400 rounded-full" />
@@ -215,18 +153,14 @@ export default function Home() {
           </div>
           <p className="text-xs text-slate-400 mb-1">📊 PE数据: 乐咕乐股</p>
           <p className="text-xs text-slate-400 mb-1">📈 国债数据: 中债登</p>
-          <p className="text-xs text-slate-500 mt-2">
-            共 {data.length.toLocaleString()} 个数据点
-          </p>
+          <p className="text-xs text-slate-500 mt-2">共 {data.length.toLocaleString()} 个数据点</p>
         </div>
       </div>
     </>
   );
 
-  // 横屏模式 - 重新设计的布局
   const LandscapeView = () => (
-    <div className="flex flex-col h-[calc(100vh-80px)] gap-4">
-      {/* 顶部指标栏 - 横屏时紧凑排列 */}
+    <div className="flex flex-col h-[calc(100vh-160px)] gap-4">
       <div className="flex items-center justify-between bg-gradient-to-r from-slate-800/80 to-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-700/30 p-3 shrink-0">
         <div className="flex items-center gap-4">
           <div>
@@ -268,9 +202,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 主内容区 - 左侧图表，右侧说明 */}
       <div className="flex flex-1 gap-4 min-h-0">
-        {/* 左侧图表 */}
         <div className="flex-1 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 overflow-hidden shadow-xl shadow-black/20">
           {loading ? (
             <div className="h-full flex items-center justify-center">
@@ -287,9 +219,7 @@ export default function Home() {
           )}
         </div>
 
-        {/* 右侧说明面板 */}
         <div className="w-64 shrink-0 flex flex-col gap-3">
-          {/* 柱状图说明 */}
           <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-3">
             <div className="flex items-center gap-2 mb-2">
               <div className="w-1.5 h-1.5 bg-gradient-to-r from-emerald-400 to-red-400 rounded-full" />
@@ -313,7 +243,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* 信号规则 */}
           <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-3 flex-1">
             <div className="flex items-center gap-2 mb-2">
               <div className="w-1.5 h-1.5 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full" />
@@ -339,7 +268,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* 数据来源 */}
           <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-3">
             <div className="flex items-center gap-2 mb-2">
               <div className="w-1.5 h-1.5 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full" />
@@ -347,9 +275,7 @@ export default function Home() {
             </div>
             <p className="text-[10px] text-slate-400 mb-0.5">📊 PE: 乐咕乐股</p>
             <p className="text-[10px] text-slate-400 mb-0.5">📈 国债: 中债登</p>
-            <p className="text-[10px] text-slate-500 mt-1">
-              {data.length.toLocaleString()} 个数据点
-            </p>
+            <p className="text-[10px] text-slate-500 mt-1">{data.length.toLocaleString()} 个数据点</p>
           </div>
         </div>
       </div>
@@ -357,69 +283,97 @@ export default function Home() {
   );
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white relative overflow-hidden ${isLandscape ? 'fixed inset-0' : ''}`}>
+    <div className={`bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white relative overflow-hidden ${isLandscape ? 'fixed inset-0' : 'min-h-screen'}`}>
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
       </div>
 
-      <header className="relative backdrop-blur-sm bg-slate-900/50 border-b border-slate-700/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-xl blur opacity-75" />
-                <div className="relative w-12 h-12 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
-                  <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path d="M3 3v18h18M7 16l4-4 4 4 6-8" />
-                  </svg>
+      {isLandscape ? (
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transform: 'rotate(-90deg)',
+          transformOrigin: 'center center',
+          width: '100vh',
+          height: '100vw',
+          marginTop: '-50vw',
+          marginLeft: 'calc(50vw - 50vh)'
+        }}>
+          <div className="w-[100vh] h-[100vw] overflow-auto">
+            <header className="relative backdrop-blur-sm bg-slate-900/50 border-b border-slate-700/30">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-xl blur opacity-75" />
+                      <div className="relative w-12 h-12 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
+                        <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                          <path d="M3 3v18h18M7 16l4-4 4 4 6-8" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div>
+                      <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">股债收益比 · 日频</h1>
+                      <p className="text-xs sm:text-sm text-slate-400">ERP = 1/PE - 10Y国债 · 2005~2026</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <button onClick={toggleLandscape} className="p-2 rounded-full bg-slate-800/80 hover:bg-slate-700/80 transition-all duration-300 shadow-lg backdrop-blur-sm" title="退出横屏">
+                      <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                    </button>
+                    <span className="text-xs sm:text-sm text-slate-400 hidden sm:block">{loading ? '获取中...' : lastUpdate}</span>
+                  </div>
                 </div>
               </div>
-              <div>
-                <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
-                  股债收益比 · 日频
-                </h1>
-                <p className="text-xs sm:text-sm text-slate-400">ERP = 1/PE - 10Y国债 · 2005~2026</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={toggleLandscape}
-                className="p-2 rounded-full bg-slate-800/80 hover:bg-slate-700/80 transition-all duration-300 shadow-lg backdrop-blur-sm"
-                title={isLandscape ? '退出横屏' : '横屏模式'}
-              >
-                <svg
-                  className={`w-5 h-5 text-cyan-400 transition-transform duration-300 ${
-                    isLandscape ? 'rotate-90' : ''
-                  }`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                  />
-                </svg>
-              </button>
-              <span className="text-xs sm:text-sm text-slate-400 hidden sm:block">
-                {loading ? '获取中...' : lastUpdate}
-              </span>
-            </div>
+            </header>
+            <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+              <LandscapeView />
+            </main>
           </div>
         </div>
-      </header>
-
-      <main className={`relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isLandscape ? 'py-2' : 'py-6'}`}>
-        {isLandscape ? <LandscapeView /> : <PortraitView />}
-      </main>
-
-      {!isLandscape && (
-        <footer className="relative text-center py-6 text-xs text-slate-500">
-          <p>数据每日自动更新 · 基于真实历史数据</p>
-        </footer>
+      ) : (
+        <>
+          <header className="relative backdrop-blur-sm bg-slate-900/50 border-b border-slate-700/30">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-xl blur opacity-75" />
+                    <div className="relative w-12 h-12 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
+                      <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <path d="M3 3v18h18M7 16l4-4 4 4 6-8" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div>
+                    <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">股债收益比 · 日频</h1>
+                    <p className="text-xs sm:text-sm text-slate-400">ERP = 1/PE - 10Y国债 · 2005~2026</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <button onClick={toggleLandscape} className="p-2 rounded-full bg-slate-800/80 hover:bg-slate-700/80 transition-all duration-300 shadow-lg backdrop-blur-sm" title="横屏模式">
+                    <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                  </button>
+                  <span className="text-xs sm:text-sm text-slate-400 hidden sm:block">{loading ? '获取中...' : lastUpdate}</span>
+                </div>
+              </div>
+            </div>
+          </header>
+          <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <PortraitView />
+          </main>
+          <footer className="relative text-center py-6 text-xs text-slate-500">
+            <p>数据每日自动更新 · 基于真实历史数据</p>
+          </footer>
+        </>
       )}
     </div>
   );
