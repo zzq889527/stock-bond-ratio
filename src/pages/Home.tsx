@@ -259,11 +259,11 @@ export default function Home() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="px-2 py-0.5 bg-yellow-500/20 text-yellow-400 rounded">均衡</span>
-                    <span className="text-slate-500">≈ 均值</span>
+                    <span className="text-slate-500">均值±0.5σ</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="px-2 py-0.5 bg-red-500/20 text-red-400 rounded">高估</span>
-                    <span className="text-slate-500">&lt; 均值-1σ</span>
+                    <span className="text-slate-500">&lt; 均值-0.5σ</span>
                   </div>
                 </div>
               </div>

@@ -204,7 +204,7 @@ def get_real_data():
             return '极度低估'
         elif erp > mean_erp:
             return '低估'
-        elif erp < mean_erp - std_erp:
+        elif erp < mean_erp - 0.5 * std_erp:
             return '高估'
         else:
             return '均衡'
