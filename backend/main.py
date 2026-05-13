@@ -50,13 +50,25 @@ def get_real_data():
     
     # 2. 获取沪深300全收益数据
     print("2. 获取沪深300全收益指数...")
+    df_total_return = None
     try:
         df_total_return = ak.stock_zh_index_hist_csindex(symbol="H00300")
         print(f"   ✓ 全收益数据：{len(df_total_return)} 条")
+        print(f"   最新日期：{df_total_return['日期'].iloc[-1]}")
+        print(f"   最新全收益：{df_total_return['收盘'].iloc[-1]}")
     except Exception as e:
         print(f"   ✗ 全收益数据获取失败：{e}")
-        # 如果获取失败就用价格指数替代
-        df_total_return = None
+    
+    # 3. 获取沪深300价格指数（用于估算全收益）
+    print("3. 获取沪深300价格指数...")
+    try:
+        df_hs300_price = ak.stock_zh_index_daily(symbol="sh000300")
+        print(f"   ✓ 价格指数数据：{len(df_hs300_price)} 条")
+        print(f"   最新日期：{df_hs300_price['date'].iloc[-1]}")
+        print(f"   最新价格：{df_hs300_price['close'].iloc[-1]}")
+    except Exception as e:
+        print(f"   ✗ 价格指数获取失败：{e}")
+        df_hs300_price = None
     
     # 3. 获取国债收益率数据
     print("3. 获取国债收益率数据...")
@@ -86,6 +98,14 @@ def get_real_data():
         })
         df_total_return = df_total_return[['date', 'total_return']].sort_values('date')
     
+    # 处理价格指数数据
+    if df_hs300_price is not None:
+        df_hs300_price['date'] = pd.to_datetime(df_hs300_price['date'])
+        df_hs300_price = df_hs300_price.rename(columns={
+            'close': 'price_index'
+        })
+        df_hs300_price = df_hs300_price[['date', 'price_index']].sort_values('date')
+    
     # 处理国债数据
     df_bond['date'] = pd.to_datetime(df_bond['日期'])
     df_bond = df_bond.rename(columns={'中国国债收益率10年': 'bond_10y'})
@@ -94,9 +114,12 @@ def get_real_data():
     # 合并数据 - 使用日期合并
     df = df_pe.copy()
     
+    # 如果有最新的价格指数数据，合并到主数据中
+    if df_hs300_price is not None:
+        df = pd.merge_asof(df, df_hs300_price, on='date', direction='nearest')
+    
     # 合并全收益
     if df_total_return is not None:
-        # 用nearest而不是backward，这样只有确实匹配的日期才有真实数据
         df = pd.merge_asof(
             df, 
             df_total_return, 
@@ -105,36 +128,44 @@ def get_real_data():
             tolerance=pd.Timedelta('0 days')
         )
         
-        # 找到第一个和最后一个有真实全收益数据的位置
         first_valid_idx = df['total_return'].first_valid_index()
         last_valid_idx = df['total_return'].last_valid_index()
         
         if first_valid_idx is not None:
-            # 对于前面缺失的数据，用第一个有效数据的比例
             if first_valid_idx > 0:
                 ratio = df.loc[first_valid_idx, 'total_return'] / df.loc[first_valid_idx, 'hs300']
                 df.loc[:first_valid_idx-1, 'total_return'] = (
                     df.loc[:first_valid_idx-1, 'hs300'] * ratio
                 ).round(1)
             
-            # 对于后面缺失的数据，用价格指数的变化率来估算
+            # 对于后面缺失的数据，使用最新的价格指数来估算，并考虑分红再投资
             if last_valid_idx is not None and last_valid_idx < len(df) - 1:
                 last_tr = df.loc[last_valid_idx, 'total_return']
                 last_hs = df.loc[last_valid_idx, 'hs300']
+                last_date = df.loc[last_valid_idx, 'date']
                 
-                # 用价格指数相对于最后真实数据点的变化率来计算全收益
+                # 计算每天的分红收益率（年化约2.0%）
+                daily_dividend_yield = 0.020 / 252
+                
+                # 使用价格指数来计算，如果没有价格指数则使用hs300
                 for i in range(last_valid_idx + 1, len(df)):
-                    ratio = df.loc[i, 'hs300'] / last_hs
-                    df.loc[i, 'total_return'] = (last_tr * ratio).round(1)
+                    current_date = df.loc[i, 'date']
+                    days_diff = (current_date - last_date).days
+                    
+                    if 'price_index' in df.columns and not pd.isna(df.loc[i, 'price_index']):
+                        price_ratio = df.loc[i, 'price_index'] / last_hs
+                    else:
+                        price_ratio = df.loc[i, 'hs300'] / last_hs
+                    
+                    # 考虑分红再投资的增长
+                    dividend_factor = (1 + daily_dividend_yield) ** days_diff
+                    df.loc[i, 'total_return'] = (last_tr * price_ratio * dividend_factor).round(1)
             
-            # 中间缺失的数据用前向填充
             df['total_return'] = df['total_return'].ffill()
         else:
-            # 如果没有任何真实全收益数据，用价格指数乘以一个合理的初始比例
             df['total_return'] = (df['hs300'] * 1.5).round(1)
     else:
-        # 如果没有全收益数据，就用价格指数归一化作为近似
-        df['total_return'] = (df['hs300'] / df['hs300'].iloc[0] * 100).round(1)
+        df['total_return'] = (df['hs300'] * 1.5).round(1)
     
     # 合并国债
     df = pd.merge_asof(
