@@ -27,8 +27,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas numpy akshare
 
+      - name: Install additional dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y libssl-dev libffi-dev python3-dev
+
       - name: Update data
         run: |
+          python -c "import akshare; print('AkShare version:', akshare.__version__)"
           python scripts/update_data.py
 
       - name: Check for changes
