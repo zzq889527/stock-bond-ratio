@@ -390,6 +390,31 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           })),
           barWidth: isLandscape ? '50%' : '60%',
           animationDuration: 2000
+        },
+        {
+          name: '当前ERP',
+          type: 'scatter',
+          data: [[dates.length - 1, erpValues[erpValues.length - 1]]],
+          symbol: 'circle',
+          symbolSize: isLandscape ? 8 : 10,
+          itemStyle: {
+            color: '#f59e0b',
+            borderColor: '#fff',
+            borderWidth: 2,
+            shadowColor: 'rgba(245, 158, 11, 0.6)',
+            shadowBlur: 10
+          },
+          label: {
+            show: true,
+            position: 'right',
+            offset: [isLandscape ? 10 : 5, 0],
+            color: '#f59e0b',
+            fontSize: isLandscape ? 11 : 12,
+            fontWeight: 'bold',
+            formatter: `${erpValues[erpValues.length - 1].toFixed(2)}%`
+          },
+          animationDuration: 1500,
+          animationDelay: 1000
         }
       ]
     };
