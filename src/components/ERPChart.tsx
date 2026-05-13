@@ -94,17 +94,17 @@ export function ERPChart({ data }: ERPChartProps) {
         }
       },
       legend: {
-        data: ['沪深300', '全收益', 'ERP', '均值线', '±1σ'],
+        data: isMobile ? ['沪深300', '全收益', 'ERP'] : ['沪深300', '全收益', 'ERP', '均值线', '±1σ'],
         textStyle: {
           color: '#94a3b8',
-          fontSize: isMobile ? 10 : 12
+          fontSize: isMobile ? 9 : 12
         },
         top: isMobile ? 5 : 10,
         left: isMobile ? 5 : 20,
         icon: 'circle',
         itemWidth: isMobile ? 8 : 10,
         itemHeight: isMobile ? 8 : 10,
-        itemGap: isMobile ? 10 : 15
+        itemGap: isMobile ? 8 : 15
       },
       grid: [
         {
@@ -318,12 +318,13 @@ export function ERPChart({ data }: ERPChartProps) {
           data: meanValues,
           lineStyle: {
             color: '#9ca3af',
-            width: 1.5,
+            width: isMobile ? 0 : 1.5,
             type: 'dashed',
-            opacity: 0.8
+            opacity: isMobile ? 0 : 0.8
           },
           showSymbol: false,
-          animationDuration: 1500
+          animationDuration: 1500,
+          silent: isMobile
         },
         {
           name: '±1σ',
@@ -331,12 +332,13 @@ export function ERPChart({ data }: ERPChartProps) {
           data: sigmaUpper,
           lineStyle: {
             color: '#84cc16',
-            width: 1.5,
+            width: isMobile ? 0 : 1.5,
             type: 'dashed',
-            opacity: 0.7
+            opacity: isMobile ? 0 : 0.7
           },
           showSymbol: false,
-          animationDuration: 0
+          animationDuration: 0,
+          silent: isMobile
         },
         {
           name: '±1σ',
@@ -344,12 +346,13 @@ export function ERPChart({ data }: ERPChartProps) {
           data: sigmaLower,
           lineStyle: {
             color: '#84cc16',
-            width: 1.5,
+            width: isMobile ? 0 : 1.5,
             type: 'dashed',
-            opacity: 0.7
+            opacity: isMobile ? 0 : 0.7
           },
           showSymbol: false,
-          animationDuration: 0
+          animationDuration: 0,
+          silent: isMobile
         },
         {
           name: 'ERP柱状',
