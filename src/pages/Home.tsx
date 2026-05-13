@@ -60,13 +60,11 @@ export default function Home() {
       top: 0,
       left: 0,
     }}>
-      {/* 背景装饰 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
       </div>
 
-      {/* Header */}
       <header className="relative backdrop-blur-sm bg-slate-900/50 border-b border-slate-700/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
@@ -130,196 +128,223 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* 指标卡片区 */}
-        <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 p-4 sm:p-6 mb-6 shadow-xl shadow-black/20">
-          {/* 主要指标 - ERP */}
-          {displayData && (
-            <div className="mb-6">
-              <div className="flex items-center gap-4">
-                <div className="flex-1">
-                  <div className="flex items-baseline gap-3">
-                    <span className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                      {displayData.erp.toFixed(2)}%
-                    </span>
-                    <SignalCard signal={displayData.signal} />
+        <div className={`${isRotated ? 'flex gap-4 h-full' : 'block'}`} style={{ height: isRotated ? 'calc(100vh - 180px)' : 'auto' }}>
+          <div className={`${isRotated ? 'w-80 flex-shrink-0 overflow-auto' : 'mb-6'} bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 p-4 sm:p-6 shadow-xl shadow-black/20`}>
+            {displayData && (
+              <div className={`${isRotated ? 'mb-3' : 'mb-6'}`}>
+                <div className="flex items-center gap-4">
+                  <div className="flex-1">
+                    <div className="flex items-baseline gap-3">
+                      <span className={`${isRotated ? 'text-2xl' : 'text-4xl sm:text-5xl'} font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent`}>
+                        {displayData.erp.toFixed(2)}%
+                      </span>
+                      <SignalCard signal={displayData.signal} />
+                    </div>
+                    <p className="text-slate-400 mt-1 text-sm">股权风险溢价 ERP</p>
                   </div>
-                  <p className="text-slate-400 mt-1 text-sm">股权风险溢价 ERP</p>
+                  {!isRotated && (
+                    <div className="text-right hidden sm:block">
+                      <div className="text-2xl font-semibold text-slate-200">{displayData.percentile}分位</div>
+                      <p className="text-xs text-slate-400">历史百分位</p>
+                    </div>
+                  )}
                 </div>
-                <div className="text-right hidden sm:block">
-                  <div className="text-2xl font-semibold text-slate-200">{displayData.percentile}分位</div>
-                  <p className="text-xs text-slate-400">历史百分位</p>
+              </div>
+            )}
+
+            <div className={`grid gap-3 ${isRotated ? 'grid-cols-2' : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-6'}`}>
+              <MetricCard 
+                label="均值" 
+                value={displayData?.mean.toFixed(2) || '--'} 
+                color="#10b981" 
+                suffix="%"
+                icon={
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M2 12h4l3 9 6-18 3 9h4" />
+                  </svg>
+                }
+              />
+              <MetricCard 
+                label="标准差" 
+                value={displayData?.sigma.toFixed(2) || '--'} 
+                color="#f59e0b" 
+                suffix="%"
+                icon={
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                  </svg>
+                }
+              />
+              <MetricCard 
+                label="PE(TTM)" 
+                value={displayData?.pe_ttm.toFixed(1) || '--'} 
+                color="#06b6d4" 
+                suffix="x"
+                icon={
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                }
+              />
+              <MetricCard 
+                label="10Y国债" 
+                value={displayData?.bond_10y.toFixed(2) || '--'} 
+                color="#8b5cf6" 
+                suffix="%"
+                icon={
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M3 6l9-3 9 3v12l-9 3-9-3V6z" />
+                  </svg>
+                }
+              />
+              <MetricCard 
+                label="沪深300" 
+                value={displayData?.hs300.toLocaleString() || '--'} 
+                color="#ec4899" 
+                icon={
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                  </svg>
+                }
+              />
+              <MetricCard 
+                label="全收益" 
+                value={displayData?.total_return.toFixed(1) || '--'} 
+                color="#f97316" 
+                icon={
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
+                }
+              />
+            </div>
+
+            {isRotated && (
+              <div className="mt-4 pt-3 border-t border-slate-700/30">
+                <div className="space-y-2 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="px-2 py-0.5 bg-green-500/20 text-green-400 rounded">极度低估</span>
+                    <span className="text-slate-500">&gt; 均值+1σ</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="px-2 py-0.5 bg-cyan-500/20 text-cyan-400 rounded">低估</span>
+                    <span className="text-slate-500">&gt; 均值</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="px-2 py-0.5 bg-yellow-500/20 text-yellow-400 rounded">均衡</span>
+                    <span className="text-slate-500">≈ 均值</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="px-2 py-0.5 bg-red-500/20 text-red-400 rounded">高估</span>
+                    <span className="text-slate-500">&lt; 均值-1σ</span>
+                  </div>
+                  <div className="mt-2 pt-2 border-t border-slate-700/30">
+                    <p className="text-slate-500">📊 PE: 乐咕乐股</p>
+                    <p className="text-slate-500">📈 国债: 中债登</p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className={`${isRotated ? 'flex-1' : ''} bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 overflow-hidden shadow-xl shadow-black/20`}>
+            {loading ? (
+              <div className="h-[400px] sm:h-[500px] flex items-center justify-center">
+                <div className="text-center">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full blur-xl opacity-50 animate-pulse" />
+                    <div className="relative w-16 h-16 border-4 border-slate-700 border-t-cyan-400 rounded-full animate-spin mx-auto mb-4" />
+                  </div>
+                  <p className="text-slate-400">正在加载市场数据...</p>
+                </div>
+              </div>
+            ) : (
+              <ERPChart data={data} />
+            )}
+          </div>
+        </div>
+
+        {!isRotated && (
+          <>
+            <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-4 mb-6">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-2 h-2 bg-gradient-to-r from-emerald-400 to-red-400 rounded-full" />
+                <span className="text-sm font-semibold text-slate-200">底部柱状图说明</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-8 bg-gradient-to-t from-emerald-600 to-emerald-400 rounded opacity-80" />
+                  <div>
+                    <p className="text-sm font-medium text-emerald-400">🟢 ERP 高于均值</p>
+                    <p className="text-xs text-slate-400">股票相对便宜，考虑配置股票</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-8 bg-gradient-to-t from-red-600 to-red-400 rounded opacity-80" />
+                  <div>
+                    <p className="text-sm font-medium text-red-400">🔴 ERP 低于均值</p>
+                    <p className="text-xs text-slate-400">股票相对较贵，考虑配置债券</p>
+                  </div>
                 </div>
               </div>
             </div>
-          )}
 
-          {/* 次要指标网格 */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-            <MetricCard 
-              label="均值" 
-              value={displayData?.mean.toFixed(2) || '--'} 
-              color="#10b981" 
-              suffix="%"
-              icon={
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M2 12h4l3 9 6-18 3 9h4" />
-                </svg>
-              }
-            />
-            <MetricCard 
-              label="标准差" 
-              value={displayData?.sigma.toFixed(2) || '--'} 
-              color="#f59e0b" 
-              suffix="%"
-              icon={
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                </svg>
-              }
-            />
-            <MetricCard 
-              label="PE(TTM)" 
-              value={displayData?.pe_ttm.toFixed(1) || '--'} 
-              color="#06b6d4" 
-              suffix="x"
-              icon={
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              }
-            />
-            <MetricCard 
-              label="10Y国债" 
-              value={displayData?.bond_10y.toFixed(2) || '--'} 
-              color="#8b5cf6" 
-              suffix="%"
-              icon={
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M3 6l9-3 9 3v12l-9 3-9-3V6z" />
-                </svg>
-              }
-            />
-            <MetricCard 
-              label="沪深300" 
-              value={displayData?.hs300.toLocaleString() || '--'} 
-              color="#ec4899" 
-              icon={
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                </svg>
-              }
-            />
-            <MetricCard 
-              label="全收益" 
-              value={displayData?.total_return.toFixed(1) || '--'} 
-              color="#f97316" 
-              icon={
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-              }
-            />
-          </div>
-        </div>
-
-        {/* 图表区域 */}
-        <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 overflow-hidden shadow-xl shadow-black/20 mb-4">
-          {loading ? (
-            <div className="h-[400px] sm:h-[500px] flex items-center justify-center">
-              <div className="text-center">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full blur-xl opacity-50 animate-pulse" />
-                  <div className="relative w-16 h-16 border-4 border-slate-700 border-t-cyan-400 rounded-full animate-spin mx-auto mb-4" />
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full animate-pulse" />
+                  <span className="text-sm font-semibold text-slate-200">指标说明</span>
                 </div>
-                <p className="text-slate-400">正在加载市场数据...</p>
+                <p className="text-sm text-slate-400 mb-2">
+                  <span className="text-cyan-400 font-medium">ERP↑</span> = 股票相对债券更便宜
+                </p>
+                <p className="text-sm text-slate-400">
+                  <span className="text-pink-400 font-medium">ERP↓</span> = 股票相对债券更昂贵
+                </p>
               </div>
-            </div>
-          ) : (
-            <ERPChart data={data} />
-          )}
-        </div>
 
-        {/* 底部柱状图说明 */}
-        <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-4 mb-6">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-2 h-2 bg-gradient-to-r from-emerald-400 to-red-400 rounded-full" />
-            <span className="text-sm font-semibold text-slate-200">底部柱状图说明</span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-8 bg-gradient-to-t from-emerald-600 to-emerald-400 rounded opacity-80" />
-              <div>
-                <p className="text-sm font-medium text-emerald-400">🟢 ERP 高于均值</p>
-                <p className="text-xs text-slate-400">股票相对便宜，考虑配置股票</p>
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-2 h-2 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full" />
+                  <span className="text-sm font-semibold text-slate-200">信号规则</span>
+                </div>
+                <div className="space-y-1.5 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="px-2 py-0.5 bg-green-500/20 text-green-400 rounded">极度低估</span>
+                    <span className="text-slate-500">&gt; 均值+1σ</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="px-2 py-0.5 bg-cyan-500/20 text-cyan-400 rounded">低估</span>
+                    <span className="text-slate-500">&gt; 均值</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="px-2 py-0.5 bg-yellow-500/20 text-yellow-400 rounded">均衡</span>
+                    <span className="text-slate-500">≈ 均值</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="px-2 py-0.5 bg-red-500/20 text-red-400 rounded">高估</span>
+                    <span className="text-slate-500">&lt; 均值-1σ</span>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-8 bg-gradient-to-t from-red-600 to-red-400 rounded opacity-80" />
-              <div>
-                <p className="text-sm font-medium text-red-400">🔴 ERP 低于均值</p>
-                <p className="text-xs text-slate-400">股票相对较贵，考虑配置债券</p>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        {/* 底部信息区 */}
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-5">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full animate-pulse" />
-              <span className="text-sm font-semibold text-slate-200">指标说明</span>
-            </div>
-            <p className="text-sm text-slate-400 mb-2">
-              <span className="text-cyan-400 font-medium">ERP↑</span> = 股票相对债券更便宜
-            </p>
-            <p className="text-sm text-slate-400">
-              <span className="text-pink-400 font-medium">ERP↓</span> = 股票相对债券更昂贵
-            </p>
-          </div>
-
-          <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-5">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-2 h-2 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full" />
-              <span className="text-sm font-semibold text-slate-200">信号规则</span>
-            </div>
-            <div className="space-y-1.5 text-xs">
-              <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 bg-green-500/20 text-green-400 rounded">极度低估</span>
-                <span className="text-slate-500">&gt; 均值+1σ</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 bg-cyan-500/20 text-cyan-400 rounded">低估</span>
-                <span className="text-slate-500">&gt; 均值</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 bg-yellow-500/20 text-yellow-400 rounded">均衡</span>
-                <span className="text-slate-500">≈ 均值</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 bg-red-500/20 text-red-400 rounded">高估</span>
-                <span className="text-slate-500">&lt; 均值-1σ</span>
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full" />
+                  <span className="text-sm font-semibold text-slate-200">数据来源</span>
+                </div>
+                <p className="text-xs text-slate-400 mb-1">📊 PE数据: 乐咕乐股</p>
+                <p className="text-xs text-slate-400 mb-1">📈 国债数据: 中债登</p>
+                <p className="text-xs text-slate-500 mt-2">
+                  共 {data.length.toLocaleString()} 个数据点
+                </p>
               </div>
             </div>
-          </div>
-
-          <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-5">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full" />
-              <span className="text-sm font-semibold text-slate-200">数据来源</span>
-            </div>
-            <p className="text-xs text-slate-400 mb-1">📊 PE数据: 乐咕乐股</p>
-            <p className="text-xs text-slate-400 mb-1">📈 国债数据: 中债登</p>
-            <p className="text-xs text-slate-500 mt-2">
-              共 {data.length.toLocaleString()} 个数据点
-            </p>
-          </div>
-        </div>
+          </>
+        )}
       </main>
 
-      {/* Footer */}
       <footer className="relative text-center py-6 text-xs text-slate-500">
         <p>数据每日自动更新 · 基于真实历史数据</p>
       </footer>
