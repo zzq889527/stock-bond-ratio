@@ -284,8 +284,8 @@ export function ERPChart({ data }: ERPChartProps) {
           type: 'line',
           data: totalReturnValues,
           lineStyle: {
-            color: '#ffa502',
-            width: 2,
+            color: '#ef4444',
+            width: 2.5,
             opacity: 0.9
           },
           showSymbol: false,
