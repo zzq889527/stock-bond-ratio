@@ -28,7 +28,10 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
       chartInstance.current.dispose();
     }
 
-    chartInstance.current = echarts.init(chartRef.current);
+    chartInstance.current = echarts.init(chartRef.current, 'dark', {
+      renderer: 'canvas',
+      devicePixelRatio: window.devicePixelRatio || 2
+    });
 
     const dates = getDates(data);
     const erpValues = getERPValues(data);
@@ -49,17 +52,17 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
     // 横屏模式下的图表配置
     const landscapeGrid = [
       {
-        left: '8%',
-        right: '8%',
+        left: '6%',
+        right: '6%',
         top: '12%',
-        height: '70%',
+        bottom: '10%',
         containLabel: true
       },
       {
-        left: '8%',
-        right: '8%',
-        top: '85%',
-        height: '10%',
+        left: '6%',
+        right: '6%',
+        top: '88%',
+        height: '8%',
         containLabel: true,
         show: false
       }
@@ -95,7 +98,7 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
         borderWidth: 1,
         textStyle: {
           color: '#f1f5f9',
-          fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 12 : 13)
+          fontSize: isLandscape ? 12 : (window.innerWidth < 768 ? 12 : 13)
         },
         axisPointer: {
           type: 'line',
@@ -124,14 +127,14 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
         data: ['沪深300', '全收益', 'ERP', '均值线', '±1σ'],
         textStyle: {
           color: '#94a3b8',
-          fontSize: isLandscape ? 10 : (window.innerWidth < 768 ? 9 : 12)
+          fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 9 : 12)
         },
-        top: isLandscape ? 8 : (window.innerWidth < 768 ? 5 : 10),
-        left: isLandscape ? 20 : (window.innerWidth < 768 ? 5 : 20),
+        top: isLandscape ? 5 : (window.innerWidth < 768 ? 5 : 10),
+        left: isLandscape ? 15 : (window.innerWidth < 768 ? 5 : 20),
         icon: 'circle',
-        itemWidth: isLandscape ? 8 : (window.innerWidth < 768 ? 8 : 10),
-        itemHeight: isLandscape ? 8 : (window.innerWidth < 768 ? 8 : 10),
-        itemGap: isLandscape ? 10 : (window.innerWidth < 768 ? 8 : 15),
+        itemWidth: isLandscape ? 9 : (window.innerWidth < 768 ? 8 : 10),
+        itemHeight: isLandscape ? 9 : (window.innerWidth < 768 ? 8 : 10),
+        itemGap: isLandscape ? 12 : (window.innerWidth < 768 ? 8 : 15),
         selected: {
           '全收益': false
         }
@@ -151,9 +154,9 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           },
           axisLabel: {
             color: '#64748b',
-            fontSize: isLandscape ? 9 : (window.innerWidth < 768 ? 9 : 11),
+            fontSize: isLandscape ? 10 : (window.innerWidth < 768 ? 9 : 11),
             rotate: isLandscape ? 0 : (window.innerWidth < 768 ? 45 : 0),
-            interval: isLandscape ? Math.floor(dates.length / 8) : (window.innerWidth < 768 ? Math.floor(dates.length / 4) : Math.floor(dates.length / 10))
+            interval: isLandscape ? Math.floor(dates.length / 10) : (window.innerWidth < 768 ? Math.floor(dates.length / 4) : Math.floor(dates.length / 10))
           },
           splitLine: {
             show: false
@@ -175,7 +178,7 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           name: 'ERP %',
           nameTextStyle: {
             color: '#64748b',
-            fontSize: isLandscape ? 10 : (window.innerWidth < 768 ? 10 : 12),
+            fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 10 : 12),
             padding: [0, 0, isLandscape ? 0 : (window.innerWidth < 768 ? 0 : 8), 0]
           },
           min: -5,
@@ -191,7 +194,7 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           },
           axisLabel: {
             color: '#64748b',
-            fontSize: isLandscape ? 9 : (window.innerWidth < 768 ? 9 : 11),
+            fontSize: isLandscape ? 10 : (window.innerWidth < 768 ? 9 : 11),
             formatter: '{value}%'
           },
           splitLine: {
@@ -206,7 +209,7 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           name: '沪深300',
           nameTextStyle: {
             color: '#64748b',
-            fontSize: isLandscape ? 10 : (window.innerWidth < 768 ? 10 : 12),
+            fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 10 : 12),
             padding: [0, 0, isLandscape ? 0 : (window.innerWidth < 768 ? 0 : 8), 0]
           },
           min: Math.floor((minHS300 - hs300Padding) / 500) * 500,
@@ -222,7 +225,7 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           },
           axisLabel: {
             color: '#64748b',
-            fontSize: isLandscape ? 9 : (window.innerWidth < 768 ? 9 : 11)
+            fontSize: isLandscape ? 10 : (window.innerWidth < 768 ? 9 : 11)
           },
           splitLine: { show: false }
         },
@@ -249,8 +252,8 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           xAxisIndex: [0, 1],
           start: 0,
           end: 100,
-          bottom: isLandscape ? 8 : (window.innerWidth < 768 ? 5 : 10),
-          height: isLandscape ? 16 : (window.innerWidth < 768 ? 20 : 30),
+          bottom: isLandscape ? 5 : (window.innerWidth < 768 ? 5 : 10),
+          height: isLandscape ? 14 : (window.innerWidth < 768 ? 20 : 30),
           borderColor: 'rgba(100, 116, 139, 0.3)',
           backgroundColor: 'rgba(30, 41, 59, 0.5)',
           fillerColor: 'rgba(6, 182, 212, 0.2)',
@@ -263,7 +266,7 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           },
           textStyle: {
             color: '#94a3b8',
-            fontSize: isLandscape ? 8 : (window.innerWidth < 768 ? 9 : 11)
+            fontSize: isLandscape ? 9 : (window.innerWidth < 768 ? 9 : 11)
           },
           showDataShadow: false,
           showDetail: false,
@@ -286,11 +289,11 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           data: hs300Values,
           lineStyle: {
             color: '#00d4ff',
-            width: isLandscape ? 2 : 1.5,
-            opacity: 0.9
+            width: isLandscape ? 2.5 : 1.5,
+            opacity: 0.95
           },
           showSymbol: false,
-          smooth: false,
+          smooth: 0.2,
           animationDuration: 0
         },
         {
@@ -299,11 +302,11 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           data: totalReturnValues,
           lineStyle: {
             color: '#ef4444',
-            width: isLandscape ? 3 : 2.5,
-            opacity: 0.9
+            width: isLandscape ? 3.5 : 2.5,
+            opacity: 0.95
           },
           showSymbol: false,
-          smooth: false,
+          smooth: 0.2,
           animationDuration: 0,
           yAxisIndex: 1
         },
@@ -313,16 +316,16 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           data: erpValues,
           lineStyle: {
             color: '#f59e0b',
-            width: isLandscape ? 3 : 2.5,
+            width: isLandscape ? 4 : 3,
             opacity: 1
           },
           showSymbol: false,
-          smooth: false,
+          smooth: 0.3,
           animationDuration: 0,
           areaStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: 'rgba(245, 158, 11, 0.4)' },
-              { offset: 1, color: 'rgba(245, 158, 11, 0.05)' }
+              { offset: 0, color: 'rgba(245, 158, 11, 0.45)' },
+              { offset: 1, color: 'rgba(245, 158, 11, 0.08)' }
             ])
           }
         },
@@ -332,9 +335,9 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           data: meanValues,
           lineStyle: {
             color: '#9ca3af',
-            width: isLandscape ? 2 : 1.5,
+            width: isLandscape ? 2.5 : 1.5,
             type: 'dashed',
-            opacity: 0.8
+            opacity: 0.9
           },
           showSymbol: false,
           animationDuration: 1500
@@ -347,7 +350,7 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
             color: '#84cc16',
             width: isLandscape ? 2 : 1.5,
             type: 'dashed',
-            opacity: 0.7
+            opacity: 0.8
           },
           showSymbol: false,
           animationDuration: 0
@@ -360,7 +363,7 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
             color: '#84cc16',
             width: isLandscape ? 2 : 1.5,
             type: 'dashed',
-            opacity: 0.7
+            opacity: 0.8
           },
           showSymbol: false,
           animationDuration: 0
@@ -382,10 +385,10 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
                     { offset: 0, color: '#ef4444' },
                     { offset: 1, color: '#dc2626' }
                   ]),
-              opacity: 0.8
+              opacity: isLandscape ? 0.85 : 0.8
             }
           })),
-          barWidth: '60%',
+          barWidth: isLandscape ? '50%' : '60%',
           animationDuration: 2000
         }
       ]
