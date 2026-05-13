@@ -14,9 +14,10 @@ import {
 
 interface ERPChartProps {
   data: ERPDataItem[];
+  rotated?: boolean;
 }
 
-export function ERPChart({ data }: ERPChartProps) {
+export function ERPChart({ data, rotated = false }: ERPChartProps) {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<echarts.ECharts | null>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -395,7 +396,7 @@ export function ERPChart({ data }: ERPChartProps) {
   }, [data, isMobile]);
 
   return (
-    <div className="w-full h-[400px] sm:h-[500px]">
+    <div className={`w-full ${rotated ? 'h-[80vw]' : 'h-[400px] sm:h-[500px]'}`}>
       <div ref={chartRef} className="w-full h-full" />
     </div>
   );

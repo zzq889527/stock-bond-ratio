@@ -10,6 +10,11 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [lastUpdate, setLastUpdate] = useState('');
   const [isMobile, setIsMobile] = useState(false);
+  const [chartRotated, setChartRotated] = useState(false);
+
+  const toggleChartRotate = () => {
+    setChartRotated(!chartRotated);
+  };
 
   async function loadData() {
     setLoading(true);
@@ -67,6 +72,29 @@ export default function Home() {
               </div>
             </div>
             <div className="flex items-center gap-3">
+              {isMobile && (
+                <button
+                  onClick={toggleChartRotate}
+                  className="p-2 rounded-full bg-slate-800/80 hover:bg-slate-700/80 transition-all duration-300 shadow-lg backdrop-blur-sm"
+                  title={chartRotated ? '竖屏显示' : '横屏显示'}
+                >
+                  <svg
+                    className={`w-5 h-5 text-cyan-400 transition-transform duration-300 ${
+                      chartRotated ? 'rotate-90' : ''
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
+                  </svg>
+                </button>
+              )}
               <span className="text-xs sm:text-sm text-slate-400 hidden sm:block">
                 {loading ? '获取中...' : lastUpdate}
               </span>
@@ -165,7 +193,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 overflow-hidden shadow-xl shadow-black/20 mb-4">
+        <div className={`bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 overflow-hidden shadow-xl shadow-black/20 mb-4 ${chartRotated ? 'rotate-90' : ''}`} style={chartRotated ? { width: '100vh', height: '100vw', maxWidth: 'none', marginLeft: 'calc(50% - 50vh)' } : {}}>
           {loading ? (
             <div className="h-[400px] sm:h-[500px] flex items-center justify-center">
               <div className="text-center">
@@ -177,7 +205,7 @@ export default function Home() {
               </div>
             </div>
           ) : (
-            <ERPChart data={data} />
+            <ERPChart data={data} rotated={chartRotated} />
           )}
         </div>
 
