@@ -298,17 +298,17 @@ export function ERPChart({ data }: ERPChartProps) {
           type: 'line',
           data: erpValues,
           lineStyle: {
-            color: '#5856d6',
-            width: 2,
-            opacity: 0.95
+            color: '#f59e0b',
+            width: 2.5,
+            opacity: 1
           },
           showSymbol: false,
           smooth: false,
           animationDuration: 0,
           areaStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: 'rgba(88, 86, 214, 0.35)' },
-              { offset: 1, color: 'rgba(88, 86, 214, 0.05)' }
+              { offset: 0, color: 'rgba(245, 158, 11, 0.4)' },
+              { offset: 1, color: 'rgba(245, 158, 11, 0.05)' }
             ])
           }
         },

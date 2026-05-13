@@ -178,7 +178,7 @@ export default function Home() {
         </div>
 
         {/* 图表区域 */}
-        <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 overflow-hidden shadow-xl shadow-black/20">
+        <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 overflow-hidden shadow-xl shadow-black/20 mb-4">
           {loading ? (
             <div className="h-[400px] sm:h-[500px] flex items-center justify-center">
               <div className="text-center">
@@ -192,6 +192,30 @@ export default function Home() {
           ) : (
             <ERPChart data={data} />
           )}
+        </div>
+
+        {/* 底部柱状图说明 */}
+        <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-4 mb-6">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-2 h-2 bg-gradient-to-r from-emerald-400 to-red-400 rounded-full" />
+            <span className="text-sm font-semibold text-slate-200">底部柱状图说明</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-8 bg-gradient-to-t from-emerald-600 to-emerald-400 rounded opacity-80" />
+              <div>
+                <p className="text-sm font-medium text-emerald-400">🟢 ERP 高于均值</p>
+                <p className="text-xs text-slate-400">股票相对便宜，考虑配置股票</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-8 bg-gradient-to-t from-red-600 to-red-400 rounded opacity-80" />
+              <div>
+                <p className="text-sm font-medium text-red-400">🔴 ERP 低于均值</p>
+                <p className="text-xs text-slate-400">股票相对较贵，考虑配置债券</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* 底部信息区 */}
