@@ -96,39 +96,42 @@ def get_real_data():
     
     # 合并全收益
     if df_total_return is not None:
+        # 用nearest而不是backward，这样只有确实匹配的日期才有真实数据
         df = pd.merge_asof(
             df, 
             df_total_return, 
             on='date', 
-            direction='backward'
+            direction='nearest',
+            tolerance=pd.Timedelta('0 days')
         )
         
-        # 对于有真实全收益数据的部分，使用真实数据；对于缺失部分，先用价格指数填充
-        # 先计算价格指数的归一化版本作为备用
-        df['price_index_normalized'] = (df['hs300'] / df['hs300'].iloc[0] * 100).round(1)
-        
-        # 找到第一个有真实全收益数据的索引
+        # 找到第一个和最后一个有真实全收益数据的位置
         first_valid_idx = df['total_return'].first_valid_index()
+        last_valid_idx = df['total_return'].last_valid_index()
         
         if first_valid_idx is not None:
-            # 归一化真实全收益数据
-            # 找到真实数据中的第一个有效值
-            first_valid_tr = df.loc[first_valid_idx, 'total_return']
+            # 对于前面缺失的数据，用第一个有效数据的比例
+            if first_valid_idx > 0:
+                ratio = df.loc[first_valid_idx, 'total_return'] / df.loc[first_valid_idx, 'hs300']
+                df.loc[:first_valid_idx-1, 'total_return'] = (
+                    df.loc[:first_valid_idx-1, 'hs300'] * ratio
+                ).round(1)
             
-            # 计算真实数据部分的归一化值
-            df.loc[first_valid_idx:, 'total_return'] = (
-                df.loc[first_valid_idx:, 'total_return'] / first_valid_tr * 
-                df.loc[first_valid_idx, 'price_index_normalized']
-            ).round(1)
+            # 对于后面缺失的数据，用价格指数的变化率来估算
+            if last_valid_idx is not None and last_valid_idx < len(df) - 1:
+                last_tr = df.loc[last_valid_idx, 'total_return']
+                last_hs = df.loc[last_valid_idx, 'hs300']
+                
+                # 用价格指数相对于最后真实数据点的变化率来计算全收益
+                for i in range(last_valid_idx + 1, len(df)):
+                    ratio = df.loc[i, 'hs300'] / last_hs
+                    df.loc[i, 'total_return'] = (last_tr * ratio).round(1)
             
-            # 对于前面缺失的部分，使用价格指数的归一化值
-            df.loc[:first_valid_idx-1, 'total_return'] = df.loc[:first_valid_idx-1, 'price_index_normalized']
+            # 中间缺失的数据用前向填充
+            df['total_return'] = df['total_return'].ffill()
         else:
-            # 如果没有任何真实全收益数据，全部用价格指数归一化
-            df['total_return'] = df['price_index_normalized']
-        
-        # 删除临时列
-        df = df.drop(columns=['price_index_normalized'])
+            # 如果没有任何真实全收益数据，用价格指数乘以一个合理的初始比例
+            df['total_return'] = (df['hs300'] * 1.5).round(1)
     else:
         # 如果没有全收益数据，就用价格指数归一化作为近似
         df['total_return'] = (df['hs300'] / df['hs300'].iloc[0] * 100).round(1)
