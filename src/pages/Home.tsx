@@ -80,7 +80,9 @@ export default function Home() {
             </div>
           </div>
         ) : (
-          <ERPChart data={data} />
+          <div className="h-[400px] sm:h-[500px]">
+            <ERPChart data={data} />
+          </div>
         )}
       </div>
 
@@ -215,7 +217,9 @@ export default function Home() {
               </div>
             </div>
           ) : (
-            <ERPChart data={data} isLandscape={true} />
+            <div className="h-full">
+              <ERPChart data={data} isLandscape={true} />
+            </div>
           )}
         </div>
 
