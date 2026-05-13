@@ -56,9 +56,15 @@ export function SignalCard({ signal }: SignalCardProps) {
         };
       case '高估':
         return {
-          bg: 'bg-gradient-to-r from-red-500 to-rose-400',
+          bg: 'bg-gradient-to-r from-orange-500 to-orange-400',
           text: 'text-white',
-          shadow: 'shadow-red-500/30'
+          shadow: 'shadow-orange-500/30'
+        };
+      case '极度高估':
+        return {
+          bg: 'bg-gradient-to-r from-red-600 to-red-500',
+          text: 'text-white',
+          shadow: 'shadow-red-600/30'
         };
       default:
         return {
