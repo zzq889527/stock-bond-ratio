@@ -44,9 +44,9 @@ export function SignalCard({ signal }: SignalCardProps) {
         };
       case '低估':
         return {
-          bg: 'bg-gradient-to-r from-cyan-500 to-cyan-400',
+          bg: 'bg-gradient-to-r from-emerald-500 to-emerald-400',
           text: 'text-slate-900',
-          shadow: 'shadow-cyan-500/30'
+          shadow: 'shadow-emerald-500/30'
         };
       case '均衡':
         return {

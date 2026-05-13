@@ -202,7 +202,7 @@ def get_real_data():
     def get_signal(erp):
         if erp > mean_erp + std_erp:
             return '极度低估'
-        elif erp > mean_erp:
+        elif erp > mean_erp + 0.5 * std_erp:
             return '低估'
         elif erp >= mean_erp - 0.5 * std_erp:
             return '均衡'
