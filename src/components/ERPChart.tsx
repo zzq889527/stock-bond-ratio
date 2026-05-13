@@ -156,7 +156,8 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
             color: '#64748b',
             fontSize: isLandscape ? 10 : (window.innerWidth < 768 ? 9 : 11),
             rotate: isLandscape ? 0 : (window.innerWidth < 768 ? 45 : 0),
-            interval: isLandscape ? Math.floor(dates.length / 10) : (window.innerWidth < 768 ? Math.floor(dates.length / 4) : Math.floor(dates.length / 10))
+            interval: isLandscape ? Math.floor(dates.length / 10) : (window.innerWidth < 768 ? Math.floor(dates.length / 4) : Math.floor(dates.length / 10)),
+            showMaxLabel: true
           },
           splitLine: {
             show: false
