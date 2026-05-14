@@ -31,21 +31,24 @@ INDEX_CONFIGS = [
         "name": "沪深300",
         "pe_symbol": "沪深300",
         "price_symbol": "sh000300",
-        "total_return_symbol": "H00300"
+        "total_return_symbol": "H00300",
+        "index_code": "000300"
     },
     {
         "id": "zz500",
         "name": "中证500",
         "pe_symbol": "中证500",
         "price_symbol": "sh000905",
-        "total_return_symbol": "H00905"
+        "total_return_symbol": "H00905",
+        "index_code": "000905"
     },
     {
         "id": "zzall",
         "name": "中证全指",
         "pe_symbol": "中证800",
         "price_symbol": "sh000985",
-        "total_return_symbol": "H00985"
+        "total_return_symbol": "H00985",
+        "index_code": "000985"
     }
 ]
 
@@ -53,6 +56,29 @@ def calculate_erp(pe, bond_yield):
     if pd.isna(pe) or pe == 0:
         return np.nan
     return (1.0 / pe) * 100 - bond_yield
+
+PAYOUT_RATIOS = {}
+
+def get_payout_ratio(index_code, index_name):
+    try:
+        df = ak.stock_zh_index_value_csindex(symbol=index_code)
+        df['日期'] = pd.to_datetime(df['日期'])
+        latest = df.iloc[-1]
+        pe1 = float(latest['市盈率1'])
+        dy1 = float(latest['股息率1'])
+        if pe1 > 0:
+            payout_ratio = dy1 * pe1 / 100
+            print(f"  {index_name}({index_code}) 最新PE={pe1:.2f}, 股息率={dy1:.2f}%, payout_ratio={payout_ratio:.4f}")
+            return payout_ratio
+    except Exception as e:
+        print(f"获取{index_name}({index_code})估值数据失败: {e}")
+    return 0.38
+
+def compute_dividend_yield(pe_series, index_code, index_name):
+    if index_code not in PAYOUT_RATIOS:
+        PAYOUT_RATIOS[index_code] = get_payout_ratio(index_code, index_name)
+    ratio = PAYOUT_RATIOS[index_code]
+    return (ratio / pe_series * 100).round(3)
 
 def get_real_data_for_index(index_config):
     index_id = index_config["id"]
@@ -65,6 +91,18 @@ def get_real_data_for_index(index_config):
     except Exception as e:
         print(f"   ✗ PE数据获取失败：{e}")
         raise
+    
+    df_pb = None
+    try:
+        df_pb = ak.stock_index_pb_lg(symbol=index_config["pe_symbol"])
+        df_pb['日期'] = pd.to_datetime(df_pb['日期'])
+        df_pb = df_pb.rename(columns={'日期': 'date', '市净率': 'pb'})
+        df_pb = df_pb[['date', 'pb']].sort_values('date')
+        print(f"   ✓ PB数据：{len(df_pb)} 条")
+    except Exception as e:
+        print(f"   ✗ PB数据获取失败：{e}")
+    
+    df_dividend = compute_dividend_yield(df_pe['滚动市盈率'], index_config["index_code"], index_name)
     
     df_tr = None
     try:
@@ -118,6 +156,11 @@ def get_real_data_for_index(index_config):
     
     df = df_pe.copy()
     
+    if df_pb is not None:
+        df = pd.merge_asof(df, df_pb, on='date', direction='nearest')
+    else:
+        df['pb'] = 0
+    
     if df_price is not None:
         df = pd.merge_asof(df, df_price, on='date', direction='nearest')
     
@@ -150,6 +193,12 @@ def get_real_data_for_index(index_config):
         df['total_return'] = df['total_return'].ffill().bfill()
     else:
         df['total_return'] = (df['index_value'] * 1.5).round(1)
+    
+    if df_dividend is not None:
+        df['dividend_yield'] = df_dividend.values
+        df['dividend_yield'] = df['dividend_yield'].ffill().bfill()
+    else:
+        df['dividend_yield'] = 2.0
     
     df = pd.merge_asof(df, df_bond, on='date', direction='backward')
     
@@ -213,6 +262,8 @@ def generate_all_index_data(refresh=False):
                     'percentile': int(row['percentile']),
                     'signal': str(row['signal']),
                     'pe_ttm': float(row['pe_ttm']),
+                    'pb': float(row['pb']) if 'pb' in df.columns and pd.notna(row['pb']) else 0.0,
+                    'dividend_yield': float(row['dividend_yield']) if 'dividend_yield' in df.columns and pd.notna(row['dividend_yield']) else 0.0,
                     'bond_10y': float(row['bond_10y']),
                     'index_value': float(row['index_value']),
                     'total_return': float(row['total_return']),
