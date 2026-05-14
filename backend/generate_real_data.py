@@ -17,42 +17,48 @@ INDEX_CONFIGS = [
         "name": "沪深300",
         "pe_symbol": "沪深300",
         "price_symbol": "sh000300",
-        "total_return_symbol": "H00300"
+        "total_return_symbol": "H00300",
+        "is_equal_weight": False
     },
     {
         "id": "hs300_eq",
         "name": "沪深300等权",
         "pe_symbol": "沪深300",
         "price_symbol": "sh000300",
-        "total_return_symbol": "H00300"
+        "total_return_symbol": "H00300",
+        "is_equal_weight": True
     },
     {
         "id": "zz500",
         "name": "中证500",
         "pe_symbol": "中证500",
         "price_symbol": "sh000905",
-        "total_return_symbol": "H00905"
+        "total_return_symbol": "H00905",
+        "is_equal_weight": False
     },
     {
         "id": "zz500_eq",
         "name": "中证500等权",
         "pe_symbol": "中证500",
         "price_symbol": "sh000905",
-        "total_return_symbol": "H00905"
+        "total_return_symbol": "H00905",
+        "is_equal_weight": True
     },
     {
         "id": "zzall",
         "name": "中证全指",
         "pe_symbol": "中证800",
         "price_symbol": "sh000985",
-        "total_return_symbol": "H00985"
+        "total_return_symbol": "H00985",
+        "is_equal_weight": False
     },
     {
         "id": "zzall_eq",
         "name": "中证全指等权",
         "pe_symbol": "中证800",
         "price_symbol": "sh000985",
-        "total_return_symbol": "H00985"
+        "total_return_symbol": "H00985",
+        "is_equal_weight": True
     }
 ]
 
@@ -118,8 +124,11 @@ def get_real_data_for_index(config):
     # 处理PE数据
     df_pe['日期'] = pd.to_datetime(df_pe['日期'])
     
-    # 所有指数都使用市值加权滚动市盈率（保证ERP可比性）
-    pe_col = '滚动市盈率'
+    # 选择PE类型：等权指数用等权滚动市盈率，非等权用市值加权滚动市盈率
+    if config.get("is_equal_weight"):
+        pe_col = '等权滚动市盈率'
+    else:
+        pe_col = '滚动市盈率'
     
     # 使用 '指数' 列作为指数点位
     df_pe = df_pe[['日期', '指数', pe_col]].copy()
