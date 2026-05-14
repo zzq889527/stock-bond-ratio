@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -27,11 +29,26 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      - name: Clean npm cache
+        run: npm cache clean --force
+
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --timeout=120000
+        env:
+          CI: true
 
       - name: Build
         run: npm run build
+        env:
+          CI: true
+
+      - name: Verify build output
+        run: |
+          if [ ! -d "./dist" ]; then
+            echo "Build failed: dist directory not found"
+            exit 1
+          fi
+          ls -la ./dist
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
