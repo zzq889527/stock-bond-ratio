@@ -55,7 +55,7 @@ export function PBChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
 
     const option: echarts.EChartsOption = {
       backgroundColor: 'transparent',
-      color: ['#f59e0b', config.color, '#6b7280', '#84cc16', '#f97316'],
+      color: ['#a855f7', config.color, '#6b7280', '#22c55e', '#ef4444'],
       animation: true,
       animationDuration: 1500,
       animationEasing: 'cubicOut',
@@ -195,10 +195,10 @@ export function PBChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
           height: isLandscape ? 14 : (window.innerWidth < 768 ? 20 : 30),
           borderColor: 'rgba(100, 116, 139, 0.3)',
           backgroundColor: 'rgba(30, 41, 59, 0.5)',
-          fillerColor: 'rgba(245, 158, 11, 0.2)',
+          fillerColor: 'rgba(168, 85, 247, 0.2)',
           handleStyle: {
-            color: '#f59e0b',
-            borderColor: '#fbbf24'
+            color: '#a855f7',
+            borderColor: '#c084fc'
           },
           textStyle: {
             color: '#94a3b8',
@@ -214,7 +214,7 @@ export function PBChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
           type: 'line',
           data: pbValues,
           lineStyle: {
-            color: '#f59e0b',
+            color: '#a855f7',
             width: isLandscape ? 2.5 : 2.5,
             opacity: 1
           },
@@ -223,8 +223,8 @@ export function PBChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
           animationDuration: 0,
           areaStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: 'rgba(245, 158, 11, 0.35)' },
-              { offset: 1, color: 'rgba(245, 158, 11, 0.05)' }
+              { offset: 0, color: 'rgba(168, 85, 247, 0.35)' },
+              { offset: 1, color: 'rgba(168, 85, 247, 0.05)' }
             ])
           }
         },
@@ -260,7 +260,7 @@ export function PBChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
           type: 'line',
           data: sigmaUpper,
           lineStyle: {
-            color: '#84cc16',
+            color: '#22c55e',
             width: isLandscape ? 1 : 1,
             type: 'dashed',
             opacity: 0.6
@@ -273,7 +273,7 @@ export function PBChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
           type: 'line',
           data: sigmaLower,
           lineStyle: {
-            color: '#f97316',
+            color: '#ef4444',
             width: isLandscape ? 1 : 1,
             type: 'dashed',
             opacity: 0.6
@@ -288,17 +288,17 @@ export function PBChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
           symbol: 'circle',
           symbolSize: isLandscape ? 8 : 10,
           itemStyle: {
-            color: '#f59e0b',
+            color: '#a855f7',
             borderColor: '#fff',
             borderWidth: 2,
-            shadowColor: 'rgba(245, 158, 11, 0.6)',
+            shadowColor: 'rgba(168, 85, 247, 0.6)',
             shadowBlur: 10
           },
           label: {
             show: true,
             position: 'right',
             offset: [isLandscape ? 10 : 5, 0],
-            color: '#f59e0b',
+            color: '#a855f7',
             fontSize: isLandscape ? 11 : 12,
             fontWeight: 'bold',
             formatter: `${currentVal.toFixed(2)}x · ${percentile}分位`
@@ -310,6 +310,38 @@ export function PBChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
     };
 
     chartInstance.current.setOption(option);
+
+    const handleDataZoom = () => {
+      if (!chartInstance.current) return;
+      const fullOption = chartInstance.current.getOption();
+      const zoom = (fullOption.dataZoom as any[])[0];
+      const start = zoom.start as number;
+      const end = zoom.end as number;
+      const totalLen = dates.length;
+      const startIdx = Math.max(0, Math.floor(totalLen * start / 100));
+      const endIdx = Math.min(totalLen, Math.ceil(totalLen * end / 100));
+
+      const visVals = pbValues.slice(startIdx, endIdx);
+      const visIdx = indexValues.slice(startIdx, endIdx);
+      const vMin = Math.min(...visVals);
+      const vMax = Math.max(...visVals);
+      const vPad = (vMax - vMin) * 0.15;
+      const iMin = Math.min(...visIdx);
+      const iMax = Math.max(...visIdx);
+      const iPad = (iMax - iMin) * 0.1;
+
+      chartInstance.current.setOption({
+        yAxis: [{
+          min: Math.max(0, Math.floor((vMin - vPad) * 2) / 2),
+          max: Math.ceil((vMax + vPad) * 2) / 2
+        }, {
+          min: Math.floor((iMin - iPad) / 500) * 500,
+          max: Math.ceil((iMax + iPad) / 500) * 500
+        }]
+      });
+    };
+
+    chartInstance.current.on('dataZoom', handleDataZoom);
 
     const handleResize = () => {
       chartInstance.current?.resize();

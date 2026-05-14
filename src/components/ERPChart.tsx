@@ -34,6 +34,7 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
       renderer: 'canvas',
       devicePixelRatio: window.devicePixelRatio || 2
     });
+    chartInstance.current.group = 'valuationGroup';
 
     const dates = getDates(data);
     const erpValues = getERPValues(data);
@@ -42,19 +43,17 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
     const sigmaLower = getSigmaLower(data);
     const indexValues = getIndexValues(data);
 
-    // 计算自适应的ERP轴范围
     const minERP = Math.min(...erpValues);
     const maxERP = Math.max(...erpValues);
     const erpPadding = (maxERP - minERP) * 0.15;
     
-    // 计算自适应的指数轴范围
     const minIndex = Math.min(...indexValues);
     const maxIndex = Math.max(...indexValues);
     const indexPadding = (maxIndex - minIndex) * 0.1;
 
     const option: echarts.EChartsOption = {
       backgroundColor: 'transparent',
-      color: ['#f59e0b', config.color, '#6b7280', '#84cc16', '#f97316'],
+      color: ['#f59e0b', config.color, '#6b7280', '#22c55e', '#ef4444'],
       animation: true,
       animationDuration: 1500,
       animationEasing: 'cubicOut',
@@ -194,10 +193,10 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           height: isLandscape ? 14 : (window.innerWidth < 768 ? 20 : 30),
           borderColor: 'rgba(100, 116, 139, 0.3)',
           backgroundColor: 'rgba(30, 41, 59, 0.5)',
-          fillerColor: 'rgba(6, 182, 212, 0.2)',
+          fillerColor: 'rgba(245, 158, 11, 0.2)',
           handleStyle: {
-            color: '#06b6d4',
-            borderColor: '#22d3ee'
+            color: '#f59e0b',
+            borderColor: '#fbbf24'
           },
           textStyle: {
             color: '#94a3b8',
@@ -259,7 +258,7 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           type: 'line',
           data: sigmaUpper,
           lineStyle: {
-            color: '#84cc16',
+            color: '#22c55e',
             width: isLandscape ? 1 : 1,
             type: 'dashed',
             opacity: 0.6
@@ -272,7 +271,7 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           type: 'line',
           data: sigmaLower,
           lineStyle: {
-            color: '#f97316',
+            color: '#ef4444',
             width: isLandscape ? 1 : 1,
             type: 'dashed',
             opacity: 0.6
@@ -309,6 +308,38 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
     };
 
     chartInstance.current.setOption(option);
+
+    const handleDataZoom = () => {
+      if (!chartInstance.current) return;
+      const fullOption = chartInstance.current.getOption();
+      const zoom = (fullOption.dataZoom as any[])[0];
+      const start = zoom.start as number;
+      const end = zoom.end as number;
+      const totalLen = dates.length;
+      const startIdx = Math.max(0, Math.floor(totalLen * start / 100));
+      const endIdx = Math.min(totalLen, Math.ceil(totalLen * end / 100));
+
+      const visERP = erpValues.slice(startIdx, endIdx);
+      const visIdx = indexValues.slice(startIdx, endIdx);
+      const vMin = Math.min(...visERP);
+      const vMax = Math.max(...visERP);
+      const vPad = (vMax - vMin) * 0.15;
+      const iMin = Math.min(...visIdx);
+      const iMax = Math.max(...visIdx);
+      const iPad = (iMax - iMin) * 0.1;
+
+      chartInstance.current.setOption({
+        yAxis: [{
+          min: Math.floor((vMin - vPad) * 2) / 2,
+          max: Math.ceil((vMax + vPad) * 2) / 2
+        }, {
+          min: Math.floor((iMin - iPad) / 500) * 500,
+          max: Math.ceil((iMax + iPad) / 500) * 500
+        }]
+      });
+    };
+
+    chartInstance.current.on('dataZoom', handleDataZoom);
 
     const handleResize = () => {
       chartInstance.current?.resize();

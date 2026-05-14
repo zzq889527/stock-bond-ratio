@@ -55,7 +55,7 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
 
     const option: echarts.EChartsOption = {
       backgroundColor: 'transparent',
-      color: ['#10b981', config.color, '#6b7280', '#84cc16', '#f97316'],
+      color: ['#10b981', config.color, '#6b7280', '#22c55e', '#ef4444'],
       animation: true,
       animationDuration: 1500,
       animationEasing: 'cubicOut',
@@ -260,7 +260,7 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
           type: 'line',
           data: sigmaUpper,
           lineStyle: {
-            color: '#84cc16',
+            color: '#22c55e',
             width: isLandscape ? 1 : 1,
             type: 'dashed',
             opacity: 0.6
@@ -273,7 +273,7 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
           type: 'line',
           data: sigmaLower,
           lineStyle: {
-            color: '#f97316',
+            color: '#ef4444',
             width: isLandscape ? 1 : 1,
             type: 'dashed',
             opacity: 0.6
@@ -310,6 +310,38 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
     };
 
     chartInstance.current.setOption(option);
+
+    const handleDataZoom = () => {
+      if (!chartInstance.current) return;
+      const fullOption = chartInstance.current.getOption();
+      const zoom = (fullOption.dataZoom as any[])[0];
+      const start = zoom.start as number;
+      const end = zoom.end as number;
+      const totalLen = dates.length;
+      const startIdx = Math.max(0, Math.floor(totalLen * start / 100));
+      const endIdx = Math.min(totalLen, Math.ceil(totalLen * end / 100));
+
+      const visVals = dyValues.slice(startIdx, endIdx);
+      const visIdx = indexValues.slice(startIdx, endIdx);
+      const vMin = Math.min(...visVals);
+      const vMax = Math.max(...visVals);
+      const vPad = (vMax - vMin) * 0.15;
+      const iMin = Math.min(...visIdx);
+      const iMax = Math.max(...visIdx);
+      const iPad = (iMax - iMin) * 0.1;
+
+      chartInstance.current.setOption({
+        yAxis: [{
+          min: Math.max(0, Math.floor((vMin - vPad) * 20) / 20),
+          max: Math.ceil((vMax + vPad) * 20) / 20
+        }, {
+          min: Math.floor((iMin - iPad) / 500) * 500,
+          max: Math.ceil((iMax + iPad) / 500) * 500
+        }]
+      });
+    };
+
+    chartInstance.current.on('dataZoom', handleDataZoom);
 
     const handleResize = () => {
       chartInstance.current?.resize();
