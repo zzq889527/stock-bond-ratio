@@ -7,7 +7,6 @@ import {
   getSigmaUpper,
   getSigmaLower,
   getIndexValues,
-  getTotalReturnValues,
   ERPDataItem
 } from '../data/erpData';
 import { getIndexConfig } from '../data/indexConfig';
@@ -42,7 +41,6 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
     const sigmaUpper = getSigmaUpper(data);
     const sigmaLower = getSigmaLower(data);
     const indexValues = getIndexValues(data);
-    const totalReturnValues = getTotalReturnValues(data);
 
     // 计算自适应的ERP轴范围
     const minERP = Math.min(...erpValues);
@@ -50,13 +48,13 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
     const erpPadding = (maxERP - minERP) * 0.15;
     
     // 计算自适应的指数轴范围
-    const minIndex = Math.min(...indexValues, ...totalReturnValues);
-    const maxIndex = Math.max(...indexValues, ...totalReturnValues);
+    const minIndex = Math.min(...indexValues);
+    const maxIndex = Math.max(...indexValues);
     const indexPadding = (maxIndex - minIndex) * 0.1;
 
     const option: echarts.EChartsOption = {
       backgroundColor: 'transparent',
-      color: ['#f59e0b', config.color, '#ef4444', '#6b7280', '#84cc16', '#f97316'],
+      color: ['#f59e0b', config.color, '#6b7280', '#84cc16', '#f97316'],
       animation: true,
       animationDuration: 1500,
       animationEasing: 'cubicOut',
@@ -81,7 +79,6 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
         data: [
           { name: 'ERP', icon: 'circle' },
           { name: config.displayName, icon: 'circle' },
-          { name: config.totalReturnName, icon: 'circle' },
           { name: '均值线', icon: 'rect' },
           { name: '+1σ', icon: 'rect' },
           { name: '-1σ', icon: 'rect' },
@@ -95,9 +92,6 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
         itemWidth: isLandscape ? 12 : (window.innerWidth < 768 ? 8 : 12),
         itemHeight: isLandscape ? 6 : (window.innerWidth < 768 ? 8 : 6),
         itemGap: isLandscape ? 15 : (window.innerWidth < 768 ? 8 : 20),
-        selected: {
-          [config.totalReturnName]: false
-        }
       },
       grid: {
         left: window.innerWidth < 768 ? '3%' : '5%',
@@ -246,20 +240,6 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           showSymbol: false,
           smooth: 0.3,
           animationDuration: 0
-        },
-        {
-          name: config.totalReturnName,
-          type: 'line',
-          data: totalReturnValues,
-          lineStyle: {
-            color: '#ef4444',
-            width: isLandscape ? 2.2 : 2,
-            opacity: 0.9
-          },
-          showSymbol: false,
-          smooth: 0.3,
-          animationDuration: 0,
-          yAxisIndex: 1
         },
         {
           name: '均值线',
