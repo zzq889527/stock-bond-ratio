@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 import * as echarts from 'echarts';
 import {
@@ -7,19 +6,23 @@ import {
   getMeanValues,
   getSigmaUpper,
   getSigmaLower,
-  getHS300Values,
+  getIndexValues,
   getTotalReturnValues,
   ERPDataItem
 } from '../data/erpData';
+import { getIndexConfig, IndexConfig } from '../data/indexConfig';
 
 interface ERPChartProps {
   data: ERPDataItem[];
+  indexId?: string;
   isLandscape?: boolean;
 }
 
-export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
+export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPChartProps) {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<echarts.ECharts | null>(null);
+  
+  const config = getIndexConfig(indexId);
 
   useEffect(() => {
     if (!chartRef.current || data.length === 0) return;
@@ -38,16 +41,16 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
     const meanValues = getMeanValues(data);
     const sigmaUpper = getSigmaUpper(data);
     const sigmaLower = getSigmaLower(data);
-    const hs300Values = getHS300Values(data);
+    const indexValues = getIndexValues(data);
     const totalReturnValues = getTotalReturnValues(data);
 
     const mean = data[0].mean;
     const minERP = Math.min(...erpValues);
     const maxERP = Math.max(...erpValues);
 
-    const minHS300 = Math.min(...hs300Values, ...totalReturnValues);
-    const maxHS300 = Math.max(...hs300Values, ...totalReturnValues);
-    const hs300Padding = (maxHS300 - minHS300) * 0.1;
+    const minIndex = Math.min(...indexValues, ...totalReturnValues);
+    const maxIndex = Math.max(...indexValues, ...totalReturnValues);
+    const indexPadding = (maxIndex - minIndex) * 0.1;
 
     // 横屏模式下的图表配置
     const landscapeGrid = [
@@ -124,7 +127,7 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
         }
       },
       legend: {
-        data: ['沪深300', '全收益', 'ERP', '均值线', '±1σ'],
+        data: [config.displayName, config.totalReturnName, 'ERP', '均值线', '±1σ'],
         textStyle: {
           color: '#94a3b8',
           fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 9 : 12)
@@ -136,7 +139,7 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
         itemHeight: isLandscape ? 9 : (window.innerWidth < 768 ? 8 : 10),
         itemGap: isLandscape ? 12 : (window.innerWidth < 768 ? 8 : 15),
         selected: {
-          '全收益': false
+          [config.totalReturnName]: false
         }
       },
       grid: isLandscape ? landscapeGrid : portraitGrid,
@@ -183,7 +186,7 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
             padding: [0, 0, isLandscape ? 0 : (window.innerWidth < 768 ? 0 : 8), 0]
           },
           min: -5,
-          max: 12,
+          max: 14,
           axisLine: {
             show: true,
             lineStyle: {
@@ -207,14 +210,14 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
         },
         {
           type: 'value',
-          name: '沪深300',
+          name: config.displayName,
           nameTextStyle: {
             color: '#64748b',
             fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 10 : 12),
             padding: [0, 0, isLandscape ? 0 : (window.innerWidth < 768 ? 0 : 8), 0]
           },
-          min: Math.floor((minHS300 - hs300Padding) / 500) * 500,
-          max: Math.ceil((maxHS300 + hs300Padding) / 500) * 500,
+          min: Math.floor((minIndex - indexPadding) / 500) * 500,
+          max: Math.ceil((maxIndex + indexPadding) / 500) * 500,
           axisLine: {
             show: true,
             lineStyle: {
@@ -284,12 +287,12 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
       ],
       series: [
         {
-          name: '沪深300',
+          name: config.displayName,
           type: 'line',
           yAxisIndex: 1,
-          data: hs300Values,
+          data: indexValues,
           lineStyle: {
-            color: '#00d4ff',
+            color: config.color,
             width: isLandscape ? 1.8 : 1.5,
             opacity: 0.9
           },
@@ -298,7 +301,7 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
           animationDuration: 0
         },
         {
-          name: '全收益',
+          name: config.totalReturnName,
           type: 'line',
           data: totalReturnValues,
           lineStyle: {
@@ -432,7 +435,7 @@ export function ERPChart({ data, isLandscape = false }: ERPChartProps) {
       window.removeEventListener('resize', handleResize);
       chartInstance.current?.dispose();
     };
-  }, [data, isLandscape]);
+  }, [data, indexId, isLandscape, config]);
 
   return (
     <div className="w-full h-full">

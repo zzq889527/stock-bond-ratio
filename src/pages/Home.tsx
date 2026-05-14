@@ -1,11 +1,13 @@
-
 import { useState, useEffect } from 'react';
 import { MetricCard, SignalCard } from '../components/MetricCard';
 import { ERPChart } from '../components/ERPChart';
+import { IndexSelector } from '../components/IndexSelector';
 import { getERPData, ERPDataItem } from '../data/erpData';
+import { getIndexConfig } from '../data/indexConfig';
 
 export default function Home() {
   const [data, setData] = useState<ERPDataItem[]>([]);
+  const [selectedIndexId, setSelectedIndexId] = useState<string>('hs300');
   const [latest, setLatest] = useState<ERPDataItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [lastUpdate, setLastUpdate] = useState('');
@@ -15,10 +17,10 @@ export default function Home() {
     setIsLandscape(!isLandscape);
   };
 
-  async function loadData() {
+  async function loadData(indexId: string = 'hs300') {
     setLoading(true);
     try {
-      const erpData = await getERPData(false);
+      const erpData = await getERPData(indexId, false);
       setData(erpData);
       setLatest(erpData[erpData.length - 1]);
       setLastUpdate(new Date().toLocaleString('zh-CN'));
@@ -30,10 +32,15 @@ export default function Home() {
   }
 
   useEffect(() => {
-    loadData();
-  }, []);
+    loadData(selectedIndexId);
+  }, [selectedIndexId]);
+
+  const handleIndexChange = (indexId: string) => {
+    setSelectedIndexId(indexId);
+  };
 
   const displayData = latest;
+  const config = getIndexConfig(selectedIndexId);
 
   return (
     <div className={`bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white relative min-h-screen ${isLandscape ? 'landscape-mode' : ''}`}>
@@ -62,7 +69,7 @@ export default function Home() {
                       <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
                       <span className="text-[9px] text-slate-300">实时更新</span>
                     </div>
-                    <button onClick={toggleLandscape} className="p-2 rounded-xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 hover:from-cyan-500/30 hover:to-purple-500/30 transition-all duration-300 shadow-lg backdrop-blur-md border border-cyan-500/20">
+                    <button onClick={toggleLandscape} className="p-2 rounded-xl bg-gradient-to-r from-cyan-500/20 to-purple-500/20 hover:from-cyan-500/30 hover:to-purple-500/30 transition-all duration-300 shadow-lg backdrop-blur-md border border-cyan-500/20">
                       <svg className="w-4 h-4 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                       </svg>
@@ -82,7 +89,7 @@ export default function Home() {
                         </span>
                         {displayData && <SignalCard signal={displayData.signal} />}
                       </div>
-                      <p className="text-[9px] text-slate-400">{displayData?.percentile}分位</p>
+                      <p className="text-[10px] text-slate-400">{displayData?.percentile}分位</p>
                     </div>
                   </div>
                   <div className="flex gap-3 text-xs flex-1">
@@ -99,8 +106,8 @@ export default function Home() {
                       <p className="font-semibold text-violet-400 text-sm">{displayData?.bond_10y.toFixed(2)}%</p>
                     </div>
                     <div className="text-center px-2 py-1 rounded-lg bg-slate-900/50">
-                      <span className="text-slate-500 text-[9px] block">沪深300</span>
-                      <p className="font-semibold text-pink-400 text-sm">{displayData?.hs300.toLocaleString()}</p>
+                      <span className="text-slate-500 text-[9px] block">{config.displayName}</span>
+                      <p className="font-semibold text-pink-400 text-sm">{displayData?.index_value.toLocaleString()}</p>
                     </div>
                   </div>
                 </div>
@@ -110,14 +117,14 @@ export default function Home() {
                       <div className="text-center">
                         <div className="relative mb-3">
                           <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full blur-xl opacity-50 animate-pulse" />
-                          <div className="relative w-12 h-12 border-4 border-slate-700 border-t-cyan-400 rounded-full animate-spin" />
+                          <div className="relative w-12 h-12 border-4 border-slate-700 border-t-cyan-400 rounded-full animate-spin mx-auto mb-4" />
                         </div>
-                        <p className="text-slate-400 text-sm">正在加载市场数据...</p>
+                        <p className="text-slate-400">正在加载市场数据...</p>
                       </div>
                     </div>
                   ) : (
                     <div className="h-full">
-                      <ERPChart data={data} isLandscape={true} />
+                      <ERPChart data={data} indexId={selectedIndexId} isLandscape={true} />
                     </div>
                   )}
                 </div>
@@ -147,7 +154,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">股债收益比 · 日频</h1>
-                    <p className="text-xs sm:text-sm text-slate-400">ERP = 1/PE - 10Y国债 · 2005~2026</p>
+                    <p className="text-xs sm:text-sm text-slate-400">ERP = 1/PE - 10Y国债 · 2005-2026</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -162,6 +169,15 @@ export default function Home() {
             </div>
           </header>
           <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            {/* 指数选择器 */}
+            <div className="mb-6 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 p-4 sm:p-6 shadow-xl shadow-black/20">
+              <IndexSelector 
+                selectedIndexId={selectedIndexId} 
+                onIndexChange={handleIndexChange} 
+              />
+            </div>
+
+            {/* 主要指标卡片 */}
             <div className="mb-6 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 p-4 sm:p-6 shadow-xl shadow-black/20">
               {displayData && (
                 <div className="mb-6">
@@ -187,10 +203,12 @@ export default function Home() {
                 <MetricCard label="标准差" value={displayData?.sigma.toFixed(2) || '--'} color="#f59e0b" suffix="%" icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>} />
                 <MetricCard label="PE(TTM)" value={displayData?.pe_ttm.toFixed(1) || '--'} color="#06b6d4" suffix="x" icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>} />
                 <MetricCard label="10Y国债" value={displayData?.bond_10y.toFixed(2) || '--'} color="#8b5cf6" suffix="%" icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6l9-3 9 3v12l-9 3-9-3V6z" /></svg>} />
-                <MetricCard label="沪深300" value={displayData?.hs300.toLocaleString() || '--'} color="#ec4899" icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>} />
+                <MetricCard label={config.displayName} value={displayData?.index_value.toLocaleString() || '--'} color={config.color} icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>} />
                 <MetricCard label="全收益" value={displayData?.total_return.toFixed(1) || '--'} color="#f97316" icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>} />
               </div>
             </div>
+
+            {/* 图表区域 */}
             <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 overflow-hidden shadow-xl shadow-black/20 mb-4">
               {loading ? (
                 <div className="h-[400px] sm:h-[500px] flex items-center justify-center">
@@ -204,33 +222,13 @@ export default function Home() {
                 </div>
               ) : (
                 <div className="h-[400px] sm:h-[500px]">
-                  <ERPChart data={data} />
+                  <ERPChart data={data} indexId={selectedIndexId} />
                 </div>
               )}
             </div>
-            <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-4 mb-6">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-2 h-2 bg-gradient-to-r from-emerald-400 to-red-400 rounded-full" />
-                <span className="text-sm font-semibold text-slate-200">底部柱状图说明</span>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-8 bg-gradient-to-t from-emerald-600 to-emerald-400 rounded opacity-80" />
-                  <div>
-                    <p className="text-sm font-medium text-emerald-400">🟢 ERP 高于均值</p>
-                    <p className="text-xs text-slate-400">股票相对便宜，考虑配置股票</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-8 bg-gradient-to-t from-red-600 to-red-400 rounded opacity-80" />
-                  <div>
-                    <p className="text-sm font-medium text-red-400">🔴 ERP 低于均值</p>
-                    <p className="text-xs text-slate-400">股票相对较贵，考虑配置债券</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+            {/* 信号规则说明 */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-5">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full animate-pulse" />
@@ -254,7 +252,7 @@ export default function Home() {
                     <span className="text-slate-500">&gt; 均值+1σ</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 bg-cyan-500/20 text-cyan-400 rounded">低估</span>
+                    <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded">低估</span>
                     <span className="text-slate-500">均值+0.5σ ~ 均值+1σ</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -262,7 +260,7 @@ export default function Home() {
                     <span className="text-slate-500">均值±0.5σ</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 bg-red-500/20 text-red-400 rounded">高估</span>
+                    <span className="px-2 py-0.5 bg-orange-500/20 text-orange-400 rounded">高估</span>
                     <span className="text-slate-500">均值-0.5σ ~ 均值-1σ</span>
                   </div>
                   <div className="flex items-center gap-2">

@@ -1,3 +1,5 @@
+import { INDEX_CONFIGS, IndexConfig } from './indexConfig';
+
 export interface ERPDataItem {
   date: string;
   erp: number;
@@ -7,45 +9,54 @@ export interface ERPDataItem {
   signal: string;
   pe_ttm: number;
   bond_10y: number;
-  hs300: number;
+  index_value: number;
   total_return: number;
   tr_p: number;
 }
 
-let cachedData: ERPDataItem[] | null = null;
-
-async function fetchERPData(refresh = false): Promise<ERPDataItem[]> {
-  if (cachedData && !refresh) {
-    return cachedData;
-  }
-
-  try {
-    const response = await fetch('./erp_data.json');
-    
-    if (!response.ok) {
-      throw new Error('Failed to fetch data');
-    }
-    
-    cachedData = await response.json();
-    return cachedData;
-  } catch (error) {
-    console.warn('Using mock data:', error);
-    return getMockData();
-  }
+export interface IndexDataMap {
+  [key: string]: ERPDataItem[];
 }
 
-function getMockData(): ERPDataItem[] {
+let cachedData: IndexDataMap | null = null;
+
+function generateMockDataForIndex(config: IndexConfig): ERPDataItem[] {
   const data: ERPDataItem[] = [];
   const startDate = new Date('2005-04-08');
-  const endDate = new Date('2026-03-09');
+  const endDate = new Date('2026-05-14');
   
-  const mean = 4.46;
-  const sigma = 2.34;
+  // 为每个指数设置不同的统计特征
+  const baseMean = 4.46;
+  const baseSigma = 2.34;
   
-  let hs300 = 980;
-  let totalReturn = 120;
-  let erp = 2.53;
-  let bondYield = 2.5;
+  // 根据指数类型调整参数
+  let meanAdjustment = 0;
+  let sigmaAdjustment = 1;
+  let basePrice = 1000;
+  
+  if (config.id.includes('500')) {
+    // 中证500 通常有更高的ERP
+    meanAdjustment = 0.8;
+    sigmaAdjustment = 1.15;
+    basePrice = 800;
+  } else if (config.id.includes('zzall')) {
+    // 中证全指
+    meanAdjustment = 0.3;
+    sigmaAdjustment = 1.05;
+    basePrice = 900;
+  } else if (config.id.includes('eq')) {
+    // 等权指数通常波动稍大
+    sigmaAdjustment = 1.1;
+    basePrice *= 0.95;
+  }
+  
+  const mean = baseMean + meanAdjustment;
+  const sigma = baseSigma * sigmaAdjustment;
+  
+  let indexValue = basePrice;
+  let totalReturn = basePrice * 1.5;
+  let erp = mean;
+  let bondYield = 3.5;
 
   const cycles = [
     { start: 0, end: 0.1, trend: 1 },
@@ -76,22 +87,22 @@ function getMockData(): ERPDataItem[] {
       const cycle = cycles.find(c => progress >= c.start && progress < c.end) || cycles[cycles.length - 1];
       
       const trend = cycle.trend;
-      const volatility = 0.3 + Math.sin(progress * Math.PI * 4) * 0.2;
+      const volatility = 0.35 * sigmaAdjustment + Math.sin(progress * Math.PI * 4) * 0.2;
       const noise = (Math.random() - 0.5) * volatility;
       
-      erp = Math.max(-3, Math.min(12, erp + trend * 0.05 + noise));
+      erp = Math.max(-5, Math.min(14, erp + trend * 0.06 * sigmaAdjustment + noise));
       
-      const hsTrend = -trend * 0.8;
-      const hsNoise = (Math.random() - 0.5) * 80;
-      hs300 = Math.max(800, Math.min(6500, hs300 + hsTrend * 20 + hsNoise));
+      const indexTrend = -trend * 0.85;
+      const indexNoise = (Math.random() - 0.5) * 90;
+      indexValue = Math.max(500, Math.min(10000, indexValue + indexTrend * 25 + indexNoise));
       
-      const trTrend = -trend * 0.5;
-      const trNoise = (Math.random() - 0.5) * 15;
-      totalReturn = Math.max(0, totalReturn + trTrend * 5 + trNoise);
+      const trTrend = -trend * 0.6;
+      const trNoise = (Math.random() - 0.5) * 18;
+      totalReturn = Math.max(0, totalReturn + trTrend * 7 + trNoise);
       
-      bondYield = Math.max(1.5, Math.min(6, 2.5 + Math.sin(progress * Math.PI * 2) * 1.5 + (Math.random() - 0.5) * 0.3));
+      bondYield = Math.max(1.0, Math.min(6.5, 3.2 + Math.sin(progress * Math.PI * 2) * 1.8 + (Math.random() - 0.5) * 0.4));
       
-      const pe_ttm = Math.round((100 / Math.max(erp + bondYield, 2)) * 10) / 10;
+      const pe_ttm = Math.round((100 / Math.max(erp + bondYield, 1.5)) * 10) / 10;
       
       const zScore = (erp - mean) / sigma;
       const percentile = Math.max(0, Math.min(100, Math.round((1 + erf(zScore / Math.sqrt(2))) / 2 * 100)));
@@ -109,18 +120,18 @@ function getMockData(): ERPDataItem[] {
         signal = '极度高估';
       }
       
-      const tr_p = Math.round((totalReturn / hs300) * 100) / 100;
+      const tr_p = Math.round((100 / pe_ttm) * 100) / 100;
       
       data.push({
         date: dateStr,
         erp: Math.round(erp * 100) / 100,
-        mean,
-        sigma,
+        mean: Math.round(mean * 100) / 100,
+        sigma: Math.round(sigma * 100) / 100,
         percentile,
         signal,
         pe_ttm,
         bond_10y: Math.round(bondYield * 100) / 100,
-        hs300: Math.round(hs300),
+        index_value: Math.round(indexValue),
         total_return: Math.round(totalReturn),
         tr_p
       });
@@ -129,16 +140,6 @@ function getMockData(): ERPDataItem[] {
     currentDate.setDate(currentDate.getDate() + 1);
     dayCount++;
   }
-  
-  const lastItem = data[data.length - 1];
-  lastItem.erp = 3.62;
-  lastItem.percentile = 7;
-  lastItem.signal = '均衡';
-  lastItem.pe_ttm = 27.6;
-  lastItem.bond_10y = 3.46;
-  lastItem.hs300 = 2415;
-  lastItem.total_return = 193;
-  lastItem.tr_p = 0.08;
   
   return data;
 }
@@ -160,13 +161,58 @@ function erf(x: number): number {
   return sign * y;
 }
 
-export async function getERPData(refresh = false): Promise<ERPDataItem[]> {
-  return await fetchERPData(refresh);
+async function loadRealIndexData(indexId: string): Promise<ERPDataItem[]> {
+  try {
+    const response = await fetch(`./${indexId}_erp_data.json`);
+    if (response.ok) {
+      const data = await response.json();
+      return data.map((item: any) => ({
+        ...item,
+        index_value: item.hs300 || item.index_value
+      }));
+    }
+  } catch (e) {
+    console.warn(`无法加载 ${indexId} 真实数据，使用模拟数据`);
+  }
+  
+  const config = INDEX_CONFIGS.find(c => c.id === indexId) || INDEX_CONFIGS[0];
+  return generateMockDataForIndex(config);
 }
 
-export function getLatestData(): ERPDataItem {
-  const data = cachedData || getMockData();
-  return data[data.length - 1];
+export async function getAllIndexData(refresh = false): Promise<IndexDataMap> {
+  if (cachedData && !refresh) {
+    return cachedData;
+  }
+  
+  const dataMap: IndexDataMap = {};
+  
+  for (const config of INDEX_CONFIGS) {
+    if (config.id === 'hs300') {
+      try {
+        const response = await fetch('./erp_data.json');
+        if (response.ok) {
+          const hs300Data = await response.json();
+          dataMap[config.id] = hs300Data.map((item: any) => ({
+            ...item,
+            index_value: item.hs300
+          }));
+          continue;
+        }
+      } catch (e) {
+        // 继续使用模拟数据
+      }
+    }
+    
+    dataMap[config.id] = generateMockDataForIndex(config);
+  }
+  
+  cachedData = dataMap;
+  return dataMap;
+}
+
+export async function getERPData(indexId: string = 'hs300', refresh = false): Promise<ERPDataItem[]> {
+  const dataMap = await getAllIndexData(refresh);
+  return dataMap[indexId] || dataMap['hs300'];
 }
 
 export function getDates(data: ERPDataItem[]): string[] {
@@ -189,8 +235,8 @@ export function getSigmaLower(data: ERPDataItem[]): number[] {
   return data.map(item => item.mean - item.sigma);
 }
 
-export function getHS300Values(data: ERPDataItem[]): number[] {
-  return data.map(item => item.hs300);
+export function getIndexValues(data: ERPDataItem[]): number[] {
+  return data.map(item => item.index_value);
 }
 
 export function getTotalReturnValues(data: ERPDataItem[]): number[] {
