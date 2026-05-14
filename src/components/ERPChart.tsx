@@ -78,12 +78,12 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
       },
       legend: {
         data: [
-          { name: 'ERP', icon: 'circle' },
-          { name: config.displayName, icon: 'circle' },
-          { name: config.totalReturnName, icon: 'circle' },
-          { name: '均值线', icon: 'rect' },
-          { name: '+1σ', icon: 'rect' },
-          { name: '-1σ', icon: 'rect' },
+          { name: 'ERP', icon: 'circle', color: '#f59e0b' },
+          { name: config.displayName, icon: 'circle', color: config.color },
+          { name: config.totalReturnName, icon: 'circle', color: '#ef4444' },
+          { name: '均值线', icon: 'rect', color: '#6b7280' },
+          { name: '+1σ', icon: 'rect', color: '#84cc16' },
+          { name: '-1σ', icon: 'rect', color: '#f97316' },
         ],
         textStyle: {
           color: '#94a3b8',
