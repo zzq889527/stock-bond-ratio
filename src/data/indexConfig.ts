@@ -22,16 +22,6 @@ export const INDEX_CONFIGS: IndexConfig[] = [
     color: '#00d4ff'
   },
   {
-    id: 'hs300_eq',
-    name: '沪深300等权',
-    displayName: '沪深300等权',
-    totalReturnName: '沪深300等权全收益',
-    peSymbol: '沪深300',
-    priceSymbol: 'sh000300',
-    totalReturnSymbol: 'H00300',
-    color: '#00e5ff'
-  },
-  {
     id: 'zz500',
     name: '中证500',
     displayName: '中证500',
@@ -42,16 +32,6 @@ export const INDEX_CONFIGS: IndexConfig[] = [
     color: '#10b981'
   },
   {
-    id: 'zz500_eq',
-    name: '中证500等权',
-    displayName: '中证500等权',
-    totalReturnName: '中证500等权全收益',
-    peSymbol: '中证500',
-    priceSymbol: 'sh000905',
-    totalReturnSymbol: 'H00905',
-    color: '#34d399'
-  },
-  {
     id: 'zzall',
     name: '中证全指',
     displayName: '中证全指',
@@ -60,16 +40,6 @@ export const INDEX_CONFIGS: IndexConfig[] = [
     priceSymbol: 'sh000985',
     totalReturnSymbol: 'H00985',
     color: '#8b5cf6'
-  },
-  {
-    id: 'zzall_eq',
-    name: '中证全指等权',
-    displayName: '中证全指等权',
-    totalReturnName: '中证全指等权全收益',
-    peSymbol: '中证全指',
-    priceSymbol: 'sh000985',
-    totalReturnSymbol: 'H00985',
-    color: '#a78bfa'
   }
 ];
 
