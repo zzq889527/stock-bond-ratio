@@ -1,19 +1,55 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { MetricCard, SignalCard } from '../components/MetricCard';
 import { ERPChart } from '../components/ERPChart';
-import { getERPData, ERPDataItem } from '../data/erpData';
+import { ERPDataItem } from '../data/erpData';
+
+interface IndexConfig {
+  id: string;
+  name: string;
+  dataFile: string;
+  indexLabel: string;
+  color: string;
+}
+
+const INDEX_CONFIGS: IndexConfig[] = [
+  { id: 'hs300', name: '沪深300', dataFile: 'erp_data.json', indexLabel: '沪深300', color: '#00d4ff' },
+  { id: 'hs300_eq', name: '沪深300等权', dataFile: 'hs300_eq_erp_data.json', indexLabel: '沪深300等权', color: '#00ff88' },
+  { id: 'zz500', name: '中证500', dataFile: 'zz500_erp_data.json', indexLabel: '中证500', color: '#ff6b6b' },
+  { id: 'zz500_eq', name: '中证500等权', dataFile: 'zz500_eq_erp_data.json', indexLabel: '中证500等权', color: '#ffd93d' },
+  { id: 'zzall', name: '中证全指', dataFile: 'zzall_erp_data.json', indexLabel: '中证全指', color: '#6bcbff' },
+  { id: 'zzall_eq', name: '中证全指等权', dataFile: 'zzall_eq_erp_data.json', indexLabel: '中证全指等权', color: '#c56bff' },
+];
+
+async function fetchERPData(dataFile: string): Promise<ERPDataItem[]> {
+  try {
+    const response = await fetch(`./${dataFile}`);
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    }
+  } catch (e) {
+    console.warn(`Failed to fetch ${dataFile}:`, e);
+  }
+  throw new Error(`无法加载 ${dataFile}`);
+}
 
 export default function Home() {
+  const [selectedIndex, setSelectedIndex] = useState<string>('hs300');
   const [data, setData] = useState<ERPDataItem[]>([]);
   const [latest, setLatest] = useState<ERPDataItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [lastUpdate, setLastUpdate] = useState('');
+  const [loadingIndex, setLoadingIndex] = useState<string>('');
 
-  async function loadData(refresh = false) {
+  const loadData = useCallback(async (indexId: string) => {
+    const config = INDEX_CONFIGS.find(c => c.id === indexId);
+    if (!config) return;
+
     setLoading(true);
+    setLoadingIndex(indexId);
     try {
-      const erpData = await getERPData(refresh);
+      const erpData = await fetchERPData(config.dataFile);
       setData(erpData);
       setLatest(erpData[erpData.length - 1]);
       setLastUpdate(new Date().toLocaleString('zh-CN'));
@@ -21,28 +57,39 @@ export default function Home() {
       console.error('Failed to load data:', error);
     } finally {
       setLoading(false);
+      setLoadingIndex('');
     }
-  }
-
-  useEffect(() => {
-    loadData();
   }, []);
 
-  const handleRefresh = () => {
-    loadData(true);
+  useEffect(() => {
+    loadData(selectedIndex);
+  }, [selectedIndex, loadData]);
+
+  const handleIndexChange = (indexId: string) => {
+    if (indexId !== selectedIndex && !loadingIndex) {
+      setSelectedIndex(indexId);
+    }
   };
 
+  const handleRefresh = () => {
+    loadData(selectedIndex);
+  };
+
+  const currentConfig = INDEX_CONFIGS.find(c => c.id === selectedIndex);
   const displayData = latest;
+
+  const getIndexValue = (item: ERPDataItem | null) => {
+    if (!item) return '--';
+    return (item.index_value || item.hs300 || 0).toLocaleString();
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white relative overflow-hidden">
-      {/* 背景装饰 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
       </div>
 
-      {/* Header */}
       <header className="relative backdrop-blur-sm bg-slate-900/50 border-b border-slate-700/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
@@ -83,11 +130,36 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* 指标卡片区 */}
         <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 p-4 sm:p-6 mb-6 shadow-xl shadow-black/20">
-          {/* 主要指标 - ERP */}
+          <div className="mb-4">
+            <div className="text-sm font-medium text-slate-400 mb-2">选择指数</div>
+            <div className="flex flex-wrap gap-2">
+              {INDEX_CONFIGS.map((config) => (
+                <button
+                  key={config.id}
+                  onClick={() => handleIndexChange(config.id)}
+                  disabled={loadingIndex !== '' && loadingIndex !== config.id}
+                  className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+                    selectedIndex === config.id
+                      ? 'bg-gradient-to-r text-white shadow-lg'
+                      : 'bg-slate-700/50 text-slate-300 hover:bg-slate-600/50'
+                  } disabled:opacity-50 disabled:cursor-not-allowed`}
+                  style={{
+                    background: selectedIndex === config.id
+                      ? `linear-gradient(135deg, ${config.color}33, ${config.color}22)`
+                      : undefined,
+                    borderColor: selectedIndex === config.id ? config.color : undefined,
+                    borderWidth: selectedIndex === config.id ? '1px' : undefined,
+                    boxShadow: selectedIndex === config.id ? `0 0 20px ${config.color}33` : undefined,
+                  }}
+                >
+                  {config.name}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {displayData && (
             <div className="mb-6">
               <div className="flex items-center gap-4">
@@ -108,12 +180,11 @@ export default function Home() {
             </div>
           )}
 
-          {/* 次要指标网格 */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-            <MetricCard 
-              label="均值" 
-              value={displayData?.mean.toFixed(2) || '--'} 
-              color="#10b981" 
+            <MetricCard
+              label="均值"
+              value={displayData?.mean.toFixed(2) || '--'}
+              color="#10b981"
               suffix="%"
               icon={
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -121,10 +192,10 @@ export default function Home() {
                 </svg>
               }
             />
-            <MetricCard 
-              label="标准差" 
-              value={displayData?.sigma.toFixed(2) || '--'} 
-              color="#f59e0b" 
+            <MetricCard
+              label="标准差"
+              value={displayData?.sigma.toFixed(2) || '--'}
+              color="#f59e0b"
               suffix="%"
               icon={
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -132,10 +203,10 @@ export default function Home() {
                 </svg>
               }
             />
-            <MetricCard 
-              label="PE(TTM)" 
-              value={displayData?.pe_ttm.toFixed(1) || '--'} 
-              color="#06b6d4" 
+            <MetricCard
+              label="PE(TTM)"
+              value={displayData?.pe_ttm.toFixed(1) || '--'}
+              color="#06b6d4"
               suffix="x"
               icon={
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -143,10 +214,10 @@ export default function Home() {
                 </svg>
               }
             />
-            <MetricCard 
-              label="10Y国债" 
-              value={displayData?.bond_10y.toFixed(2) || '--'} 
-              color="#8b5cf6" 
+            <MetricCard
+              label="10Y国债"
+              value={displayData?.bond_10y.toFixed(2) || '--'}
+              color="#8b5cf6"
               suffix="%"
               icon={
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -154,20 +225,20 @@ export default function Home() {
                 </svg>
               }
             />
-            <MetricCard 
-              label="沪深300" 
-              value={displayData?.hs300.toLocaleString() || '--'} 
-              color="#ec4899" 
+            <MetricCard
+              label={currentConfig?.indexLabel || '指数'}
+              value={getIndexValue(displayData)}
+              color="#ec4899"
               icon={
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                 </svg>
               }
             />
-            <MetricCard 
-              label="全收益" 
-              value={displayData?.total_return.toFixed(1) || '--'} 
-              color="#f97316" 
+            <MetricCard
+              label="全收益"
+              value={displayData?.total_return.toFixed(1) || '--'}
+              color="#f97316"
               icon={
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
@@ -177,7 +248,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* 图表区域 */}
         <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 overflow-hidden shadow-xl shadow-black/20">
           {loading ? (
             <div className="h-[400px] sm:h-[500px] flex items-center justify-center">
@@ -194,7 +264,6 @@ export default function Home() {
           )}
         </div>
 
-        {/* 底部信息区 */}
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-700/30 p-5">
             <div className="flex items-center gap-2 mb-3">
@@ -221,15 +290,15 @@ export default function Home() {
               </div>
               <div className="flex items-center gap-2">
                 <span className="px-2 py-0.5 bg-cyan-500/20 text-cyan-400 rounded">低估</span>
-                <span className="text-slate-500">&gt; 均值</span>
+                <span className="text-slate-500">&gt; 均值+0.5σ</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="px-2 py-0.5 bg-yellow-500/20 text-yellow-400 rounded">均衡</span>
-                <span className="text-slate-500">≈ 均值</span>
+                <span className="text-slate-500">均值±0.5σ</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="px-2 py-0.5 bg-red-500/20 text-red-400 rounded">高估</span>
-                <span className="text-slate-500">&lt; 均值-1σ</span>
+                <span className="text-slate-500">&lt; 均值-0.5σ</span>
               </div>
             </div>
           </div>
@@ -248,7 +317,6 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="relative text-center py-6 text-xs text-slate-500">
         <p>数据每日自动更新 · 基于真实历史数据</p>
       </footer>

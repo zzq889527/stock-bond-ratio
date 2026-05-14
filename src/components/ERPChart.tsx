@@ -7,7 +7,7 @@ import {
   getMeanValues,
   getSigmaUpper,
   getSigmaLower,
-  getHS300Values,
+  getIndexValues,
   getTotalReturnValues,
   ERPDataItem
 } from '../data/erpData';
@@ -44,7 +44,7 @@ export function ERPChart({ data }: ERPChartProps) {
     const meanValues = getMeanValues(data);
     const sigmaUpper = getSigmaUpper(data);
     const sigmaLower = getSigmaLower(data);
-    const hs300Values = getHS300Values(data);
+    const indexValues = getIndexValues(data);
     const totalReturnValues = getTotalReturnValues(data);
 
     const mean = data[0].mean;
@@ -52,9 +52,9 @@ export function ERPChart({ data }: ERPChartProps) {
     const maxERP = Math.max(...erpValues);
     const erpPadding = Math.max(Math.abs(maxERP - mean), Math.abs(minERP - mean)) * 0.2;
 
-    const minHS300 = Math.min(...hs300Values);
-    const maxHS300 = Math.max(...hs300Values);
-    const hs300Padding = (maxHS300 - minHS300) * 0.1;
+    const minIndex = Math.min(...indexValues);
+    const maxIndex = Math.max(...indexValues);
+    const indexPadding = (maxIndex - minIndex) * 0.1;
 
     const option: echarts.EChartsOption = {
       backgroundColor: 'transparent',
@@ -195,8 +195,8 @@ export function ERPChart({ data }: ERPChartProps) {
             fontSize: isMobile ? 10 : 12,
             padding: [0, 0, isMobile ? 0 : 8, 0]
           },
-          min: Math.floor((minHS300 - hs300Padding) / 500) * 500,
-          max: Math.ceil((maxHS300 + hs300Padding) / 500) * 500,
+          min: Math.floor((minIndex - indexPadding) / 500) * 500,
+          max: Math.ceil((maxIndex + indexPadding) / 500) * 500,
           axisLine: {
             show: true,
             lineStyle: {
@@ -266,10 +266,10 @@ export function ERPChart({ data }: ERPChartProps) {
       ],
       series: [
         {
-          name: '沪深300',
+          name: '指数',
           type: 'line',
           yAxisIndex: 1,
-          data: hs300Values,
+          data: indexValues,
           lineStyle: {
             color: '#00d4ff',
             width: 1.5,
