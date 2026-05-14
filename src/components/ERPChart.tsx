@@ -77,17 +77,23 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
         }
       },
       legend: {
-        data: [config.displayName, config.totalReturnName, 'ERP', '均值线', '±1σ'],
+        data: [
+          { name: 'ERP', icon: 'circle' },
+          { name: config.displayName, icon: 'circle' },
+          { name: config.totalReturnName, icon: 'circle' },
+          { name: '均值线', icon: 'path://M0,5 L30,5', iconKeepGlyph: true },
+          { name: '+1σ', icon: 'path://M0,5 L30,5', iconKeepGlyph: true },
+          { name: '-1σ', icon: 'path://M0,5 L30,5', iconKeepGlyph: true },
+        ],
         textStyle: {
           color: '#94a3b8',
           fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 9 : 12)
         },
         top: isLandscape ? 5 : (window.innerWidth < 768 ? 5 : 10),
         left: isLandscape ? 15 : (window.innerWidth < 768 ? 5 : 20),
-        icon: 'circle',
-        itemWidth: isLandscape ? 9 : (window.innerWidth < 768 ? 8 : 10),
-        itemHeight: isLandscape ? 9 : (window.innerWidth < 768 ? 8 : 10),
-        itemGap: isLandscape ? 12 : (window.innerWidth < 768 ? 8 : 15),
+        itemWidth: isLandscape ? 12 : (window.innerWidth < 768 ? 8 : 12),
+        itemHeight: isLandscape ? 6 : (window.innerWidth < 768 ? 8 : 6),
+        itemGap: isLandscape ? 15 : (window.innerWidth < 768 ? 8 : 20),
         selected: {
           [config.totalReturnName]: false
         }
@@ -268,7 +274,7 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           animationDuration: 1500
         },
         {
-          name: '±1σ',
+          name: '+1σ',
           type: 'line',
           data: sigmaUpper,
           lineStyle: {
@@ -281,7 +287,7 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           animationDuration: 0
         },
         {
-          name: '±1σ',
+          name: '-1σ',
           type: 'line',
           data: sigmaLower,
           lineStyle: {
