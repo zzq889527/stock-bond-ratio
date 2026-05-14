@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { MetricCard, SignalCard } from '../components/MetricCard';
 import { ERPChart } from '../components/ERPChart';
+import { ValuationChart } from '../components/ValuationChart';
 import { IndexSelector } from '../components/IndexSelector';
 import { getERPData, ERPDataItem } from '../data/erpData';
 import { getIndexConfig } from '../data/indexConfig';
@@ -222,6 +223,25 @@ export default function Home() {
               ) : (
                 <div className="h-[400px] sm:h-[500px]">
                   <ERPChart data={data} indexId={selectedIndexId} />
+                </div>
+              )}
+            </div>
+
+            {/* 估值指标图表 */}
+            <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 overflow-hidden shadow-xl shadow-black/20 mb-4">
+              {loading ? (
+                <div className="h-[300px] flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full blur-xl opacity-50 animate-pulse" />
+                      <div className="relative w-12 h-12 border-4 border-slate-700 border-t-cyan-400 rounded-full animate-spin mx-auto mb-4" />
+                    </div>
+                    <p className="text-slate-400">正在加载估值数据...</p>
+                  </div>
+                </div>
+              ) : (
+                <div className="h-[300px]">
+                  <ValuationChart data={data} />
                 </div>
               )}
             </div>

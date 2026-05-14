@@ -8,6 +8,8 @@ export interface ERPDataItem {
   percentile: number;
   signal: string;
   pe_ttm: number;
+  pb: number;
+  dividend_yield: number;
   bond_10y: number;
   index_value: number;
   total_return: number;
@@ -28,7 +30,9 @@ async function loadIndexData(indexId: string): Promise<ERPDataItem[]> {
       const data = await response.json();
       return data.map((item: any) => ({
         ...item,
-        index_value: item.hs300 || item.index_value
+        index_value: item.hs300 || item.index_value,
+        pb: item.pb || 0,
+        dividend_yield: item.dividend_yield || 0
       }));
     }
   } catch (e) {
@@ -88,4 +92,16 @@ export function getIndexValues(data: ERPDataItem[]): number[] {
 
 export function getTotalReturnValues(data: ERPDataItem[]): number[] {
   return data.map(item => item.total_return);
+}
+
+export function getPEValues(data: ERPDataItem[]): number[] {
+  return data.map(item => item.pe_ttm);
+}
+
+export function getPBValues(data: ERPDataItem[]): number[] {
+  return data.map(item => item.pb);
+}
+
+export function getDividendYieldValues(data: ERPDataItem[]): number[] {
+  return data.map(item => item.dividend_yield);
 }
