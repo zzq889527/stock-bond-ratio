@@ -56,6 +56,7 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
 
     const option: echarts.EChartsOption = {
       backgroundColor: 'transparent',
+      color: ['#f59e0b', config.color, '#ef4444', '#6b7280', '#84cc16', '#f97316'],
       animation: true,
       animationDuration: 1500,
       animationEasing: 'cubicOut',
@@ -78,12 +79,12 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
       },
       legend: {
         data: [
-          { name: 'ERP', icon: 'circle', color: '#f59e0b' },
-          { name: config.displayName, icon: 'circle', color: config.color },
-          { name: config.totalReturnName, icon: 'circle', color: '#ef4444' },
-          { name: '均值线', icon: 'rect', color: '#6b7280' },
-          { name: '+1σ', icon: 'rect', color: '#84cc16' },
-          { name: '-1σ', icon: 'rect', color: '#f97316' },
+          { name: 'ERP', icon: 'circle' },
+          { name: config.displayName, icon: 'circle' },
+          { name: config.totalReturnName, icon: 'circle' },
+          { name: '均值线', icon: 'rect' },
+          { name: '+1σ', icon: 'rect' },
+          { name: '-1σ', icon: 'rect' },
         ],
         textStyle: {
           color: '#94a3b8',
@@ -214,6 +215,25 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
       ],
       series: [
         {
+          name: 'ERP',
+          type: 'line',
+          data: erpValues,
+          lineStyle: {
+            color: '#f59e0b',
+            width: isLandscape ? 2.5 : 2.5,
+            opacity: 1
+          },
+          showSymbol: false,
+          smooth: 0.35,
+          animationDuration: 0,
+          areaStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: 'rgba(245, 158, 11, 0.35)' },
+              { offset: 1, color: 'rgba(245, 158, 11, 0.05)' }
+            ])
+          }
+        },
+        {
           name: config.displayName,
           type: 'line',
           yAxisIndex: 1,
@@ -240,25 +260,6 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           smooth: 0.3,
           animationDuration: 0,
           yAxisIndex: 1
-        },
-        {
-          name: 'ERP',
-          type: 'line',
-          data: erpValues,
-          lineStyle: {
-            color: '#f59e0b',
-            width: isLandscape ? 2.5 : 2.5,
-            opacity: 1
-          },
-          showSymbol: false,
-          smooth: 0.35,
-          animationDuration: 0,
-          areaStyle: {
-            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: 'rgba(245, 158, 11, 0.35)' },
-              { offset: 1, color: 'rgba(245, 158, 11, 0.05)' }
-            ])
-          }
         },
         {
           name: '均值线',
