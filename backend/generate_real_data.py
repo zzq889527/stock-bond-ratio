@@ -21,9 +21,9 @@ PUBLIC_PATH.mkdir(exist_ok=True)
 DIST_PATH.mkdir(exist_ok=True)
 
 INDEX_CONFIGS = [
-    {"id": "hs300", "name": "沪深300", "pe_symbol": "沪深300", "price_symbol": "sh000300", "total_return_symbol": "H00300"},
-    {"id": "zz500", "name": "中证500", "pe_symbol": "中证500", "price_symbol": "sh000905", "total_return_symbol": "H00905"},
-    {"id": "zzall", "name": "中证全指", "pe_symbol": "中证800", "price_symbol": "sh000985", "total_return_symbol": "H00985"}
+    {"id": "hs300", "name": "沪深300", "pe_symbol": "沪深300", "price_symbol": "sh000300", "total_return_symbol": "H00300", "index_code": "000300"},
+    {"id": "zz500", "name": "中证500", "pe_symbol": "中证500", "price_symbol": "sh000905", "total_return_symbol": "H00905", "index_code": "000905"},
+    {"id": "zzall", "name": "中证全指", "pe_symbol": "中证800", "price_symbol": "sh000985", "total_return_symbol": "H00985", "index_code": "000985"}
 ]
 
 def calculate_erp(pe, bond_yield):
@@ -58,15 +58,29 @@ def get_pb_data(symbol):
         print(f"获取{symbol} PB数据失败: {e}")
         return None
 
-def get_dividend_yield(symbol):
+PAYOUT_RATIOS = {}
+
+def get_payout_ratio(index_code, index_name):
     try:
-        df = ak.stock_history_dividend(symbol=symbol)
-        df['date'] = pd.to_datetime(df['date'])
-        df = df.rename(columns={'dividend': 'dividend_yield'})
-        return df[['date', 'dividend_yield']]
+        df = ak.stock_zh_index_value_csindex(symbol=index_code)
+        df['日期'] = pd.to_datetime(df['日期'])
+        latest = df.iloc[-1]
+        pe1 = float(latest['市盈率1'])
+        dy1 = float(latest['股息率1'])
+        if pe1 > 0:
+            payout_ratio = dy1 * pe1 / 100
+            print(f"  {index_name}({index_code}) 最新PE={pe1:.2f}, 股息率={dy1:.2f}%, payout_ratio={payout_ratio:.4f}")
+            return payout_ratio
     except Exception as e:
-        print(f"获取{symbol}股息率数据失败: {e}")
-        return None
+        print(f"获取{index_name}({index_code})估值数据失败: {e}")
+    return 0.38
+
+def compute_dividend_yield(pe_series, index_code, index_name):
+    global PAYOUT_RATIOS
+    if index_code not in PAYOUT_RATIOS:
+        PAYOUT_RATIOS[index_code] = get_payout_ratio(index_code, index_name)
+    ratio = PAYOUT_RATIOS[index_code]
+    return (ratio / pe_series * 100).round(3)
 
 def get_total_return(symbol):
     try:
@@ -112,7 +126,7 @@ def process_index_data(index_config):
     df_tr = get_total_return(index_config["total_return_symbol"])
     df_price = get_price_data(index_config["price_symbol"])
     df_bond = get_bond_data()
-    df_dividend = get_dividend_yield(index_config["price_symbol"])
+    df_dividend = compute_dividend_yield(df_pe['pe_ttm'], index_config["index_code"], index_name)
     
     print(f"  PE数据: {len(df_pe)}条")
     if df_pb is not None:
@@ -160,7 +174,7 @@ def process_index_data(index_config):
         df['total_return'] = (df['index_value'] * 1.5).round(1)
     
     if df_dividend is not None:
-        df = pd.merge_asof(df, df_dividend, on='date', direction='nearest')
+        df['dividend_yield'] = df_dividend.values
         df['dividend_yield'] = df['dividend_yield'].ffill().bfill()
     else:
         df['dividend_yield'] = 2.0

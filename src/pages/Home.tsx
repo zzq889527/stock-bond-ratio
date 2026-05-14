@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
+import * as echarts from 'echarts';
 import { MetricCard, SignalCard } from '../components/MetricCard';
 import { ERPChart } from '../components/ERPChart';
-import { ValuationChart } from '../components/ValuationChart';
+import { PEChart } from '../components/PEChart';
+import { PBChart } from '../components/PBChart';
+import { DividendYieldChart } from '../components/DividendYieldChart';
 import { IndexSelector } from '../components/IndexSelector';
 import { getERPData, ERPDataItem } from '../data/erpData';
 import { getIndexConfig } from '../data/indexConfig';
@@ -35,6 +38,10 @@ export default function Home() {
   useEffect(() => {
     loadData(selectedIndexId);
   }, [selectedIndexId]);
+
+  useEffect(() => {
+    echarts.connect('valuationGroup');
+  }, []);
 
   const handleIndexChange = (indexId: string) => {
     setSelectedIndexId(indexId);
@@ -112,22 +119,59 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <div className="flex-1 bg-gradient-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-md rounded-2xl border border-slate-700/40 overflow-hidden shadow-2xl">
-                  {loading ? (
-                    <div className="h-full flex items-center justify-center">
-                      <div className="text-center">
-                        <div className="relative mb-3">
-                          <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full blur-xl opacity-50 animate-pulse" />
-                          <div className="relative w-12 h-12 border-4 border-slate-700 border-t-cyan-400 rounded-full animate-spin mx-auto mb-4" />
+                <div className="flex-1 flex flex-col gap-1.5">
+                  <div className="flex-1 bg-gradient-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-md rounded-2xl border border-slate-700/40 overflow-hidden shadow-2xl">
+                    {loading ? (
+                      <div className="h-full flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="relative mb-3">
+                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full blur-xl opacity-50 animate-pulse" />
+                            <div className="relative w-12 h-12 border-4 border-slate-700 border-t-cyan-400 rounded-full animate-spin mx-auto mb-4" />
+                          </div>
+                          <p className="text-slate-400">正在加载市场数据...</p>
                         </div>
-                        <p className="text-slate-400">正在加载市场数据...</p>
                       </div>
+                    ) : (
+                      <div className="h-full">
+                        <ERPChart data={data} indexId={selectedIndexId} isLandscape={true} />
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex gap-1.5 h-[40%]">
+                    <div className="flex-1 bg-gradient-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-md rounded-2xl border border-slate-700/40 overflow-hidden shadow-2xl">
+                      {loading ? (
+                        <div className="h-full flex items-center justify-center">
+                          <div className="w-8 h-8 border-3 border-slate-700 border-t-cyan-400 rounded-full animate-spin" />
+                        </div>
+                      ) : (
+                        <div className="h-full">
+                          <PEChart data={data} indexId={selectedIndexId} isLandscape={true} />
+                        </div>
+                      )}
                     </div>
-                  ) : (
-                    <div className="h-full">
-                      <ERPChart data={data} indexId={selectedIndexId} isLandscape={true} />
+                    <div className="flex-1 bg-gradient-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-md rounded-2xl border border-slate-700/40 overflow-hidden shadow-2xl">
+                      {loading ? (
+                        <div className="h-full flex items-center justify-center">
+                          <div className="w-8 h-8 border-3 border-slate-700 border-t-amber-400 rounded-full animate-spin" />
+                        </div>
+                      ) : (
+                        <div className="h-full">
+                          <PBChart data={data} indexId={selectedIndexId} isLandscape={true} />
+                        </div>
+                      )}
                     </div>
-                  )}
+                    <div className="flex-1 bg-gradient-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-md rounded-2xl border border-slate-700/40 overflow-hidden shadow-2xl">
+                      {loading ? (
+                        <div className="h-full flex items-center justify-center">
+                          <div className="w-8 h-8 border-3 border-slate-700 border-t-emerald-400 rounded-full animate-spin" />
+                        </div>
+                      ) : (
+                        <div className="h-full">
+                          <DividendYieldChart data={data} indexId={selectedIndexId} isLandscape={true} />
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </main>
@@ -199,10 +243,12 @@ export default function Home() {
                   </div>
                 </div>
               )}
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4">
                 <MetricCard label="均值" value={displayData?.mean.toFixed(2) || '--'} color="#10b981" suffix="%" icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 12h4l3 9 6-18 3 9h4" /></svg>} />
                 <MetricCard label="标准差" value={displayData?.sigma.toFixed(2) || '--'} color="#f59e0b" suffix="%" icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>} />
                 <MetricCard label="PE(TTM)" value={displayData?.pe_ttm.toFixed(1) || '--'} color="#06b6d4" suffix="x" icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>} />
+                <MetricCard label="PB" value={displayData?.pb.toFixed(2) || '--'} color="#f59e0b" suffix="x" icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>} />
+                <MetricCard label="股息率" value={displayData?.dividend_yield.toFixed(2) || '--'} color="#10b981" suffix="%" icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>} />
                 <MetricCard label="10Y国债" value={displayData?.bond_10y.toFixed(2) || '--'} color="#8b5cf6" suffix="%" icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6l9-3 9 3v12l-9 3-9-3V6z" /></svg>} />
                 <MetricCard label={config.displayName} value={displayData?.index_value.toLocaleString() || '--'} color={config.color} icon={<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>} />
               </div>
@@ -227,23 +273,55 @@ export default function Home() {
               )}
             </div>
 
-            {/* 估值指标图表 */}
-            <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 overflow-hidden shadow-xl shadow-black/20 mb-4">
-              {loading ? (
-                <div className="h-[300px] flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="relative">
-                      <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full blur-xl opacity-50 animate-pulse" />
-                      <div className="relative w-12 h-12 border-4 border-slate-700 border-t-cyan-400 rounded-full animate-spin mx-auto mb-4" />
-                    </div>
-                    <p className="text-slate-400">正在加载估值数据...</p>
+            {/* 估值指标图表区域 */}
+            <div className="space-y-4">
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 overflow-hidden shadow-xl shadow-black/20">
+                <div className="px-4 pt-3 pb-0 flex items-center gap-2 border-b border-slate-700/20">
+                  <div className="w-2 h-2 rounded-full bg-cyan-400" />
+                  <span className="text-xs font-semibold text-slate-300">市盈率 PE(TTM)</span>
+                </div>
+                {loading ? (
+                  <div className="h-[220px] flex items-center justify-center">
+                    <div className="w-8 h-8 border-3 border-slate-700 border-t-cyan-400 rounded-full animate-spin" />
                   </div>
+                ) : (
+                  <div className="h-[220px]">
+                    <PEChart data={data} indexId={selectedIndexId} />
+                  </div>
+                )}
+              </div>
+
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 overflow-hidden shadow-xl shadow-black/20">
+                <div className="px-4 pt-3 pb-0 flex items-center gap-2 border-b border-slate-700/20">
+                  <div className="w-2 h-2 rounded-full bg-amber-400" />
+                  <span className="text-xs font-semibold text-slate-300">市净率 PB</span>
                 </div>
-              ) : (
-                <div className="h-[300px]">
-                  <ValuationChart data={data} />
+                {loading ? (
+                  <div className="h-[220px] flex items-center justify-center">
+                    <div className="w-8 h-8 border-3 border-slate-700 border-t-amber-400 rounded-full animate-spin" />
+                  </div>
+                ) : (
+                  <div className="h-[220px]">
+                    <PBChart data={data} indexId={selectedIndexId} />
+                  </div>
+                )}
+              </div>
+
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/30 overflow-hidden shadow-xl shadow-black/20">
+                <div className="px-4 pt-3 pb-0 flex items-center gap-2 border-b border-slate-700/20">
+                  <div className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <span className="text-xs font-semibold text-slate-300">股息率 Dividend Yield</span>
                 </div>
-              )}
+                {loading ? (
+                  <div className="h-[220px] flex items-center justify-center">
+                    <div className="w-8 h-8 border-3 border-slate-700 border-t-emerald-400 rounded-full animate-spin" />
+                  </div>
+                ) : (
+                  <div className="h-[220px]">
+                    <DividendYieldChart data={data} indexId={selectedIndexId} />
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* 信号规则说明 */}
