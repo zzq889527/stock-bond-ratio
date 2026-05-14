@@ -291,7 +291,7 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           type: 'line',
           data: sigmaLower,
           lineStyle: {
-            color: '#84cc16',
+            color: '#f97316',
             width: isLandscape ? 1 : 1,
             type: 'dashed',
             opacity: 0.6
