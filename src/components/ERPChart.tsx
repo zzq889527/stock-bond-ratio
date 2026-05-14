@@ -81,9 +81,9 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           { name: 'ERP', icon: 'circle' },
           { name: config.displayName, icon: 'circle' },
           { name: config.totalReturnName, icon: 'circle' },
-          { name: '均值线', icon: 'path://M0,5 L30,5', iconKeepGlyph: true },
-          { name: '+1σ', icon: 'path://M0,5 L30,5', iconKeepGlyph: true },
-          { name: '-1σ', icon: 'path://M0,5 L30,5', iconKeepGlyph: true },
+          { name: '均值', icon: 'rect' },
+          { name: '+1σ', icon: 'rect' },
+          { name: '-1σ', icon: 'rect' },
         ],
         textStyle: {
           color: '#94a3b8',
