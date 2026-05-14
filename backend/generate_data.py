@@ -180,8 +180,10 @@ def main():
         else:
             data = generate_index_data(base_data, config)
         
+        # 对于hs300，使用erp_data.json；对于其他指数，使用{index}_erp_data.json
+        dist_file_name = "erp_data.json" if config['id'] == 'hs300' else f"{config['id']}_erp_data.json"
         data_path_file = DATA_PATH / f"{config['id']}_erp_data.json"
-        dist_path_file = dist_path / f"{config['id']}_erp_data.json"
+        dist_path_file = dist_path / dist_file_name
         
         with open(data_path_file, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
