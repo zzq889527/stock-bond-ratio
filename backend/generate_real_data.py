@@ -136,21 +136,38 @@ def get_real_data_for_index(config):
     
     # 合并全收益数据
     if df_tr is not None:
+        # 记录全收益数据的截止日期
+        tr_max_date = df_tr['date'].max()
+        
         df = pd.merge_asof(
             df,
             df_tr,
             on='date',
-            direction='nearest',
-            tolerance=pd.Timedelta('0 days')
+            direction='nearest'
         )
         
-        # 填充缺失的全收益数据
+        # 填充缺失的全收益数据（前面的缺失）
         first_valid_idx = df['total_return'].first_valid_index()
         if first_valid_idx is not None and first_valid_idx > 0:
             ratio = df.loc[first_valid_idx, 'total_return'] / df.loc[first_valid_idx, 'index_value']
             df.loc[:first_valid_idx-1, 'total_return'] = (
                 df.loc[:first_valid_idx-1, 'index_value'] * ratio
             ).round(1)
+        
+        # 全收益数据截止日期之后的数据，用价格指数推算
+        mask_after_tr = df['date'] > tr_max_date
+        if mask_after_tr.any():
+            last_tr_row = df[df['date'] <= tr_max_date].iloc[-1]
+            if df_price is not None and df_price['date'].max() > tr_max_date:
+                last_ratio = last_tr_row['total_return'] / last_tr_row['price_close']
+                df.loc[mask_after_tr, 'total_return'] = (
+                    df.loc[mask_after_tr, 'price_close'] * last_ratio
+                ).round(1)
+            else:
+                last_ratio = last_tr_row['total_return'] / last_tr_row['index_value']
+                df.loc[mask_after_tr, 'total_return'] = (
+                    df.loc[mask_after_tr, 'index_value'] * last_ratio
+                ).round(1)
         
         df['total_return'] = df['total_return'].ffill().bfill()
     else:
