@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import * as echarts from 'echarts';
 import {
   getDates,
@@ -10,7 +10,7 @@ import {
   getTotalReturnValues,
   ERPDataItem
 } from '../data/erpData';
-import { getIndexConfig, IndexConfig } from '../data/indexConfig';
+import { getIndexConfig } from '../data/indexConfig';
 
 interface ERPChartProps {
   data: ERPDataItem[];
@@ -44,50 +44,15 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
     const indexValues = getIndexValues(data);
     const totalReturnValues = getTotalReturnValues(data);
 
-    const mean = data[0].mean;
+    // 计算自适应的ERP轴范围
     const minERP = Math.min(...erpValues);
     const maxERP = Math.max(...erpValues);
-
+    const erpPadding = (maxERP - minERP) * 0.15;
+    
+    // 计算自适应的指数轴范围
     const minIndex = Math.min(...indexValues, ...totalReturnValues);
     const maxIndex = Math.max(...indexValues, ...totalReturnValues);
     const indexPadding = (maxIndex - minIndex) * 0.1;
-
-    // 横屏模式下的图表配置
-    const landscapeGrid = [
-      {
-        left: '6%',
-        right: '6%',
-        top: '12%',
-        bottom: '10%',
-        containLabel: true
-      },
-      {
-        left: '6%',
-        right: '6%',
-        top: '88%',
-        height: '8%',
-        containLabel: true,
-        show: false
-      }
-    ];
-
-    const portraitGrid = [
-      {
-        left: window.innerWidth < 768 ? '3%' : '5%',
-        right: window.innerWidth < 768 ? '3%' : '5%',
-        top: window.innerWidth < 768 ? '15%' : '12%',
-        height: window.innerWidth < 768 ? '58%' : '65%',
-        containLabel: true
-      },
-      {
-        left: window.innerWidth < 768 ? '3%' : '5%',
-        right: window.innerWidth < 768 ? '3%' : '5%',
-        top: window.innerWidth < 768 ? '75%' : '78%',
-        height: window.innerWidth < 768 ? '10%' : '12%',
-        containLabel: true,
-        show: false
-      }
-    ];
 
     const option: echarts.EChartsOption = {
       backgroundColor: 'transparent',
@@ -109,21 +74,6 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
             color: 'rgba(148, 163, 184, 0.5)',
             type: 'dashed'
           }
-        },
-        formatter: function(params: any) {
-          let result = `<div style="font-weight: 600; margin-bottom: 8px;">${params[0].axisValue}</div>`;
-          params.forEach((param: any) => {
-            if (param.seriesName !== 'ERP柱状') {
-              const color = param.color;
-              const value = typeof param.value === 'number' ? param.value.toLocaleString() : param.value;
-              result += `<div style="display: flex; align-items: center; gap: 8px; margin: 4px 0;">
-                <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: ${color};"></span>
-                <span style="flex: 1;">${param.seriesName}</span>
-                <span style="font-weight: 600; font-variant-numeric: tabular-nums;">${value}</span>
-              </div>`;
-            }
-          });
-          return result;
         }
       },
       legend: {
@@ -142,51 +92,45 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           [config.totalReturnName]: false
         }
       },
-      grid: isLandscape ? landscapeGrid : portraitGrid,
-      xAxis: [
-        {
-          type: 'category',
-          data: dates,
-          axisLine: {
-            lineStyle: {
-              color: 'rgba(100, 116, 139, 0.4)'
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            color: '#64748b',
-            fontSize: isLandscape ? 10 : (window.innerWidth < 768 ? 9 : 11),
-            rotate: isLandscape ? 0 : (window.innerWidth < 768 ? 45 : 0),
-            interval: isLandscape ? Math.floor(dates.length / 10) : (window.innerWidth < 768 ? Math.floor(dates.length / 4) : Math.floor(dates.length / 10)),
-            showMaxLabel: true
-          },
-          splitLine: {
-            show: false
+      grid: {
+        left: window.innerWidth < 768 ? '3%' : '5%',
+        right: window.innerWidth < 768 ? '3%' : '5%',
+        top: window.innerWidth < 768 ? '15%' : '12%',
+        height: window.innerWidth < 768 ? '58%' : '65%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'category',
+        data: dates,
+        axisLine: {
+          lineStyle: {
+            color: 'rgba(100, 116, 139, 0.4)'
           }
         },
-        {
-          type: 'category',
-          gridIndex: 1,
-          data: dates,
-          axisLine: { show: false },
-          axisTick: { show: false },
-          axisLabel: { show: false },
-          splitLine: { show: false }
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          color: '#64748b',
+          fontSize: isLandscape ? 10 : (window.innerWidth < 768 ? 9 : 11),
+          rotate: window.innerWidth < 768 ? 45 : 0,
+          interval: Math.floor(dates.length / 10),
+          showMaxLabel: true
+        },
+        splitLine: {
+          show: false
         }
-      ],
+      },
       yAxis: [
         {
           type: 'value',
           name: 'ERP %',
           nameTextStyle: {
             color: '#64748b',
-            fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 10 : 12),
-            padding: [0, 0, isLandscape ? 0 : (window.innerWidth < 768 ? 0 : 8), 0]
+            fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 10 : 12)
           },
-          min: -5,
-          max: 14,
+          min: Math.floor((minERP - erpPadding) * 2) / 2,
+          max: Math.ceil((maxERP + erpPadding) * 2) / 2,
           axisLine: {
             show: true,
             lineStyle: {
@@ -213,8 +157,7 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           name: config.displayName,
           nameTextStyle: {
             color: '#64748b',
-            fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 10 : 12),
-            padding: [0, 0, isLandscape ? 0 : (window.innerWidth < 768 ? 0 : 8), 0]
+            fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 10 : 12)
           },
           min: Math.floor((minIndex - indexPadding) / 500) * 500,
           max: Math.ceil((maxIndex + indexPadding) / 500) * 500,
@@ -232,28 +175,18 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
             fontSize: isLandscape ? 10 : (window.innerWidth < 768 ? 9 : 11)
           },
           splitLine: { show: false }
-        },
-        {
-          type: 'value',
-          gridIndex: 1,
-          axisLine: { show: false },
-          axisTick: { show: false },
-          axisLabel: { show: false },
-          splitLine: { show: false }
         }
       ],
       dataZoom: [
         {
           type: 'inside',
-          xAxisIndex: [0, 1],
+          xAxisIndex: 0,
           start: 0,
-          end: 100,
-          zoomOnMouseWheel: true,
-          moveOnMouseMove: true
+          end: 100
         },
         {
           type: 'slider',
-          xAxisIndex: [0, 1],
+          xAxisIndex: 0,
           start: 0,
           end: 100,
           bottom: isLandscape ? 5 : (window.innerWidth < 768 ? 5 : 10),
@@ -265,24 +198,12 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
             color: '#06b6d4',
             borderColor: '#22d3ee'
           },
-          moveHandleStyle: {
-            color: '#06b6d4'
-          },
           textStyle: {
             color: '#94a3b8',
             fontSize: isLandscape ? 9 : (window.innerWidth < 768 ? 9 : 11)
           },
           showDataShadow: false,
-          showDetail: false,
-          emphasis: {
-            handleStyle: {
-              color: '#22d3ee',
-              borderColor: '#67e8f9'
-            },
-            handleLabel: {
-              show: false
-            }
-          }
+          showDetail: false
         }
       ],
       series: [
@@ -371,29 +292,6 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           },
           showSymbol: false,
           animationDuration: 0
-        },
-        {
-          name: 'ERP柱状',
-          type: 'bar',
-          xAxisIndex: 1,
-          yAxisIndex: 2,
-          data: erpValues.map((v) => ({
-            value: v - mean,
-            itemStyle: {
-              color: v >= mean 
-                ? new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                    { offset: 0, color: '#10b981' },
-                    { offset: 1, color: '#059669' }
-                  ])
-                : new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                    { offset: 0, color: '#ef4444' },
-                    { offset: 1, color: '#dc2626' }
-                  ]),
-              opacity: isLandscape ? 0.7 : 0.8
-            }
-          })),
-          barWidth: isLandscape ? '50%' : '60%',
-          animationDuration: 2000
         },
         {
           name: '当前ERP',
