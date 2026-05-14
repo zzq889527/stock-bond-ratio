@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试页面</title>
+  <script>
+    async function testData() {
+      const files = ['erp_data.json', 'hs300_eq_erp_data.json', 'zz500_erp_data.json', 'zz500_eq_erp_data.json', 'zzall_erp_data.json', 'zzall_eq_erp_data.json'];
+      for (const file of files) {
+        try {
+          const response = await fetch('./' + file);
+          if (response.ok) {
+            const data = await response.json();
+            console.log(file, 'loaded successfully, length:', data.length);
+            document.getElementById('result').innerHTML += `<p style="color:green">✓ ${file}: 成功加载 ${data.length} 条数据</p>`;
+          } else {
+            console.log(file, 'failed:', response.status);
+            document.getElementById('result').innerHTML += `<p style="color:red">✗ ${file}: 加载失败 (${response.status})</p>`;
+          }
+        } catch (e) {
+          console.log(file, 'error:', e);
+          document.getElementById('result').innerHTML += `<p style="color:red">✗ ${file}: 错误 - ${e.message}</p>`;
+        }
+      }
+    }
+  </script>
+</head>
+<body onload="testData()">
+  <h1>数据文件测试</h1>
+  <div id="result"></div>
+</body>
+</html>
