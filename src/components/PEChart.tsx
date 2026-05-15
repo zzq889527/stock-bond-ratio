@@ -60,9 +60,12 @@ export function PEChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
     const maxIndex = Math.max(...indexValues);
     const indexPadding = (maxIndex - minIndex) * 0.1;
 
-    const logPad = Math.max(1, (maxIndex - minIndex) * 0.1);
-    const logMin = Math.pow(10, Math.floor(Math.log10(Math.max(1, minIndex - logPad))));
-    const logMax = Math.pow(10, Math.ceil(Math.log10(maxIndex + logPad)));
+    const logMinVal = Math.log10(Math.max(1, minIndex));
+    const logMaxVal = Math.log10(maxIndex);
+    const logRange = logMaxVal - logMinVal;
+    const logPad = logRange * 0.1;
+    const logMin = Number(Math.pow(10, logMinVal - logPad).toPrecision(2));
+    const logMax = Number(Math.pow(10, logMaxVal + logPad).toPrecision(2));
 
     const option: echarts.EChartsOption = {
       backgroundColor: 'transparent',
