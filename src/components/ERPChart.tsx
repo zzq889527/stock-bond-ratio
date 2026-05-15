@@ -343,9 +343,11 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
 
       chartInstance.current.setOption({
         yAxis: [{
+          type: 'value',
           min: Math.floor((vMin - vPad) * 2) / 2,
           max: Math.ceil((vMax + vPad) * 2) / 2
         }, {
+          type: 'value',
           min: Math.floor((iMin - iPad) / 500) * 500,
           max: Math.ceil((iMax + iPad) / 500) * 500
         }]
