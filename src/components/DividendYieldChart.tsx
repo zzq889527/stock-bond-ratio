@@ -345,9 +345,11 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
 
       chartInstance.current.setOption({
         yAxis: [{
+          type: 'value',
           min: Math.max(0, Math.floor((vMin - vPad) * 20) / 20),
           max: Math.ceil((vMax + vPad) * 20) / 20
         }, {
+          type: 'value',
           min: Math.floor((iMin - iPad) / 500) * 500,
           max: Math.ceil((iMax + iPad) / 500) * 500
         }]

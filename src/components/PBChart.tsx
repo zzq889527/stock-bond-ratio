@@ -345,9 +345,11 @@ export function PBChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
 
       chartInstance.current.setOption({
         yAxis: [{
+          type: 'value',
           min: Math.max(0, Math.floor((vMin - vPad) * 2) / 2),
           max: Math.ceil((vMax + vPad) * 2) / 2
         }, {
+          type: 'value',
           min: Math.floor((iMin - iPad) / 500) * 500,
           max: Math.ceil((iMax + iPad) / 500) * 500
         }]

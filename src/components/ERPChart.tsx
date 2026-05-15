@@ -160,14 +160,13 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           }
         },
         {
-          type: 'log',
-          logBase: 10,
+          type: 'value',
           name: config.displayName,
           nameTextStyle: {
             color: '#64748b',
             fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 10 : 12)
           },
-          min: Math.max(100, Math.floor((minIndex - indexPadding) / 500) * 500),
+          min: Math.floor((minIndex - indexPadding) / 500) * 500,
           max: Math.ceil((maxIndex + indexPadding) / 500) * 500,
           axisLine: {
             show: true,
@@ -348,9 +347,8 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           min: Math.floor((vMin - vPad) * 2) / 2,
           max: Math.ceil((vMax + vPad) * 2) / 2
         }, {
-          type: 'log',
-          logBase: 10,
-          min: Math.max(100, Math.floor((iMin - iPad) / 500) * 500),
+          type: 'value',
+          min: Math.floor((iMin - iPad) / 500) * 500,
           max: Math.ceil((iMax + iPad) / 500) * 500
         }]
       });
