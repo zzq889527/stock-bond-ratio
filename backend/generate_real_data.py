@@ -11,6 +11,10 @@ import numpy as np
 from datetime import datetime
 import json
 from pathlib import Path
+import requests
+from bs4 import BeautifulSoup
+import re
+import pandas_datareader.data as web
 
 DATA_PATH = Path(__file__).parent / "data"
 PUBLIC_PATH = Path(__file__).parent.parent / "public"
@@ -218,6 +222,170 @@ def process_index_data(index_config):
     print(f"  ✓ 完成: {len(df)}条")
     return df
 
+def get_sp500_data():
+    print("  获取标普500数据...")
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+    
+    def parse_multpl(url, name):
+        try:
+            resp = requests.get(url, headers=headers, timeout=15)
+            soup = BeautifulSoup(resp.content, 'html.parser')
+            table = soup.find('table')
+            rows = table.find_all('tr')
+            data = []
+            for row in rows[1:]:
+                cols = row.find_all('td')
+                if len(cols) >= 2:
+                    date_str = cols[0].get_text(strip=True)
+                    val_str = cols[1].get_text(strip=True)
+                    val_str = re.sub(r'[†‡%]', '', val_str)
+                    try:
+                        val = float(val_str)
+                        data.append((date_str, val))
+                    except:
+                        pass
+            df = pd.DataFrame(data, columns=['date_str', name])
+            df['date'] = pd.to_datetime(df['date_str'], format='mixed')
+            df = df.sort_values('date').reset_index(drop=True)
+            print("    " + name + ": " + str(len(df)) + "行, " + str(df['date'].min().date()) + " ~ " + str(df['date'].max().date()))
+            return df
+        except Exception as e:
+            print(f"    获取{name}失败: {e}")
+            return None
+    
+    pe_df = parse_multpl('https://www.multpl.com/s-p-500-pe-ratio/table/by-month', 'pe_ttm')
+    div_df = parse_multpl('https://www.multpl.com/s-p-500-dividend-yield/table/by-month', 'dividend_yield')
+    pb_df = parse_multpl('https://www.multpl.com/s-p-500-price-to-book/table/by-month', 'pb')
+    adj_price_df = parse_multpl('https://www.multpl.com/inflation-adjusted-s-p-500/table/by-month', 'adj_price')
+    
+    if pe_df is None:
+        return None
+    
+    start = datetime(1871, 1, 1)
+    end = datetime(2026, 5, 15)
+    
+    print("  获取CPI数据...")
+    try:
+        cpi = web.DataReader('CPIAUCNS', 'fred', start, end)
+        cpi = cpi.reset_index()
+        cpi.columns = ['date', 'cpi']
+        cpi['date'] = pd.to_datetime(cpi['date'])
+        cpi = cpi.sort_values('date').reset_index(drop=True)
+        latest_cpi = cpi['cpi'].iloc[-1]
+        print("    CPI: " + str(len(cpi)) + "行, 最新=" + str(latest_cpi))
+    except Exception as e:
+        print(f"    获取CPI失败: {e}")
+        return None
+    
+    print("  获取FRED SP500...")
+    try:
+        sp_fred = web.DataReader('SP500', 'fred', start, end)
+        sp_fred = sp_fred.reset_index()
+        sp_fred.columns = ['date', 'fred_price']
+        sp_fred['date'] = pd.to_datetime(sp_fred['date'])
+        sp_fred = sp_fred.sort_values('date').reset_index(drop=True)
+        sp_fred = sp_fred.dropna()
+        print("    FRED SP500: " + str(len(sp_fred)) + "行, " + str(sp_fred['date'].min().date()) + " ~ " + str(sp_fred['date'].max().date()))
+    except Exception as e:
+        print(f"    获取FRED SP500失败: {e}")
+        sp_fred = None
+    
+    print("  获取美债10Y收益率...")
+    try:
+        dgs10 = web.DataReader('DGS10', 'fred', start, end)
+        dgs10 = dgs10.reset_index()
+        dgs10.columns = ['date', 'bond_10y']
+        dgs10['date'] = pd.to_datetime(dgs10['date'])
+        dgs10 = dgs10.sort_values('date').reset_index(drop=True)
+        dgs10 = dgs10.dropna()
+        print("    DGS10: " + str(len(dgs10)) + "行, " + str(dgs10['date'].min().date()) + " ~ " + str(dgs10['date'].max().date()))
+    except Exception as e:
+        print(f"    获取DGS10失败: {e}")
+        return None
+    
+    # Convert inflation-adjusted price to nominal
+    print("  转换价格数据...")
+    price_df = adj_price_df.copy()
+    if price_df is not None:
+        price_df = pd.merge_asof(price_df, cpi[['date', 'cpi']], on='date')
+        price_df['nominal_price'] = price_df['adj_price'] * (price_df['cpi'] / latest_cpi)
+        price_df = price_df[['date', 'nominal_price']].dropna()
+    
+    if sp_fred is not None and price_df is not None:
+        price_merged = pd.merge(price_df, sp_fred, on='date', how='outer')
+        price_merged = price_merged.sort_values('date').reset_index(drop=True)
+        price_merged['price'] = price_merged['nominal_price'].fillna(price_merged['fred_price'])
+        price_merged = price_merged[['date', 'price']].dropna()
+    elif price_df is not None:
+        price_merged = price_df.rename(columns={'nominal_price': 'price'})
+    elif sp_fred is not None:
+        price_merged = sp_fred.rename(columns={'fred_price': 'price'})
+    else:
+        price_merged = None
+    
+    # Merge with PE and fill gaps
+    df = pe_df[['date', 'pe_ttm']].copy()
+    if price_merged is not None:
+        df = pd.merge(df, price_merged, on='date', how='left')
+        df['eps'] = df['price'] / df['pe_ttm']
+        df['eps'] = df['eps'].interpolate(method='linear')
+        df['price'] = df['price'].fillna(df['eps'] * df['pe_ttm'])
+        df = df.dropna(subset=['price'])
+    else:
+        df['price'] = df['pe_ttm'] * 100
+    
+    df = df.rename(columns={'price': 'index_value'})
+    
+    # Merge with dividend yield and PB
+    if div_df is not None:
+        df = pd.merge_asof(df, div_df[['date', 'dividend_yield']], on='date')
+    else:
+        df['dividend_yield'] = 0.0
+    
+    if pb_df is not None:
+        df = pd.merge_asof(df, pb_df[['date', 'pb']], on='date')
+    else:
+        df['pb'] = 0.0
+    
+    # Merge with bond yield
+    df = pd.merge_asof(df, dgs10[['date', 'bond_10y']], on='date')
+    df['bond_10y'] = df['bond_10y'].ffill().bfill()
+    
+    df = df.dropna(subset=['index_value', 'pe_ttm', 'bond_10y'])
+    df = df[df['date'] >= pd.Timestamp('1962-01-01')]
+    df = df[df['date'] <= pd.Timestamp(datetime.now())]
+    
+    # Calculate ERP: 1/PE * 100 - US 10Y Bond Yield
+    df['erp'] = df.apply(lambda row: calculate_erp(row['pe_ttm'], row['bond_10y']), axis=1)
+    df = df.dropna(subset=['erp'])
+    
+    df['tr_p'] = (100 / df['pe_ttm']).round(2)
+    
+    mean_erp = round(df['erp'].mean(), 2)
+    std_erp = round(df['erp'].std(), 2)
+    
+    df['mean'] = mean_erp
+    df['sigma'] = std_erp
+    df['percentile'] = (df['erp'].rank(pct=True) * 100).round(0).astype(int)
+    
+    def get_signal(erp):
+        if erp > mean_erp + std_erp:
+            return '极度低估'
+        elif erp > mean_erp + 0.5 * std_erp:
+            return '低估'
+        elif erp >= mean_erp - 0.5 * std_erp:
+            return '均衡'
+        elif erp >= mean_erp - std_erp:
+            return '高估'
+        else:
+            return '极度高估'
+    
+    df['signal'] = df['erp'].apply(get_signal)
+    df['date'] = df['date'].dt.strftime('%Y-%m-%d')
+    
+    print("  ✓ 标普500完成: " + str(len(df)) + "条, " + str(df['date'].iloc[0]) + " ~ " + str(df['date'].iloc[-1]))
+    return df
+
 def generate_all_data():
     print("=== 开始生成股债收益比数据 ===")
     
@@ -262,6 +430,34 @@ def generate_all_data():
         with open(dist_file, 'w', encoding='utf-8') as f:
             json.dump(records, f, ensure_ascii=False, indent=2)
         print(f"  保存到dist: {dist_file}")
+    
+    print("\n=== 标普500数据生成 ===")
+    df_sp500 = get_sp500_data()
+    if df_sp500 is not None:
+        records = []
+        for _, row in df_sp500.iterrows():
+            record = {
+                'date': str(row['date']),
+                'erp': float(row['erp']),
+                'mean': float(row['mean']),
+                'sigma': float(row['sigma']),
+                'percentile': int(row['percentile']),
+                'signal': str(row['signal']),
+                'pe_ttm': float(row['pe_ttm']),
+                'pb': float(row['pb']) if 'pb' in df_sp500.columns and pd.notna(row['pb']) else 0.0,
+                'dividend_yield': float(row['dividend_yield']) if 'dividend_yield' in df_sp500.columns and pd.notna(row['dividend_yield']) else 0.0,
+                'bond_10y': float(row['bond_10y']),
+                'index_value': float(row['index_value']),
+                'total_return': float(row['index_value']),
+                'tr_p': float(row['tr_p'])
+            }
+            records.append(record)
+        
+        for path in [DATA_PATH, PUBLIC_PATH, DIST_PATH]:
+            file_path = path / 'sp500_erp_data.json'
+            with open(file_path, 'w', encoding='utf-8') as f:
+                json.dump(records, f, ensure_ascii=False, indent=2)
+            print(f"  保存: {file_path}")
     
     print("\n=== 数据生成完成 ===")
 

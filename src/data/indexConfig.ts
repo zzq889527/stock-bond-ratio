@@ -40,6 +40,16 @@ export const INDEX_CONFIGS: IndexConfig[] = [
     priceSymbol: 'sh000985',
     totalReturnSymbol: 'H00985',
     color: '#8b5cf6'
+  },
+  {
+    id: 'sp500',
+    name: '标普500',
+    displayName: '标普500',
+    totalReturnName: '标普500',
+    peSymbol: 'S&P 500',
+    priceSymbol: 'SP500',
+    totalReturnSymbol: 'SP500',
+    color: '#ff6b35'
   }
 ];
 

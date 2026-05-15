@@ -62,7 +62,7 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
 
     const option: echarts.EChartsOption = {
       backgroundColor: 'transparent',
-      color: ['#10b981', config.color, '#6b7280', '#22c55e', '#ef4444'],
+      color: ['#3b82f6', '#6b7280', '#6b7280', '#22c55e', '#ef4444'],
       animation: true,
       animationDuration: 1500,
       animationEasing: 'cubicOut',
@@ -202,10 +202,10 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
           height: isLandscape ? 14 : (window.innerWidth < 768 ? 20 : 30),
           borderColor: 'rgba(100, 116, 139, 0.3)',
           backgroundColor: 'rgba(30, 41, 59, 0.5)',
-          fillerColor: 'rgba(16, 185, 129, 0.2)',
+          fillerColor: 'rgba(59, 130, 246, 0.2)',
           handleStyle: {
-            color: '#10b981',
-            borderColor: '#34d399'
+            color: '#3b82f6',
+            borderColor: '#60a5fa'
           },
           textStyle: {
             color: '#94a3b8',
@@ -221,7 +221,7 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
           type: 'line',
           data: dyValues,
           lineStyle: {
-            color: '#10b981',
+            color: '#3b82f6',
             width: isLandscape ? 2.5 : 2.5,
             opacity: 1
           },
@@ -230,8 +230,8 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
           animationDuration: 0,
           areaStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: 'rgba(16, 185, 129, 0.35)' },
-              { offset: 1, color: 'rgba(16, 185, 129, 0.05)' }
+              { offset: 0, color: 'rgba(59, 130, 246, 0.35)' },
+              { offset: 1, color: 'rgba(59, 130, 246, 0.05)' }
             ])
           }
         },
@@ -241,7 +241,7 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
           yAxisIndex: 1,
           data: indexValues,
           lineStyle: {
-            color: config.color,
+            color: '#6b7280',
             width: isLandscape ? 1 : 1,
             opacity: 0.55
           },
@@ -250,8 +250,8 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
           animationDuration: 0,
           areaStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: hexToRgba(config.color, 0.20) },
-              { offset: 1, color: hexToRgba(config.color, 0.02) }
+              { offset: 0, color: 'rgba(107, 114, 128, 0.20)' },
+              { offset: 1, color: 'rgba(107, 114, 128, 0.02)' }
             ])
           }
         },
@@ -301,17 +301,17 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
           symbol: 'circle',
           symbolSize: isLandscape ? 8 : 10,
           itemStyle: {
-            color: '#10b981',
+            color: '#3b82f6',
             borderColor: '#fff',
             borderWidth: 2,
-            shadowColor: 'rgba(16, 185, 129, 0.6)',
+            shadowColor: 'rgba(59, 130, 246, 0.6)',
             shadowBlur: 10
           },
           label: {
             show: true,
             position: 'right',
             offset: [isLandscape ? 10 : 5, 0],
-            color: '#10b981',
+            color: '#3b82f6',
             fontSize: isLandscape ? 11 : 12,
             fontWeight: 'bold',
             formatter: `${currentVal.toFixed(2)}% · ${percentile}分位`
@@ -343,6 +343,11 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
       const iMax = Math.max(...visIdx);
       const iPad = (iMax - iMin) * 0.1;
 
+      const visMean = visVals.reduce((a, b) => a + b, 0) / visVals.length;
+      const visStd = Math.sqrt(visVals.reduce((sq, v) => sq + (v - visMean) ** 2, 0) / visVals.length);
+      const visCur = visVals[visVals.length - 1];
+      const visPct = (visVals.filter(v => v <= visCur).length / visVals.length * 100).toFixed(0);
+
       chartInstance.current.setOption({
         yAxis: [{
           type: 'value',
@@ -352,7 +357,13 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
           type: 'value',
           min: Math.floor((iMin - iPad) / 500) * 500,
           max: Math.ceil((iMax + iPad) / 500) * 500
-        }]
+        }],
+        series: [
+          { name: '均值线', data: dyValues.map(() => +visMean.toFixed(2)) },
+          { name: '+1σ', data: dyValues.map(() => +(visMean + visStd).toFixed(2)) },
+          { name: '-1σ', data: dyValues.map(() => Math.max(0, +(visMean - visStd).toFixed(2))) },
+          { name: '当前股息率', data: [[dates.length - 1, visCur]], label: { formatter: `${visCur.toFixed(2)}% · ${visPct}分位` } }
+        ]
       });
     };
 

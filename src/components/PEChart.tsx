@@ -62,7 +62,7 @@ export function PEChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
 
     const option: echarts.EChartsOption = {
       backgroundColor: 'transparent',
-      color: ['#3b82f6', config.color, '#6b7280', '#22c55e', '#ef4444'],
+      color: ['#3b82f6', '#6b7280', '#6b7280', '#22c55e', '#ef4444'],
       animation: true,
       animationDuration: 1500,
       animationEasing: 'cubicOut',
@@ -241,7 +241,7 @@ export function PEChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
           yAxisIndex: 1,
           data: indexValues,
           lineStyle: {
-            color: config.color,
+            color: '#6b7280',
             width: isLandscape ? 1 : 1,
             opacity: 0.55
           },
@@ -250,8 +250,8 @@ export function PEChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
           animationDuration: 0,
           areaStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: hexToRgba(config.color, 0.20) },
-              { offset: 1, color: hexToRgba(config.color, 0.02) }
+              { offset: 0, color: 'rgba(107, 114, 128, 0.20)' },
+              { offset: 1, color: 'rgba(107, 114, 128, 0.02)' }
             ])
           }
         },
@@ -343,6 +343,11 @@ export function PEChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
       const iMax = Math.max(...visIdx);
       const iPad = (iMax - iMin) * 0.1;
 
+      const visMean = visVals.reduce((a, b) => a + b, 0) / visVals.length;
+      const visStd = Math.sqrt(visVals.reduce((sq, v) => sq + (v - visMean) ** 2, 0) / visVals.length);
+      const visCur = visVals[visVals.length - 1];
+      const visPct = (visVals.filter(v => v <= visCur).length / visVals.length * 100).toFixed(0);
+
       chartInstance.current.setOption({
         yAxis: [{
           type: 'value',
@@ -352,7 +357,13 @@ export function PEChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
           type: 'value',
           min: Math.floor((iMin - iPad) / 500) * 500,
           max: Math.ceil((iMax + iPad) / 500) * 500
-        }]
+        }],
+        series: [
+          { name: '均值线', data: peValues.map(() => +visMean.toFixed(2)) },
+          { name: '+1σ', data: peValues.map(() => +(visMean + visStd).toFixed(2)) },
+          { name: '-1σ', data: peValues.map(() => +(visMean - visStd).toFixed(2)) },
+          { name: '当前PE', data: [[dates.length - 1, visCur]], label: { formatter: `${visCur.toFixed(1)}x · ${visPct}分位` } }
+        ]
       });
     };
 

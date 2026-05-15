@@ -9,7 +9,7 @@ export function IndexSelector({ selectedIndexId, onIndexChange }: IndexSelectorP
   return (
     <div className="w-full">
       <div className="text-xs text-slate-400 mb-2">选择指数</div>
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         {INDEX_CONFIGS.map((config) => (
           <button
             key={config.id}

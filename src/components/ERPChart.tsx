@@ -50,6 +50,9 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
     const sigmaLower = getSigmaLower(data);
     const indexValues = getIndexValues(data);
 
+    const currentERP = erpValues[erpValues.length - 1];
+    const erpPercentile = (erpValues.filter(v => v <= currentERP).length / erpValues.length * 100).toFixed(0);
+
     const minERP = Math.min(...erpValues);
     const maxERP = Math.max(...erpValues);
     const erpPadding = (maxERP - minERP) * 0.15;
@@ -60,7 +63,7 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
 
     const option: echarts.EChartsOption = {
       backgroundColor: 'transparent',
-      color: ['#f59e0b', config.color, '#6b7280', '#22c55e', '#ef4444'],
+      color: ['#f59e0b', '#6b7280', '#6b7280', '#22c55e', '#ef4444'],
       animation: true,
       animationDuration: 1500,
       animationEasing: 'cubicOut',
@@ -239,7 +242,7 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           yAxisIndex: 1,
           data: indexValues,
           lineStyle: {
-            color: config.color,
+            color: '#6b7280',
             width: isLandscape ? 1 : 1,
             opacity: 0.55
           },
@@ -248,8 +251,8 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           animationDuration: 0,
           areaStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: hexToRgba(config.color, 0.20) },
-              { offset: 1, color: hexToRgba(config.color, 0.02) }
+              { offset: 0, color: 'rgba(107, 114, 128, 0.20)' },
+              { offset: 1, color: 'rgba(107, 114, 128, 0.02)' }
             ])
           }
         },
@@ -312,7 +315,7 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
             color: '#f59e0b',
             fontSize: isLandscape ? 11 : 12,
             fontWeight: 'bold',
-            formatter: `${erpValues[erpValues.length - 1].toFixed(2)}%`
+            formatter: `${currentERP.toFixed(2)}% · ${erpPercentile}分位`
           },
           animationDuration: 1500,
           animationDelay: 1000
@@ -341,6 +344,11 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
       const iMax = Math.max(...visIdx);
       const iPad = (iMax - iMin) * 0.1;
 
+      const visMean = visERP.reduce((a, b) => a + b, 0) / visERP.length;
+      const visStd = Math.sqrt(visERP.reduce((sq, v) => sq + (v - visMean) ** 2, 0) / visERP.length);
+      const visCur = visERP[visERP.length - 1];
+      const visPct = (visERP.filter(v => v <= visCur).length / visERP.length * 100).toFixed(0);
+
       chartInstance.current.setOption({
         yAxis: [{
           type: 'value',
@@ -350,7 +358,13 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           type: 'value',
           min: Math.floor((iMin - iPad) / 500) * 500,
           max: Math.ceil((iMax + iPad) / 500) * 500
-        }]
+        }],
+        series: [
+          { name: '均值线', data: erpValues.map(() => +visMean.toFixed(2)) },
+          { name: '+1σ', data: erpValues.map(() => +(visMean + visStd).toFixed(2)) },
+          { name: '-1σ', data: erpValues.map(() => +(visMean - visStd).toFixed(2)) },
+          { name: '当前ERP', data: [[dates.length - 1, visCur]], label: { formatter: `${visCur.toFixed(2)}% · ${visPct}分位` } }
+        ]
       });
     };
 
