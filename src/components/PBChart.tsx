@@ -248,17 +248,17 @@ export function PBChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
           yAxisIndex: 1,
           data: indexValues,
           lineStyle: {
-            color: '#6b7280',
-            width: isLandscape ? 1 : 1,
-            opacity: 0.55
+            color: config.color,
+            width: isLandscape ? 1.5 : 1.5,
+            opacity: 0.85
           },
           showSymbol: false,
           smooth: 0.3,
           animationDuration: 0,
           areaStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: 'rgba(107, 114, 128, 0.20)' },
-              { offset: 1, color: 'rgba(107, 114, 128, 0.02)' }
+              { offset: 0, color: config.color + '33' },
+              { offset: 1, color: config.color + '08' }
             ])
           }
         },
