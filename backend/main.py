@@ -1,5 +1,6 @@
 import sys
 import io
+import time
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
@@ -250,6 +251,9 @@ def get_sp500_data():
             resp = requests.get(url, headers=headers, timeout=15)
             soup = BeautifulSoup(resp.content, 'html.parser')
             table = soup.find('table')
+            if not table:
+                print(f"    找不到{name}表格")
+                return None
             rows = table.find_all('tr')
             data = []
             for row in rows[1:]:
@@ -279,10 +283,11 @@ def get_sp500_data():
     nominal_price_df = parse_multpl('https://www.multpl.com/s-p-500-historical-prices/table/by-month', 'nominal_price')
     
     if pe_df is None:
+        print("  ✗ PE数据是必需的，无法继续")
         return None
     
     start = datetime(1871, 1, 1)
-    end = datetime(2026, 5, 15)
+    end = datetime.now()
     
     print("  获取CPI数据...")
     try:
@@ -330,7 +335,10 @@ def get_sp500_data():
     yahoo_price = None
     try:
         yahoo_headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-        yahoo_url = 'https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?period1=536457600&period2=1747267200&interval=1mo'
+        # Dynamically calculate period2 as current timestamp
+        period1 = 536457600  # Jan 1, 1987
+        period2 = int(time.time())
+        yahoo_url = f'https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?period1={period1}&period2={period2}&interval=1mo'
         yahoo_resp = requests.get(yahoo_url, headers=yahoo_headers, timeout=15)
         if yahoo_resp.status_code == 200:
             yahoo_data = yahoo_resp.json()

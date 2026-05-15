@@ -48,6 +48,5 @@ verify_cache.py
 *.log
 
 # Misc temp
-*.txt
 0
 Thumbs.db
