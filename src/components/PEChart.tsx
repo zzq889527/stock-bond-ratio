@@ -60,6 +60,10 @@ export function PEChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
     const maxIndex = Math.max(...indexValues);
     const indexPadding = (maxIndex - minIndex) * 0.1;
 
+    const logPad = Math.max(1, (maxIndex - minIndex) * 0.1);
+    const logMin = Math.pow(10, Math.floor(Math.log10(Math.max(1, minIndex - logPad))));
+    const logMax = Math.pow(10, Math.ceil(Math.log10(maxIndex + logPad)));
+
     const option: echarts.EChartsOption = {
       backgroundColor: 'transparent',
       color: ['#3b82f6', '#6b7280', '#6b7280', '#22c55e', '#ef4444'],
@@ -168,8 +172,8 @@ export function PEChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
             color: '#64748b',
             fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 10 : 12)
           },
-          min: 10,
-          max: 10000,
+          min: logMin,
+          max: logMax,
           axisLine: {
             show: true,
             lineStyle: {
@@ -355,8 +359,8 @@ export function PEChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
           max: indexId === 'sp500' ? 150 : Math.ceil((vMax + vPad) * 2) / 2
         }, {
           type: 'log',
-          min: 10,
-          max: 10000
+          min: Number(Math.pow(10, Math.log10(Math.max(1, iMin)) - Math.log10(iMax / Math.max(1, iMin)) * 0.1).toPrecision(2)),
+          max: Number(Math.pow(10, Math.log10(iMax) + Math.log10(iMax / Math.max(1, iMin)) * 0.1).toPrecision(2))
         }],
         series: [
           { name: '均值线', data: peValues.map(() => +visMean.toFixed(2)) },

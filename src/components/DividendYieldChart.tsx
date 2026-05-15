@@ -60,6 +60,13 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
     const maxIndex = Math.max(...indexValues);
     const indexPadding = (maxIndex - minIndex) * 0.1;
 
+    const logMinVal = Math.log10(Math.max(1, minIndex));
+    const logMaxVal = Math.log10(maxIndex);
+    const logRange = logMaxVal - logMinVal;
+    const logPad = logRange * 0.1;
+    const logMin = Number(Math.pow(10, logMinVal - logPad).toPrecision(2));
+    const logMax = Number(Math.pow(10, logMaxVal + logPad).toPrecision(2));
+
     const option: echarts.EChartsOption = {
       backgroundColor: 'transparent',
       color: ['#3b82f6', '#6b7280', '#6b7280', '#22c55e', '#ef4444'],
@@ -168,8 +175,8 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
             color: '#64748b',
             fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 10 : 12)
           },
-          min: 10,
-          max: 10000,
+          min: logMin,
+          max: logMax,
           axisLine: {
             show: true,
             lineStyle: {
@@ -355,8 +362,8 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
           max: Math.ceil((vMax + vPad) * 20) / 20
         }, {
           type: 'log',
-          min: 10,
-          max: 10000
+          min: Number(Math.pow(10, Math.log10(Math.max(1, iMin)) - Math.log10(iMax / Math.max(1, iMin)) * 0.1).toPrecision(2)),
+          max: Number(Math.pow(10, Math.log10(iMax) + Math.log10(iMax / Math.max(1, iMin)) * 0.1).toPrecision(2))
         }],
         series: [
           { name: '均值线', data: dyValues.map(() => +visMean.toFixed(2)) },
