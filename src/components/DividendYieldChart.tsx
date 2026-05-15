@@ -162,14 +162,14 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
           }
         },
         {
-          type: indexId === 'sp500' ? 'log' : 'value',
+          type: 'log',
           name: config.displayName,
           nameTextStyle: {
             color: '#64748b',
             fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 10 : 12)
           },
-          min: indexId === 'sp500' ? 10 : Math.floor((minIndex - indexPadding) / 500) * 500,
-          max: indexId === 'sp500' ? 10000 : Math.ceil((maxIndex + indexPadding) / 500) * 500,
+          min: 10,
+          max: 10000,
           axisLine: {
             show: true,
             lineStyle: {
@@ -354,9 +354,9 @@ export function DividendYieldChart({ data, indexId = 'hs300', isLandscape = fals
           min: Math.max(0, Math.floor((vMin - vPad) * 20) / 20),
           max: Math.ceil((vMax + vPad) * 20) / 20
         }, {
-          type: indexId === 'sp500' ? 'log' : 'value',
-          min: indexId === 'sp500' ? 10 : Math.floor((iMin - iPad) / 500) * 500,
-          max: indexId === 'sp500' ? 10000 : Math.ceil((iMax + iPad) / 500) * 500
+          type: 'log',
+          min: 10,
+          max: 10000
         }],
         series: [
           { name: '均值线', data: dyValues.map(() => +visMean.toFixed(2)) },
