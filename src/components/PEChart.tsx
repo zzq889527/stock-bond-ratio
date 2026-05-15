@@ -243,15 +243,15 @@ export function PEChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
           lineStyle: {
             color: config.color,
             width: isLandscape ? 1 : 1,
-            opacity: 0.35
+            opacity: 0.55
           },
           showSymbol: false,
           smooth: 0.3,
           animationDuration: 0,
           areaStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: hexToRgba(config.color, 0.12) },
-              { offset: 1, color: hexToRgba(config.color, 0.01) }
+              { offset: 0, color: hexToRgba(config.color, 0.20) },
+              { offset: 1, color: hexToRgba(config.color, 0.02) }
             ])
           }
         },
