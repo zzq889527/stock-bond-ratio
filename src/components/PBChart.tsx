@@ -19,6 +19,13 @@ export function PBChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
   const chartInstance = useRef<echarts.ECharts | null>(null);
   const config = getIndexConfig(indexId);
 
+  const hexToRgba = (hex: string, alpha: number) => {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  };
+
   useEffect(() => {
     if (!chartRef.current || data.length === 0) return;
 
@@ -235,12 +242,18 @@ export function PBChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
           data: indexValues,
           lineStyle: {
             color: config.color,
-            width: isLandscape ? 1.8 : 1.5,
-            opacity: 0.9
+            width: isLandscape ? 1 : 1,
+            opacity: 0.35
           },
           showSymbol: false,
           smooth: 0.3,
-          animationDuration: 0
+          animationDuration: 0,
+          areaStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: hexToRgba(config.color, 0.12) },
+              { offset: 1, color: hexToRgba(config.color, 0.01) }
+            ])
+          }
         },
         {
           name: '均值线',
