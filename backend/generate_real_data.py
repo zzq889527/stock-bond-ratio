@@ -257,6 +257,7 @@ def get_sp500_data():
     div_df = parse_multpl('https://www.multpl.com/s-p-500-dividend-yield/table/by-month', 'dividend_yield')
     pb_df = parse_multpl('https://www.multpl.com/s-p-500-price-to-book/table/by-month', 'pb')
     adj_price_df = parse_multpl('https://www.multpl.com/inflation-adjusted-s-p-500/table/by-month', 'adj_price')
+    nominal_price_df = parse_multpl('https://www.multpl.com/s-p-500-historical-prices/table/by-month', 'nominal_price')
     
     if pe_df is None:
         return None
@@ -303,27 +304,69 @@ def get_sp500_data():
         print(f"    获取DGS10失败: {e}")
         return None
     
-    # Convert inflation-adjusted price to nominal
-    print("  转换价格数据...")
-    price_df = adj_price_df.copy()
-    if price_df is not None:
-        price_df = pd.merge_asof(price_df, cpi[['date', 'cpi']], on='date')
-        price_df['nominal_price'] = price_df['adj_price'] * (price_df['cpi'] / latest_cpi)
-        price_df = price_df[['date', 'nominal_price']].dropna()
+    # Build price data from multiple sources
+    print("  构建价格数据...")
     
-    if sp_fred is not None and price_df is not None:
-        price_merged = pd.merge(price_df, sp_fred, on='date', how='outer')
-        price_merged = price_merged.sort_values('date').reset_index(drop=True)
-        price_merged['price'] = price_merged['nominal_price'].fillna(price_merged['fred_price'])
-        price_merged = price_merged[['date', 'price']].dropna()
-    elif price_df is not None:
-        price_merged = price_df.rename(columns={'nominal_price': 'price'})
-    elif sp_fred is not None:
-        price_merged = sp_fred.rename(columns={'fred_price': 'price'})
+    # Source 1: Yahoo Finance API (1987-present, most accurate)
+    yahoo_price = None
+    try:
+        yahoo_headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+        yahoo_url = 'https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?period1=536457600&period2=1747267200&interval=1mo'
+        yahoo_resp = requests.get(yahoo_url, headers=yahoo_headers, timeout=15)
+        if yahoo_resp.status_code == 200:
+            yahoo_data = yahoo_resp.json()
+            yahoo_result = yahoo_data['chart']['result'][0]
+            timestamps = yahoo_result['timestamp']
+            quotes = yahoo_result['indicators']['quote'][0]
+            closes = quotes['close']
+            yahoo_rows = []
+            for ts, close in zip(timestamps, closes):
+                if close is not None:
+                    dt = datetime.fromtimestamp(ts)
+                    yahoo_rows.append({'date': dt, 'price': close})
+            yahoo_price = pd.DataFrame(yahoo_rows)
+            yahoo_price['date'] = pd.to_datetime(yahoo_price['date']).dt.floor('D')
+            yahoo_price = yahoo_price.sort_values('date').reset_index(drop=True)
+            print("    Yahoo SP500: " + str(len(yahoo_price)) + "行, " + str(yahoo_price['date'].min().date()) + " ~ " + str(yahoo_price['date'].max().date()))
+    except Exception as e:
+        print(f"    获取Yahoo SP500失败: {e}")
+    
+    # Source 2: Convert inflation-adjusted price to nominal via CPI (1871-1992)
+    adj_nominal = adj_price_df.copy()
+    if adj_nominal is not None:
+        adj_nominal = pd.merge_asof(adj_nominal, cpi[['date', 'cpi']], on='date')
+        adj_nominal['price'] = adj_nominal['adj_price'] * (adj_nominal['cpi'] / latest_cpi)
+        adj_nominal = adj_nominal[['date', 'price']].dropna()
+    
+    # Source 3: Multpl nominal price (1871-2009-07, with gaps)
+    multpl_nominal = nominal_price_df[['date', 'nominal_price']].copy() if nominal_price_df is not None else None
+    if multpl_nominal is not None:
+        multpl_nominal = multpl_nominal.rename(columns={'nominal_price': 'price'})
+    
+    # Source 4: FRED SP500 (2016-2026)
+    fred_price = sp_fred[['date', 'fred_price']].copy() if sp_fred is not None else None
+    if fred_price is not None:
+        fred_price = fred_price.rename(columns={'fred_price': 'price'})
+    
+    # Merge all price sources: Yahoo as primary (1987+), multpl nominal for early data, adj_nominal to fill gaps, FRED as fallback
+    price_sources = []
+    if yahoo_price is not None:
+        price_sources.append(yahoo_price)
+    if multpl_nominal is not None:
+        price_sources.append(multpl_nominal)
+    if adj_nominal is not None:
+        price_sources.append(adj_nominal)
+    if fred_price is not None:
+        price_sources.append(fred_price)
+    
+    if price_sources:
+        price_merged = pd.concat(price_sources).sort_values('date').reset_index(drop=True)
+        price_merged = price_merged.drop_duplicates(subset='date', keep='first')
+        price_merged = price_merged.dropna(subset=['price'])
     else:
         price_merged = None
     
-    # Merge with PE and fill gaps
+    # Merge with PE and fill remaining gaps via EPS interpolation
     df = pe_df[['date', 'pe_ttm']].copy()
     if price_merged is not None:
         df = pd.merge(df, price_merged, on='date', how='left')
