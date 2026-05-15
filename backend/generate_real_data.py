@@ -386,7 +386,18 @@ def get_sp500_data():
         df['dividend_yield'] = 0.0
     
     if pb_df is not None:
-        df = pd.merge_asof(df, pb_df[['date', 'pb']], on='date')
+        pb_interp = pb_df[['date', 'pb']].copy()
+        pb_interp['date'] = pb_interp['date'].dt.to_period('M').dt.to_timestamp()
+        pb_interp = pb_interp.drop_duplicates(subset='date')
+        pb_min = min(pb_interp['date'].min(), df['date'].min())
+        pb_max = max(pb_interp['date'].max(), df['date'].max())
+        date_range = pd.date_range(start=pb_min, end=pb_max, freq='MS')
+        pb_smooth = pd.DataFrame({'date': date_range})
+        pb_smooth = pd.merge(pb_smooth, pb_interp, on='date', how='left')
+        pb_smooth['pb'] = pb_smooth['pb'].interpolate(method='linear')
+        pb_smooth['pb'] = pb_smooth['pb'].bfill().ffill()
+        df = pd.merge(df, pb_smooth, on='date', how='left')
+        df['pb'] = df['pb'].ffill()
     else:
         df['pb'] = 0.0
     

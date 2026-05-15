@@ -132,14 +132,14 @@ export function PEChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
       },
       yAxis: [
         {
-          type: 'value',
+          type: indexId === 'sp500' ? 'log' : 'value',
           name: 'PE',
           nameTextStyle: {
             color: '#64748b',
             fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 10 : 12)
           },
-          min: Math.max(0, Math.floor((minVal - valPadding) * 2) / 2),
-          max: Math.ceil((maxVal + valPadding) * 2) / 2,
+          min: indexId === 'sp500' ? 5 : Math.max(0, Math.floor((minVal - valPadding) * 2) / 2),
+          max: indexId === 'sp500' ? 150 : Math.ceil((maxVal + valPadding) * 2) / 2,
           axisLine: {
             show: true,
             lineStyle: {
@@ -350,9 +350,9 @@ export function PEChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
 
       chartInstance.current.setOption({
         yAxis: [{
-          type: 'value',
-          min: Math.max(0, Math.floor((vMin - vPad) * 2) / 2),
-          max: Math.ceil((vMax + vPad) * 2) / 2
+          type: indexId === 'sp500' ? 'log' : 'value',
+          min: indexId === 'sp500' ? 5 : Math.max(0, Math.floor((vMin - vPad) * 2) / 2),
+          max: indexId === 'sp500' ? 150 : Math.ceil((vMax + vPad) * 2) / 2
         }, {
           type: indexId === 'sp500' ? 'log' : 'value',
           min: indexId === 'sp500' ? 10 : Math.floor((iMin - iPad) / 500) * 500,
