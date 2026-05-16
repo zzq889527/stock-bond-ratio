@@ -357,14 +357,14 @@ def get_sp500_data():
         fred_price = fred_price.rename(columns={'fred_price': 'price'})
     
     price_sources = []
-    if yahoo_price is not None:
-        price_sources.append(yahoo_price)
     if multpl_nominal is not None:
         price_sources.append(multpl_nominal)
-    if adj_nominal is not None:
-        price_sources.append(adj_nominal)
+    if yahoo_price is not None:
+        price_sources.append(yahoo_price)
     if fred_price is not None:
         price_sources.append(fred_price)
+    if adj_nominal is not None:
+        price_sources.append(adj_nominal)
     
     if price_sources:
         price_merged = pd.concat(price_sources).sort_values('date').reset_index(drop=True)
