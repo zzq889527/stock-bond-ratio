@@ -1,4 +1,5 @@
 import { INDEX_CONFIGS, IndexConfig } from './indexConfig';
+import { getLatestPrice } from '../utils/liveData';
 
 export interface ERPDataItem {
   date: string;
@@ -41,6 +42,31 @@ async function loadIndexData(indexId: string): Promise<ERPDataItem[]> {
   throw new Error(`无法加载 ${indexId} 数据`);
 }
 
+async function mergeLiveData(indexId: string, data: ERPDataItem[]): Promise<ERPDataItem[]> {
+  if (data.length === 0) return data;
+
+  try {
+    const liveResult = await getLatestPrice(indexId);
+    if (!liveResult) return data;
+
+    const lastItem = data[data.length - 1];
+
+    if (liveResult.date > lastItem.date) {
+      const priceRatio = liveResult.price / lastItem.index_value;
+      const newItem: ERPDataItem = {
+        ...lastItem,
+        date: liveResult.date,
+        index_value: Number(liveResult.price.toFixed(2)),
+        total_return: Number((lastItem.total_return * priceRatio).toFixed(2)),
+      };
+      return [...data, newItem];
+    }
+  } catch {
+  }
+
+  return data;
+}
+
 export async function getAllIndexData(refresh = false): Promise<IndexDataMap> {
   if (cachedData && !refresh) {
     return cachedData;
@@ -48,14 +74,17 @@ export async function getAllIndexData(refresh = false): Promise<IndexDataMap> {
   
   const dataMap: IndexDataMap = {};
   
-  for (const config of INDEX_CONFIGS) {
+  const loadPromises = INDEX_CONFIGS.map(async (config) => {
     try {
-      const data = await loadIndexData(config.id);
+      let data = await loadIndexData(config.id);
+      data = await mergeLiveData(config.id, data);
       dataMap[config.id] = data;
     } catch (e) {
       console.error(`加载 ${config.name} 数据失败:`, e);
     }
-  }
+  });
+
+  await Promise.all(loadPromises);
   
   cachedData = dataMap;
   return dataMap;

@@ -6,13 +6,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent / 'backend'))
 
-import main as backend
+from data_engine import generate_all_index_data
 
 def main():
     print("=== 开始更新股债收益比数据 ===")
     
     try:
-        all_data = backend.generate_all_index_data(refresh=True)
+        all_data = generate_all_index_data(refresh=True)
         
         public_path = Path(__file__).parent.parent / 'public'
         public_path.mkdir(exist_ok=True)
