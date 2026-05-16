@@ -254,7 +254,7 @@ def get_sp500_data():
                 if len(cols) >= 2:
                     date_str = cols[0].get_text(strip=True)
                     val_str = cols[1].get_text(strip=True)
-                    val_str = re.sub(r'[†‡%]', '', val_str)
+                    val_str = re.sub(r'[†‡%,]', '', val_str)
                     try:
                         val = float(val_str)
                         data.append((date_str, val))
