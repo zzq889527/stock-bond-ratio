@@ -9,6 +9,7 @@ if sys.platform == 'win32' and hasattr(sys.stderr, 'buffer'):
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
 import akshare as ak
+import yfinance as yf
 import pandas as pd
 import numpy as np
 from datetime import datetime
@@ -323,29 +324,23 @@ def get_sp500_data():
     print("  构建价格数据...")
     
     yahoo_price = None
-    try:
-        yahoo_headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-        period1 = 536457600
-        period2 = int(time.time())
-        yahoo_url = f'https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?period1={period1}&period2={period2}&interval=1mo'
-        yahoo_resp = requests.get(yahoo_url, headers=yahoo_headers, timeout=15)
-        if yahoo_resp.status_code == 200:
-            yahoo_data = yahoo_resp.json()
-            yahoo_result = yahoo_data['chart']['result'][0]
-            timestamps = yahoo_result['timestamp']
-            quotes = yahoo_result['indicators']['quote'][0]
-            closes = quotes['close']
-            yahoo_rows = []
-            for ts, close in zip(timestamps, closes):
-                if close is not None:
-                    dt = datetime.fromtimestamp(ts)
-                    yahoo_rows.append({'date': dt, 'price': close})
-            yahoo_price = pd.DataFrame(yahoo_rows)
-            yahoo_price['date'] = pd.to_datetime(yahoo_price['date']).dt.floor('D')
-            yahoo_price = yahoo_price.sort_values('date').reset_index(drop=True)
-            print("    Yahoo SP500: " + str(len(yahoo_price)) + "行, " + str(yahoo_price['date'].min().date()) + " ~ " + str(yahoo_price['date'].max().date()))
-    except Exception as e:
-        print(f"    获取Yahoo SP500失败: {e}")
+    for retry in range(3):
+        try:
+            sp500_hist = yf.download('^GSPC', period='max', interval='1mo', auto_adjust=True, progress=False)
+            if sp500_hist is not None and len(sp500_hist) > 0:
+                yahoo_rows = []
+                for idx, row in sp500_hist.iterrows():
+                    close_val = row['Close'] if isinstance(row['Close'], (int, float)) else row['Close'].iloc[0] if hasattr(row['Close'], 'iloc') else float(row['Close'])
+                    yahoo_rows.append({'date': idx, 'price': float(close_val)})
+                yahoo_price = pd.DataFrame(yahoo_rows)
+                yahoo_price['date'] = pd.to_datetime(yahoo_price['date']).dt.floor('D')
+                yahoo_price = yahoo_price.sort_values('date').reset_index(drop=True)
+                print("    Yahoo SP500: " + str(len(yahoo_price)) + "行, " + str(yahoo_price['date'].min().date()) + " ~ " + str(yahoo_price['date'].max().date()))
+                break
+        except Exception as e:
+            print(f"    获取Yahoo SP500失败(第{retry+1}次): {e}")
+            if retry < 2:
+                time.sleep(5 * (retry + 1))
     
     adj_nominal = adj_price_df.copy()
     if adj_nominal is not None:
@@ -380,7 +375,7 @@ def get_sp500_data():
     
     df = pe_df[['date', 'pe_ttm']].copy()
     if price_merged is not None:
-        df = pd.merge(df, price_merged, on='date', how='left')
+        df = pd.merge_asof(df, price_merged, on='date', direction='backward')
         df['eps'] = df['price'] / df['pe_ttm']
         df['eps'] = df['eps'].interpolate(method='linear')
         df['price'] = df['price'].fillna(df['eps'] * df['pe_ttm'])
