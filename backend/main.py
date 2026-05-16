@@ -1,8 +1,12 @@
 import sys
 import io
 import time
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+
+# 只在 Windows 上设置编码，避免在 Linux 上出错
+if sys.platform == 'win32' and hasattr(sys.stdout, 'buffer'):
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+if sys.platform == 'win32' and hasattr(sys.stderr, 'buffer'):
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware

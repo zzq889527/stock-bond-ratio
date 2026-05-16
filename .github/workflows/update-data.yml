@@ -29,24 +29,26 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt --timeout=120
 
-      - name: Create data directory
-        run: mkdir -p backend/data public
+      - name: Create directories
+        run: |
+          mkdir -p backend/data public
+          ls -la
 
-      - name: Update data with retry
-        uses: nick-fields/retry@v3
-        with:
-          max_attempts: 5
-          retry_on: error
-          timeout_minutes: 40
-          retry_wait_seconds: 60
-          command: |
-            cd "$GITHUB_WORKSPACE"
-            python scripts/update_data.py
+      - name: Update data
+        run: |
+          export PYTHONUNBUFFERED=1
+          python scripts/update_data.py 2>&1 | tee update_output.txt
+
+      - name: Check output
+        if: always()
+        run: |
+          ls -la public/
+          ls -la backend/data/
+          [ -f update_output.txt ] && cat update_output.txt || echo "No output file"
 
       - name: Check for changes
         id: check_changes
         run: |
-          cd "$GITHUB_WORKSPACE"
           git add public/*.json
           if git diff --staged --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
@@ -57,7 +59,6 @@ jobs:
       - name: Commit and push changes
         if: steps.check_changes.outputs.changed == 'true'
         run: |
-          cd "$GITHUB_WORKSPACE"
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git commit -m "Auto-update: refresh ERP data"
