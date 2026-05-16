@@ -19,7 +19,7 @@ export const INDEX_CONFIGS: IndexConfig[] = [
     peSymbol: '沪深300',
     priceSymbol: 'sh000300',
     totalReturnSymbol: 'H00300',
-    color: '#00d4ff'
+    color: '#ff6b35'
   },
   {
     id: 'zz500',
@@ -29,7 +29,7 @@ export const INDEX_CONFIGS: IndexConfig[] = [
     peSymbol: '中证500',
     priceSymbol: 'sh000905',
     totalReturnSymbol: 'H00905',
-    color: '#10b981'
+    color: '#ff6b35'
   },
   {
     id: 'zzall',
@@ -39,7 +39,7 @@ export const INDEX_CONFIGS: IndexConfig[] = [
     peSymbol: '中证全指',
     priceSymbol: 'sh000985',
     totalReturnSymbol: 'H00985',
-    color: '#8b5cf6'
+    color: '#ff6b35'
   },
   {
     id: 'sp500',
