@@ -40,6 +40,14 @@ jobs:
           export PYTHONUNBUFFERED=1
           python scripts/update_data.py
 
+      - name: Sync data to public
+        shell: bash
+        run: |
+          cp backend/data/sp500_erp_data.json public/sp500_erp_data.json
+          cp backend/data/hs300_erp_data.json public/erp_data.json
+          cp backend/data/zzall_erp_data.json public/zzall_erp_data.json
+          cp backend/data/zz500_erp_data.json public/zz500_erp_data.json
+
       - name: Check for changes
         id: check_changes
         run: |
