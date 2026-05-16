@@ -70,7 +70,7 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
 
     const option: echarts.EChartsOption = {
       backgroundColor: 'transparent',
-      color: ['#f59e0b', '#6b7280', '#6b7280', '#22c55e', '#ef4444'],
+      color: ['#3b82f6', '#6b7280', '#6b7280', '#22c55e', '#ef4444'],
       animation: true,
       animationDuration: 1500,
       animationEasing: 'cubicOut',
@@ -210,10 +210,10 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           height: isLandscape ? 14 : (window.innerWidth < 768 ? 20 : 30),
           borderColor: 'rgba(100, 116, 139, 0.3)',
           backgroundColor: 'rgba(30, 41, 59, 0.5)',
-          fillerColor: 'rgba(245, 158, 11, 0.2)',
+          fillerColor: 'rgba(59, 130, 246, 0.2)',
           handleStyle: {
-            color: '#f59e0b',
-            borderColor: '#fbbf24'
+            color: '#3b82f6',
+            borderColor: '#60a5fa'
           },
           textStyle: {
             color: '#94a3b8',
@@ -229,7 +229,7 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           type: 'line',
           data: erpValues,
           lineStyle: {
-            color: '#f59e0b',
+            color: '#3b82f6',
             width: isLandscape ? 2.5 : 2.5,
             opacity: 1
           },
@@ -238,8 +238,8 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           animationDuration: 0,
           areaStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: 'rgba(245, 158, 11, 0.35)' },
-              { offset: 1, color: 'rgba(245, 158, 11, 0.05)' }
+              { offset: 0, color: 'rgba(59, 130, 246, 0.35)' },
+              { offset: 1, color: 'rgba(59, 130, 246, 0.05)' }
             ])
           }
         },
@@ -309,17 +309,17 @@ export function ERPChart({ data, indexId = 'hs300', isLandscape = false }: ERPCh
           symbol: 'circle',
           symbolSize: isLandscape ? 8 : 10,
           itemStyle: {
-            color: '#f59e0b',
+            color: '#3b82f6',
             borderColor: '#fff',
             borderWidth: 2,
-            shadowColor: 'rgba(245, 158, 11, 0.6)',
+            shadowColor: 'rgba(59, 130, 246, 0.6)',
             shadowBlur: 10
           },
           label: {
             show: true,
             position: 'right',
             offset: [isLandscape ? 10 : 5, 0],
-            color: '#f59e0b',
+            color: '#3b82f6',
             fontSize: isLandscape ? 11 : 12,
             fontWeight: 'bold',
             formatter: `${currentERP.toFixed(2)}% · ${erpPercentile}分位`
