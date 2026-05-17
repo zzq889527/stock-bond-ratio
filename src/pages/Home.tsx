@@ -6,7 +6,7 @@ import { PEChart } from '../components/PEChart';
 import { PBChart } from '../components/PBChart';
 import { DividendYieldChart } from '../components/DividendYieldChart';
 import { IndexSelector } from '../components/IndexSelector';
-import { getERPData, ERPDataItem } from '../data/erpData';
+import { getERPData, ERPDataItem, getLiveDateInfo } from '../data/erpData';
 import { getIndexConfig } from '../data/indexConfig';
 
 export default function Home() {
@@ -15,6 +15,7 @@ export default function Home() {
   const [latest, setLatest] = useState<ERPDataItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [lastUpdate, setLastUpdate] = useState('');
+  const [liveDateInfo, setLiveDateInfo] = useState('');
   const [isLandscape, setIsLandscape] = useState(false);
 
   const toggleLandscape = () => {
@@ -27,6 +28,7 @@ export default function Home() {
       const erpData = await getERPData(indexId, false);
       setData(erpData);
       setLatest(erpData[erpData.length - 1]);
+      setLiveDateInfo(getLiveDateInfo(indexId));
       setLastUpdate(new Date().toLocaleString('zh-CN'));
     } catch (error) {
       console.error('Failed to load data:', error);
@@ -43,6 +45,20 @@ export default function Home() {
     echarts.connect('valuationGroup');
   }, []);
 
+  useEffect(() => {
+    const mql = window.matchMedia('(orientation: landscape)');
+    const handler = (e: MediaQueryListEvent | MediaQueryList) => {
+      if (e.matches && window.innerWidth < 768) {
+        setIsLandscape(true);
+      } else if (!e.matches && window.innerWidth < 768) {
+        setIsLandscape(false);
+      }
+    };
+    handler(mql);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
+
   const handleIndexChange = (indexId: string) => {
     setSelectedIndexId(indexId);
   };
@@ -53,129 +69,66 @@ export default function Home() {
   return (
     <div className={`bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white relative min-h-screen ${isLandscape ? 'landscape-mode' : ''}`}>
       {isLandscape && (
-        <div className="landscape-rotate">
-          <div className="landscape-content">
-            <header className="relative backdrop-blur-md bg-gradient-to-r from-slate-900/90 to-slate-800/90 border-b border-slate-700/50">
-              <div className="max-w-7xl mx-auto px-4 py-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="relative">
-                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-xl blur-md opacity-60" />
-                      <div className="relative w-8 h-8 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
-                        <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                          <path d="M3 3v18h18M7 16l4-4 4 4 6-8" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div>
-                      <h1 className="text-sm font-bold bg-gradient-to-r from-white via-cyan-100 to-purple-100 bg-clip-text text-transparent">股债收益比</h1>
-                      <p className="text-[10px] text-slate-400">ERP 实时监控</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-800/50 border border-slate-700/50">
-                      <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
-                      <span className="text-[9px] text-slate-300">实时更新</span>
-                    </div>
-                    <button onClick={toggleLandscape} className="p-2 rounded-xl bg-gradient-to-r from-cyan-500/20 to-purple-500/20 hover:from-cyan-500/30 hover:to-purple-500/30 transition-all duration-300 shadow-lg backdrop-blur-md border border-cyan-500/20">
-                      <svg className="w-4 h-4 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                      </svg>
-                    </button>
-                  </div>
+        <div className="landscape-overlay">
+          <header className="landscape-header">
+            <div className="flex items-center gap-2">
+              <button onClick={toggleLandscape} className="p-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 transition-all" title="退出横屏">
+                <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <span className="text-xs font-medium text-slate-300 bg-slate-800/60 px-2 py-1 rounded border border-slate-700/40">
+                {config.name}
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-[11px]">
+              <span className="text-cyan-400 font-medium">ERP <span className="text-white">{displayData?.erp.toFixed(2)}%</span></span>
+              <span className="text-slate-600">|</span>
+              <span className="text-cyan-400">PE <span className="text-white">{displayData?.pe_ttm.toFixed(1)}x</span></span>
+              <span className="text-slate-600">|</span>
+              <span className="text-amber-400">PB <span className="text-white">{displayData?.pb.toFixed(2)}x</span></span>
+              <span className="text-slate-600">|</span>
+              <span className="text-emerald-400">DY <span className="text-white">{displayData?.dividend_yield.toFixed(2)}%</span></span>
+            </div>
+          </header>
+          <main className="landscape-grid">
+            <div className="chart-cell">
+              {loading ? (
+                <div className="h-full flex items-center justify-center">
+                  <div className="w-6 h-6 border-2 border-slate-700 border-t-cyan-400 rounded-full animate-spin" />
                 </div>
-              </div>
-            </header>
-            <main className="flex-1 p-2 overflow-hidden">
-              <div className="h-full flex flex-col gap-1.5">
-                <div className="flex items-center gap-2 bg-gradient-to-r from-slate-800/70 to-slate-900/70 backdrop-blur-md rounded-xl border border-slate-700/40 px-3 py-1.5 shadow-lg">
-                  <div className="flex items-center gap-2 pr-3 border-r border-slate-700/50">
-                    <div>
-                      <div className="flex items-baseline gap-1">
-                        <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                          {displayData?.erp.toFixed(2)}%
-                        </span>
-                        {displayData && <SignalCard signal={displayData.signal} />}
-                      </div>
-                      <p className="text-[10px] text-slate-400">{displayData?.percentile}分位</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-3 text-xs flex-1">
-                    <div className="text-center px-2 py-1 rounded-lg bg-slate-900/50">
-                      <span className="text-slate-500 text-[9px] block">均值</span>
-                      <p className="font-semibold text-emerald-400 text-sm">{displayData?.mean.toFixed(2)}%</p>
-                    </div>
-                    <div className="text-center px-2 py-1 rounded-lg bg-slate-900/50">
-                      <span className="text-slate-500 text-[9px] block">PE</span>
-                      <p className="font-semibold text-cyan-400 text-sm">{displayData?.pe_ttm.toFixed(1)}x</p>
-                    </div>
-                    <div className="text-center px-2 py-1 rounded-lg bg-slate-900/50">
-                      <span className="text-slate-500 text-[9px] block">国债</span>
-                      <p className="font-semibold text-violet-400 text-sm">{displayData?.bond_10y.toFixed(2)}%</p>
-                    </div>
-                    <div className="text-center px-2 py-1 rounded-lg bg-slate-900/50">
-                      <span className="text-slate-500 text-[9px] block">{config.displayName}</span>
-                      <p className="font-semibold text-pink-400 text-sm">{displayData?.index_value.toLocaleString()}</p>
-                    </div>
-                  </div>
+              ) : (
+                <ERPChart data={data} indexId={selectedIndexId} isLandscape={true} />
+              )}
+            </div>
+            <div className="chart-cell">
+              {loading ? (
+                <div className="h-full flex items-center justify-center">
+                  <div className="w-6 h-6 border-2 border-slate-700 border-t-cyan-400 rounded-full animate-spin" />
                 </div>
-                <div className="flex-1 flex flex-col gap-1.5">
-                  <div className="flex-1 bg-gradient-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-md rounded-2xl border border-slate-700/40 overflow-hidden shadow-2xl">
-                    {loading ? (
-                      <div className="h-full flex items-center justify-center">
-                        <div className="text-center">
-                          <div className="relative mb-3">
-                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full blur-xl opacity-50 animate-pulse" />
-                            <div className="relative w-12 h-12 border-4 border-slate-700 border-t-cyan-400 rounded-full animate-spin mx-auto mb-4" />
-                          </div>
-                          <p className="text-slate-400">正在加载市场数据...</p>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="h-full">
-                        <ERPChart data={data} indexId={selectedIndexId} isLandscape={true} />
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex gap-1.5 h-[40%]">
-                    <div className="flex-1 bg-gradient-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-md rounded-2xl border border-slate-700/40 overflow-hidden shadow-2xl">
-                      {loading ? (
-                        <div className="h-full flex items-center justify-center">
-                          <div className="w-8 h-8 border-3 border-slate-700 border-t-cyan-400 rounded-full animate-spin" />
-                        </div>
-                      ) : (
-                        <div className="h-full">
-                          <PEChart data={data} indexId={selectedIndexId} isLandscape={true} />
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex-1 bg-gradient-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-md rounded-2xl border border-slate-700/40 overflow-hidden shadow-2xl">
-                      {loading ? (
-                        <div className="h-full flex items-center justify-center">
-                          <div className="w-8 h-8 border-3 border-slate-700 border-t-amber-400 rounded-full animate-spin" />
-                        </div>
-                      ) : (
-                        <div className="h-full">
-                          <PBChart data={data} indexId={selectedIndexId} isLandscape={true} />
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex-1 bg-gradient-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-md rounded-2xl border border-slate-700/40 overflow-hidden shadow-2xl">
-                      {loading ? (
-                        <div className="h-full flex items-center justify-center">
-                          <div className="w-8 h-8 border-3 border-slate-700 border-t-emerald-400 rounded-full animate-spin" />
-                        </div>
-                      ) : (
-                        <div className="h-full">
-                          <DividendYieldChart data={data} indexId={selectedIndexId} isLandscape={true} />
-                        </div>
-                      )}
-                    </div>
-                  </div>
+              ) : (
+                <PEChart data={data} indexId={selectedIndexId} isLandscape={true} />
+              )}
+            </div>
+            <div className="chart-cell">
+              {loading ? (
+                <div className="h-full flex items-center justify-center">
+                  <div className="w-6 h-6 border-2 border-slate-700 border-t-amber-400 rounded-full animate-spin" />
                 </div>
-              </div>
-            </main>
-          </div>
+              ) : (
+                <PBChart data={data} indexId={selectedIndexId} isLandscape={true} />
+              )}
+            </div>
+            <div className="chart-cell">
+              {loading ? (
+                <div className="h-full flex items-center justify-center">
+                  <div className="w-6 h-6 border-2 border-slate-700 border-t-emerald-400 rounded-full animate-spin" />
+                </div>
+              ) : (
+                <DividendYieldChart data={data} indexId={selectedIndexId} isLandscape={true} />
+              )}
+            </div>
+          </main>
         </div>
       )}
 
@@ -208,7 +161,19 @@ export default function Home() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                     </svg>
                   </button>
-                  <span className="text-xs sm:text-sm text-slate-400 hidden sm:block">{loading ? '获取中...' : lastUpdate}</span>
+                  <button
+                    onClick={() => loadData(selectedIndexId)}
+                    className="p-2 rounded-full bg-slate-800/80 hover:bg-slate-700/80 transition-all duration-300 shadow-lg backdrop-blur-sm"
+                    title="刷新数据"
+                  >
+                    <svg className={`w-4 h-4 text-slate-400 ${loading ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357Fit" />
+                    </svg>
+                  </button>
+                  <div className="text-right hidden sm:block">
+                    <div className="text-xs text-slate-400">{loading ? '获取中...' : liveDateInfo}</div>
+                    <div className="text-[10px] text-slate-500">{loading ? '' : `共 ${data.length.toLocaleString()} 个数据点`}</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -391,22 +356,42 @@ export default function Home() {
           background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e1b4b 100%);
         }
         
-        .landscape-rotate {
-          position: absolute;
-          width: 100vh;
-          height: 100vw;
-          top: 50%;
-          left: 50%;
-          transform-origin: center center;
-          transform: translate(-50%, -50%) rotate(90deg);
-          overflow: hidden;
-        }
-        
-        .landscape-content {
+        .landscape-overlay {
           width: 100%;
           height: 100%;
           display: flex;
           flex-direction: column;
+          overflow: hidden;
+        }
+        
+        .landscape-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 6px 12px;
+          background: rgba(15, 23, 42, 0.95);
+          border-bottom: 1px solid rgba(100, 116, 139, 0.3);
+          flex-shrink: 0;
+          gap: 8px;
+          min-height: 40px;
+        }
+        
+        .landscape-grid {
+          flex: 1;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 1fr 1fr;
+          gap: 3px;
+          padding: 3px;
+          overflow: hidden;
+        }
+        
+        .chart-cell {
+          background: rgba(30, 41, 59, 0.4);
+          border-radius: 8px;
+          border: 1px solid rgba(100, 116, 139, 0.2);
+          overflow: hidden;
+          min-height: 0;
         }
       `}</style>
     </div>

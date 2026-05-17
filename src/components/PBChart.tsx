@@ -109,10 +109,10 @@ export function PBChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
         itemGap: isLandscape ? 15 : (window.innerWidth < 768 ? 8 : 20),
       },
       grid: {
-        left: window.innerWidth < 768 ? '3%' : '5%',
-        right: window.innerWidth < 768 ? '3%' : '5%',
-        top: window.innerWidth < 768 ? '15%' : '12%',
-        height: window.innerWidth < 768 ? '58%' : '65%',
+        left: isLandscape ? '6%' : (window.innerWidth < 768 ? '6%' : '7%'),
+        right: isLandscape ? '16%' : (window.innerWidth < 768 ? '14%' : '16%'),
+        top: isLandscape ? '14%' : (window.innerWidth < 768 ? '18%' : '14%'),
+        bottom: isLandscape ? '8%' : (window.innerWidth < 768 ? '16%' : '12%'),
         containLabel: true
       },
       xAxis: {
@@ -143,8 +143,10 @@ export function PBChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
           name: 'PB',
           nameTextStyle: {
             color: '#64748b',
-            fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 10 : 12)
+            fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 10 : 12),
+            padding: [0, 0, 0, 40]
           },
+          nameGap: 15,
           min: Math.max(0, Math.floor((minVal - valPadding) * 2) / 2),
           max: Math.ceil((maxVal + valPadding) * 2) / 2,
           axisLine: {
@@ -175,6 +177,7 @@ export function PBChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
             color: '#64748b',
             fontSize: isLandscape ? 11 : (window.innerWidth < 768 ? 10 : 12)
           },
+          nameGap: 20,
           min: logMin,
           max: logMax,
           axisLine: {
@@ -188,7 +191,14 @@ export function PBChart({ data, indexId = 'hs300', isLandscape = false }: Valuat
           },
           axisLabel: {
             color: '#64748b',
-            fontSize: isLandscape ? 10 : (window.innerWidth < 768 ? 9 : 11)
+            fontSize: isLandscape ? 9 : (window.innerWidth < 768 ? 8 : 10),
+            showMinLabel: true,
+            showMaxLabel: true,
+            formatter: (value: number) => {
+              if (value >= 10000) return (value / 10000).toFixed(1) + '万';
+              if (value >= 1000) return (value / 1000).toFixed(1) + 'k';
+              return value.toString();
+            }
           },
           splitLine: { show: false }
         }

@@ -50,44 +50,34 @@ INDEX_CONFIGS = [
     }
 ]
 
+DIVIDEND_RATIOS = {
+    "000300": 0.40,
+    "000905": 0.40,
+    "000985": 0.38
+}
+
 def calculate_erp(pe, bond_yield):
-    if pd.isna(pe) or pe == 0:
-        return np.nan
-    return (1.0 / pe) * 100 - bond_yield
-
-PAYOUT_RATIOS = {}
-
-def get_payout_ratio(index_code, index_name):
-    try:
-        df = ak.stock_zh_index_value_csindex(symbol=index_code)
-        df['日期'] = pd.to_datetime(df['日期'])
-        latest = df.iloc[-1]
-        pe1 = float(latest['市盈率1'])
-        dy1 = float(latest['股息率1'])
-        if pe1 > 0:
-            payout_ratio = dy1 * pe1 / 100
-            print(f"  {index_name}({index_code}) 最新PE={pe1:.2f}, 股息率={dy1:.2f}%, payout_ratio={payout_ratio:.4f}")
-            return payout_ratio
-    except Exception as e:
-        print(f"获取{index_name}({index_code})估值数据失败: {e}")
-    return 0.38
+    if pe <= 0:
+        return 0.0
+    return (100 / pe) - bond_yield
 
 def compute_dividend_yield(pe_series, index_code, index_name):
-    if index_code not in PAYOUT_RATIOS:
-        PAYOUT_RATIOS[index_code] = get_payout_ratio(index_code, index_name)
-    ratio = PAYOUT_RATIOS[index_code]
-    return (ratio / pe_series * 100).round(3)
+    payout_ratio = DIVIDEND_RATIOS.get(index_code, 0.40)
+    latest_pe = pe_series.iloc[-1]
+    latest_dy = (100 / latest_pe * payout_ratio) if latest_pe > 0 else 0
+    print(f"  {index_name}({index_code}) PE={latest_pe:.2f} DY={latest_dy:.2f}%")
+    return pe_series.apply(lambda pe: (100 / pe * payout_ratio) if pe > 0 else 0)
 
 def get_real_data_for_index(index_config):
     index_id = index_config["id"]
     index_name = index_config["name"]
-    print(f"\n=== 获取 {index_name} 数据 ===")
+    print(f"\n=== {index_name} ===")
     
     try:
         df_pe = ak.stock_index_pe_lg(symbol=index_config["pe_symbol"])
-        print(f"   ✓ PE数据：{len(df_pe)} 条")
+        print(f"  PE: {len(df_pe)} 条")
     except Exception as e:
-        print(f"   ✗ PE数据获取失败：{e}")
+        print(f"  PE失败: {e}")
         raise
     
     df_pb = None
@@ -96,34 +86,32 @@ def get_real_data_for_index(index_config):
         df_pb['日期'] = pd.to_datetime(df_pb['日期'])
         df_pb = df_pb.rename(columns={'日期': 'date', '市净率': 'pb'})
         df_pb = df_pb[['date', 'pb']].sort_values('date')
-        print(f"   ✓ PB数据：{len(df_pb)} 条")
+        print(f"  PB: {len(df_pb)} 条")
     except Exception as e:
-        print(f"   ✗ PB数据获取失败：{e}")
+        print(f"  PB失败: {e}")
     
     df_dividend = compute_dividend_yield(df_pe['滚动市盈率'], index_config["index_code"], index_name)
     
     df_tr = None
     try:
         df_tr = ak.stock_zh_index_hist_csindex(symbol=index_config["total_return_symbol"])
-        print(f"   ✓ 全收益数据：{len(df_tr)} 条")
+        print(f"  全收益: {len(df_tr)} 条")
     except Exception as e:
-        print(f"   ✗ 全收益数据获取失败：{e}")
+        print(f"  全收益失败: {e}")
     
     df_price = None
     try:
         df_price = ak.stock_zh_index_daily(symbol=index_config["price_symbol"])
-        print(f"   ✓ 价格指数数据：{len(df_price)} 条")
+        print(f"  价格: {len(df_price)} 条")
     except Exception as e:
-        print(f"   ✗ 价格指数获取失败：{e}")
+        print(f"  价格失败: {e}")
     
     try:
         df_bond = ak.bond_zh_us_rate()
-        print(f"   ✓ 国债数据：{len(df_bond)} 条")
+        print(f"  国债: {len(df_bond)} 条")
     except Exception as e:
-        print(f"   ✗ 国债数据获取失败：{e}")
+        print(f"  国债失败: {e}")
         raise
-    
-    print(f"   开始处理 {index_name} 数据...")
     
     df_pe['日期'] = pd.to_datetime(df_pe['日期'])
     df_pe = df_pe.rename(columns={
@@ -164,7 +152,6 @@ def get_real_data_for_index(index_config):
     
     if df_tr is not None:
         tr_max_date = df_tr['date'].max()
-        
         df = pd.merge_asof(df, df_tr, on='date', direction='nearest')
         
         first_valid_idx = df['total_return'].first_valid_index()
@@ -194,25 +181,21 @@ def get_real_data_for_index(index_config):
     
     if df_dividend is not None:
         df['dividend_yield'] = df_dividend.values
-        df['dividend_yield'] = df['dividend_yield'].ffill().bfill()
+        df['dividend_yield'] = df_dividend.ffill().bfill()
     else:
         df['dividend_yield'] = 2.0
     
     df = pd.merge_asof(df, df_bond, on='date', direction='backward')
-    
     df['bond_10y'] = df['bond_10y'].ffill().bfill()
     df = df.dropna(subset=['index_value', 'pe_ttm', 'bond_10y', 'total_return'])
-    
     df = df[(df['date'] >= pd.Timestamp('2005-04-08')) & (df['date'] <= pd.Timestamp(datetime.now()))]
     
     df['erp'] = df.apply(lambda row: calculate_erp(row['pe_ttm'], row['bond_10y']), axis=1)
     df = df.dropna(subset=['erp'])
-    
     df['tr_p'] = (100 / df['pe_ttm']).round(2)
     
     mean_erp = round(df['erp'].mean(), 2)
     std_erp = round(df['erp'].std(), 2)
-    
     df['mean'] = mean_erp
     df['sigma'] = std_erp
     df['percentile'] = (df['erp'].rank(pct=True) * 100).round(0).astype(int)
@@ -231,21 +214,20 @@ def get_real_data_for_index(index_config):
     
     df['signal'] = df['erp'].apply(get_signal)
     df['date'] = df['date'].dt.strftime('%Y-%m-%d')
-    
-    print(f"   ✓ {index_name} 数据完成：{len(df)} 条")
+    print(f"  => {len(df)} 条, {df['date'].iloc[0]} ~ {df['date'].iloc[-1]}")
     return df
 
 def get_sp500_data():
-    print("  获取标普500数据...")
+    print("=== 标普500 ===")
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
     
     def parse_multpl(url, name):
         try:
-            resp = requests.get(url, headers=headers, timeout=15)
+            resp = requests.get(url, headers=headers, timeout=30)
             soup = BeautifulSoup(resp.content, 'html.parser')
             table = soup.find('table')
             if not table:
-                print(f"    找不到{name}表格")
+                print(f"  {name}: 无表格")
                 return None
             rows = table.find_all('tr')
             data = []
@@ -263,10 +245,10 @@ def get_sp500_data():
             df = pd.DataFrame(data, columns=['date_str', name])
             df['date'] = pd.to_datetime(df['date_str'], format='mixed')
             df = df.sort_values('date').reset_index(drop=True)
-            print("    " + name + ": " + str(len(df)) + "行, " + str(df['date'].min().date()) + " ~ " + str(df['date'].max().date()))
+            print(f"  {name}: {len(df)}行, {df['date'].min().date()} ~ {df['date'].max().date()}")
             return df
         except Exception as e:
-            print(f"    获取{name}失败: {e}")
+            print(f"  {name}失败: {e}")
             return None
     
     pe_df = parse_multpl('https://www.multpl.com/s-p-500-pe-ratio/table/by-month', 'pe_ttm')
@@ -276,13 +258,13 @@ def get_sp500_data():
     nominal_price_df = parse_multpl('https://www.multpl.com/s-p-500-historical-prices/table/by-month', 'nominal_price')
     
     if pe_df is None:
-        print("  ✗ PE数据是必需的，无法继续")
+        print("  PE数据缺失")
         return None
     
     start = datetime(1871, 1, 1)
     end = datetime.now()
     
-    print("  获取CPI数据...")
+    cpi = None
     try:
         cpi = web.DataReader('CPIAUCNS', 'fred', start, end)
         cpi = cpi.reset_index()
@@ -290,12 +272,12 @@ def get_sp500_data():
         cpi['date'] = pd.to_datetime(cpi['date'])
         cpi = cpi.sort_values('date').reset_index(drop=True)
         latest_cpi = cpi['cpi'].iloc[-1]
-        print("    CPI: " + str(len(cpi)) + "行, 最新=" + str(latest_cpi))
+        print(f"  CPI: {len(cpi)}行")
     except Exception as e:
-        print(f"    获取CPI失败: {e}")
+        print(f"  CPI失败: {e}")
         return None
     
-    print("  获取FRED SP500...")
+    sp_fred = None
     try:
         sp_fred = web.DataReader('SP500', 'fred', start, end)
         sp_fred = sp_fred.reset_index()
@@ -303,12 +285,11 @@ def get_sp500_data():
         sp_fred['date'] = pd.to_datetime(sp_fred['date'])
         sp_fred = sp_fred.sort_values('date').reset_index(drop=True)
         sp_fred = sp_fred.dropna()
-        print("    FRED SP500: " + str(len(sp_fred)) + "行, " + str(sp_fred['date'].min().date()) + " ~ " + str(sp_fred['date'].max().date()))
+        print(f"  FRED SP500: {len(sp_fred)}行")
     except Exception as e:
-        print(f"    获取FRED SP500失败: {e}")
-        sp_fred = None
+        print(f"  FRED SP500失败: {e}")
     
-    print("  获取美债10Y收益率...")
+    dgs10 = None
     try:
         dgs10 = web.DataReader('DGS10', 'fred', start, end)
         dgs10 = dgs10.reset_index()
@@ -316,34 +297,29 @@ def get_sp500_data():
         dgs10['date'] = pd.to_datetime(dgs10['date'])
         dgs10 = dgs10.sort_values('date').reset_index(drop=True)
         dgs10 = dgs10.dropna()
-        print("    DGS10: " + str(len(dgs10)) + "行, " + str(dgs10['date'].min().date()) + " ~ " + str(dgs10['date'].max().date()))
+        print(f"  DGS10: {len(dgs10)}行")
     except Exception as e:
-        print(f"    获取DGS10失败: {e}")
+        print(f"  DGS10失败: {e}")
         return None
     
-    print("  构建价格数据...")
-    
     yahoo_price = None
-    for retry in range(3):
-        try:
-            sp500_hist = yf.download('^GSPC', period='max', interval='1mo', auto_adjust=True, progress=False)
-            if sp500_hist is not None and len(sp500_hist) > 0:
-                yahoo_rows = []
-                for idx, row in sp500_hist.iterrows():
-                    close_val = row['Close'] if isinstance(row['Close'], (int, float)) else row['Close'].iloc[0] if hasattr(row['Close'], 'iloc') else float(row['Close'])
-                    yahoo_rows.append({'date': idx, 'price': float(close_val)})
-                yahoo_price = pd.DataFrame(yahoo_rows)
-                yahoo_price['date'] = pd.to_datetime(yahoo_price['date']).dt.floor('D')
-                yahoo_price = yahoo_price.sort_values('date').reset_index(drop=True)
-                print("    Yahoo SP500: " + str(len(yahoo_price)) + "行, " + str(yahoo_price['date'].min().date()) + " ~ " + str(yahoo_price['date'].max().date()))
-                break
-        except Exception as e:
-            print(f"    获取Yahoo SP500失败(第{retry+1}次): {e}")
-            if retry < 2:
-                time.sleep(5 * (retry + 1))
+    try:
+        sp500_hist = yf.download('^GSPC', period='max', interval='1mo', auto_adjust=True, progress=False)
+        if sp500_hist is not None and len(sp500_hist) > 0:
+            yahoo_rows = []
+            for idx, row in sp500_hist.iterrows():
+                close_val = row['Close'] if isinstance(row['Close'], (int, float)) else row['Close'].iloc[0] if hasattr(row['Close'], 'iloc') else float(row['Close'])
+                yahoo_rows.append({'date': idx, 'price': float(close_val)})
+            yahoo_price = pd.DataFrame(yahoo_rows)
+            yahoo_price['date'] = pd.to_datetime(yahoo_price['date']).dt.floor('D')
+            yahoo_price = yahoo_price.sort_values('date').reset_index(drop=True)
+            print(f"  Yahoo: {len(yahoo_price)}行")
+    except Exception as e:
+        print(f"  Yahoo失败(跳过): {e}")
     
-    adj_nominal = adj_price_df.copy()
-    if adj_nominal is not None:
+    adj_nominal = None
+    if adj_price_df is not None and cpi is not None:
+        adj_nominal = adj_price_df.copy()
         adj_nominal = pd.merge_asof(adj_nominal, cpi[['date', 'cpi']], on='date')
         adj_nominal['price'] = adj_nominal['adj_price'] * (adj_nominal['cpi'] / latest_cpi)
         adj_nominal = adj_nominal[['date', 'price']].dropna()
@@ -408,19 +384,16 @@ def get_sp500_data():
     
     df = pd.merge_asof(df, dgs10[['date', 'bond_10y']], on='date')
     df['bond_10y'] = df['bond_10y'].ffill().bfill()
-    
     df = df.dropna(subset=['index_value', 'pe_ttm', 'bond_10y'])
     df = df[df['date'] >= pd.Timestamp('1962-01-01')]
     df = df[df['date'] <= pd.Timestamp(datetime.now())]
     
     df['erp'] = df.apply(lambda row: calculate_erp(row['pe_ttm'], row['bond_10y']), axis=1)
     df = df.dropna(subset=['erp'])
-    
     df['tr_p'] = (100 / df['pe_ttm']).round(2)
     
     mean_erp = round(df['erp'].mean(), 2)
     std_erp = round(df['erp'].std(), 2)
-    
     df['mean'] = mean_erp
     df['sigma'] = std_erp
     df['percentile'] = (df['erp'].rank(pct=True) * 100).round(0).astype(int)
@@ -439,9 +412,15 @@ def get_sp500_data():
     
     df['signal'] = df['erp'].apply(get_signal)
     df['date'] = df['date'].dt.strftime('%Y-%m-%d')
-    
-    print("  ✓ 标普500完成: " + str(len(df)) + "条, " + str(df['date'].iloc[0]) + " ~ " + str(df['date'].iloc[-1]))
+    print(f"  => {len(df)}条, {df['date'].iloc[0]} ~ {df['date'].iloc[-1]}")
     return df
+
+def load_cache_safe(cache_file):
+    try:
+        with open(cache_file, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception:
+        return None
 
 def generate_all_index_data(refresh=False):
     all_data = {}
@@ -450,52 +429,61 @@ def generate_all_index_data(refresh=False):
         cache_file = DATA_PATH / f"{config['id']}_erp_data.json"
         
         if not refresh and cache_file.exists():
-            print(f"\n加载缓存：{config['name']}")
-            with open(cache_file, 'r', encoding='utf-8') as f:
-                all_data[config['id']] = json.load(f)
-            continue
+            cached = load_cache_safe(cache_file)
+            if cached is not None:
+                print(f"\n加载缓存: {config['name']}")
+                all_data[config['id']] = cached
+                continue
+            else:
+                print(f"\n缓存损坏, 重新生成: {config['name']}")
         
         try:
             df = get_real_data_for_index(config)
-            
             records = []
             for _, row in df.iterrows():
                 record = {
                     'date': str(row['date']),
-                    'erp': float(row['erp']),
+                    'erp': round(float(row['erp']), 4),
                     'mean': float(row['mean']),
                     'sigma': float(row['sigma']),
                     'percentile': int(row['percentile']),
                     'signal': str(row['signal']),
-                    'pe_ttm': float(row['pe_ttm']),
-                    'pb': float(row['pb']) if 'pb' in df.columns and pd.notna(row['pb']) else 0.0,
-                    'dividend_yield': float(row['dividend_yield']) if 'dividend_yield' in df.columns and pd.notna(row['dividend_yield']) else 0.0,
-                    'bond_10y': float(row['bond_10y']),
-                    'index_value': float(row['index_value']),
-                    'total_return': float(row['total_return']),
-                    'tr_p': float(row['tr_p'])
+                    'pe_ttm': round(float(row['pe_ttm']), 2),
+                    'pb': round(float(row['pb']), 2) if 'pb' in df.columns and pd.notna(row['pb']) else 0.0,
+                    'dividend_yield': round(float(row['dividend_yield']), 3) if 'dividend_yield' in df.columns and pd.notna(row['dividend_yield']) else 0.0,
+                    'bond_10y': round(float(row['bond_10y']), 4),
+                    'index_value': round(float(row['index_value']), 2),
+                    'total_return': round(float(row['total_return']), 1),
+                    'tr_p': round(float(row['tr_p']), 2)
                 }
                 records.append(record)
-            
             all_data[config['id']] = records
-            
             with open(cache_file, 'w', encoding='utf-8') as f:
                 json.dump(records, f, ensure_ascii=False, indent=2)
-            
-            print(f"   ✓ 保存缓存：{config['name']}")
-            
+            print(f"  => 已保存")
         except Exception as e:
-            print(f"   ✗ {config['name']} 失败：{e}")
+            print(f"  X {config['name']} 失败: {e}")
             import traceback
             traceback.print_exc()
+            cached = load_cache_safe(cache_file)
+            if cached is not None:
+                print(f"  => 使用缓存")
+                all_data[config['id']] = cached
+            else:
+                print(f"  => 无可用缓存")
     
-    print("\n=== 标普500数据生成 ===")
+    print("\n=== 标普500 ===")
     sp500_cache = DATA_PATH / "sp500_erp_data.json"
     if not refresh and sp500_cache.exists():
-        print("\n加载缓存：标普500")
-        with open(sp500_cache, 'r', encoding='utf-8') as f:
-            all_data['sp500'] = json.load(f)
-    else:
+        cached = load_cache_safe(sp500_cache)
+        if cached is not None:
+            print("加载缓存: 标普500")
+            all_data['sp500'] = cached
+        else:
+            print("缓存损坏, 重新生成")
+            refresh = True
+    
+    if refresh or 'sp500' not in all_data:
         try:
             df_sp500 = get_sp500_data()
             if df_sp500 is not None:
@@ -503,29 +491,43 @@ def generate_all_index_data(refresh=False):
                 for _, row in df_sp500.iterrows():
                     record = {
                         'date': str(row['date']),
-                        'erp': float(row['erp']),
+                        'erp': round(float(row['erp']), 4),
                         'mean': float(row['mean']),
                         'sigma': float(row['sigma']),
                         'percentile': int(row['percentile']),
                         'signal': str(row['signal']),
-                        'pe_ttm': float(row['pe_ttm']),
-                        'pb': float(row['pb']) if 'pb' in df_sp500.columns and pd.notna(row['pb']) else 0.0,
-                        'dividend_yield': float(row['dividend_yield']) if 'dividend_yield' in df_sp500.columns and pd.notna(row['dividend_yield']) else 0.0,
-                        'bond_10y': float(row['bond_10y']),
-                        'index_value': float(row['index_value']),
-                        'total_return': float(row['index_value']),
-                        'tr_p': float(row['tr_p'])
+                        'pe_ttm': round(float(row['pe_ttm']), 2),
+                        'pb': round(float(row['pb']), 2) if 'pb' in df_sp500.columns and pd.notna(row['pb']) else 0.0,
+                        'dividend_yield': round(float(row['dividend_yield']), 3) if 'dividend_yield' in df_sp500.columns and pd.notna(row['dividend_yield']) else 0.0,
+                        'bond_10y': round(float(row['bond_10y']), 4),
+                        'index_value': round(float(row['index_value']), 2),
+                        'total_return': round(float(row['index_value']), 1),
+                        'tr_p': round(float(row['tr_p']), 2)
                     }
                     records.append(record)
-                
                 all_data['sp500'] = records
-                
                 with open(sp500_cache, 'w', encoding='utf-8') as f:
                     json.dump(records, f, ensure_ascii=False, indent=2)
-                print(f"   ✓ 保存缓存：标普500")
+                print("  => 已保存")
+            else:
+                cached = load_cache_safe(sp500_cache)
+                if cached is not None:
+                    print("  => 使用缓存")
+                    all_data['sp500'] = cached
+                else:
+                    print("  => 无可用缓存")
         except Exception as e:
-            print(f"   ✗ 标普500 失败：{e}")
+            print(f"  X 标普500 失败: {e}")
             import traceback
             traceback.print_exc()
+            cached = load_cache_safe(sp500_cache)
+            if cached is not None:
+                print("  => 使用缓存")
+                all_data['sp500'] = cached
+            else:
+                print("  => 无可用缓存")
     
     return all_data
+
+if __name__ == '__main__':
+    generate_all_index_data(refresh=True)

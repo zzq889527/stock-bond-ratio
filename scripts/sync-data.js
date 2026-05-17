@@ -4,8 +4,9 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const backendDir = path.join(__dirname, 'backend', 'data');
-const publicDir = path.join(__dirname, 'public');
+const projectRoot = path.resolve(__dirname, '..');
+const backendDir = path.join(projectRoot, 'backend', 'data');
+const publicDir = path.join(projectRoot, 'public');
 
 const files = [
   { src: 'sp500_erp_data.json', dest: 'sp500_erp_data.json' },

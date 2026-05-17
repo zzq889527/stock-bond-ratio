@@ -22,6 +22,31 @@ export interface IndexDataMap {
 }
 
 let cachedData: IndexDataMap | null = null;
+let liveDataDates: Record<string, string> = {};
+
+function estimateLiveItem(lastItem: ERPDataItem, livePrice: number, liveDate: string): ERPDataItem {
+  const oldPrice = lastItem.index_value;
+  if (oldPrice <= 0) {
+    return { ...lastItem, date: liveDate, index_value: Number(livePrice.toFixed(2)) };
+  }
+
+  const ratio = livePrice / oldPrice;
+  const pe = lastItem.pe_ttm * ratio;
+  const tr = lastItem.total_return * ratio;
+  const newErp = lastItem.bond_10y > 0 ? (100 / pe) - lastItem.bond_10y : lastItem.erp;
+
+  return {
+    ...lastItem,
+    date: liveDate,
+    index_value: Number(livePrice.toFixed(2)),
+    total_return: Number(tr.toFixed(1)),
+    pe_ttm: Number(pe.toFixed(2)),
+    pb: Number((lastItem.pb * ratio).toFixed(2)),
+    dividend_yield: Number((lastItem.dividend_yield / ratio).toFixed(3)),
+    tr_p: Number((100 / pe).toFixed(2)),
+    erp: Number(newErp.toFixed(4)),
+  };
+}
 
 async function loadIndexData(indexId: string): Promise<ERPDataItem[]> {
   try {
@@ -33,13 +58,13 @@ async function loadIndexData(indexId: string): Promise<ERPDataItem[]> {
         ...item,
         index_value: item.hs300 || item.index_value,
         pb: item.pb || 0,
-        dividend_yield: item.dividend_yield || 0
+        bond_10y: item.bond_10y || 0,
       }));
     }
   } catch (e) {
-    console.warn(`无法加载 ${indexId} 数据`);
+    console.warn(`\u65E0\u6CD5\u52A0\u8F7D ${indexId} \u6570\u636E`);
   }
-  throw new Error(`无法加载 ${indexId} 数据`);
+  throw new Error(`\u65E0\u6CD5\u52A0\u8F7D ${indexId} \u6570\u636E`);
 }
 
 async function mergeLiveData(indexId: string, data: ERPDataItem[]): Promise<ERPDataItem[]> {
@@ -47,45 +72,57 @@ async function mergeLiveData(indexId: string, data: ERPDataItem[]): Promise<ERPD
 
   try {
     const liveResult = await getLatestPrice(indexId);
-    if (!liveResult) return data;
+    if (!liveResult) {
+      liveDataDates[indexId] = `\u6570\u636E\u6587\u4EF6 ${data[data.length - 1]?.date || ''}`;
+      return data;
+    }
 
     const lastItem = data[data.length - 1];
+    const liveDate = liveResult.date;
 
-    if (liveResult.date > lastItem.date) {
-      const priceRatio = liveResult.price / lastItem.index_value;
-      const newItem: ERPDataItem = {
-        ...lastItem,
-        date: liveResult.date,
-        index_value: Number(liveResult.price.toFixed(2)),
-        total_return: Number((lastItem.total_return * priceRatio).toFixed(2)),
-      };
+    if (liveDate > lastItem.date) {
+      const newItem = estimateLiveItem(lastItem, liveResult.price, liveDate);
+      liveDataDates[indexId] = `\u5B9E\u65F6 ${liveDate}`;
       return [...data, newItem];
     }
+
+    const priceDiff = Math.abs(liveResult.price - lastItem.index_value) / lastItem.index_value;
+    if (liveDate === lastItem.date && priceDiff > 0.001) {
+      data[data.length - 1] = estimateLiveItem(lastItem, liveResult.price, liveDate);
+      liveDataDates[indexId] = `\u5B9E\u65F6 ${liveDate}`;
+    } else {
+      liveDataDates[indexId] = `\u6570\u636E\u6587\u4EF6 ${lastItem.date}`;
+    }
   } catch {
+    liveDataDates[indexId] = `\u6570\u636E\u6587\u4EF6 ${data[data.length - 1]?.date || ''}`;
   }
 
   return data;
+}
+
+export function getLiveDateInfo(indexId: string): string {
+  return liveDataDates[indexId] || '';
 }
 
 export async function getAllIndexData(refresh = false): Promise<IndexDataMap> {
   if (cachedData && !refresh) {
     return cachedData;
   }
-  
+
   const dataMap: IndexDataMap = {};
-  
+
   const loadPromises = INDEX_CONFIGS.map(async (config) => {
     try {
       let data = await loadIndexData(config.id);
       data = await mergeLiveData(config.id, data);
       dataMap[config.id] = data;
     } catch (e) {
-      console.error(`加载 ${config.name} 数据失败:`, e);
+      console.error(`\u52A0\u8F7D ${config.name} \u6570\u636E\u5931\u8D25:`, e);
     }
   });
 
   await Promise.all(loadPromises);
-  
+
   cachedData = dataMap;
   return dataMap;
 }

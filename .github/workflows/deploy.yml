@@ -17,11 +17,24 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+        continue-on-error: true
+
+      - name: Refresh market data
+        continue-on-error: true
+        run: |
+          pip install -r requirements.txt --timeout=300 2>/dev/null || true
+          python scripts/update_data.py 2>/dev/null || true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -29,18 +42,17 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Clean npm cache
-        run: npm cache clean --force
-
       - name: Install dependencies
-        run: npm ci --timeout=120000
+        run: npm ci
         env:
           CI: true
+        timeout-minutes: 5
 
       - name: Build
         run: npm run build
         env:
           CI: true
+        timeout-minutes: 5
 
       - name: Verify build output
         run: |
