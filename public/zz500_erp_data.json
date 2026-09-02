@@ -2,7 +2,7 @@
   {
     "date": "2007-01-31",
     "erp": -0.5431,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 24,
     "signal": "高估",
@@ -17,7 +17,7 @@
   {
     "date": "2007-02-28",
     "erp": -0.9527,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 16,
     "signal": "极度高估",
@@ -32,7 +32,7 @@
   {
     "date": "2007-03-30",
     "erp": -1.4481,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 8,
     "signal": "极度高估",
@@ -47,7 +47,7 @@
   {
     "date": "2007-04-30",
     "erp": -1.8947,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 5,
     "signal": "极度高估",
@@ -62,7 +62,7 @@
   {
     "date": "2007-05-31",
     "erp": -2.5103,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 3,
     "signal": "极度高估",
@@ -77,7 +77,7 @@
   {
     "date": "2007-06-29",
     "erp": -2.6495,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 2,
     "signal": "极度高估",
@@ -92,7 +92,7 @@
   {
     "date": "2007-07-31",
     "erp": -2.7288,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 1,
     "signal": "极度高估",
@@ -107,7 +107,7 @@
   {
     "date": "2007-08-31",
     "erp": -2.6467,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 2,
     "signal": "极度高估",
@@ -122,7 +122,7 @@
   {
     "date": "2007-09-28",
     "erp": -2.8345,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 0,
     "signal": "极度高估",
@@ -137,7 +137,7 @@
   {
     "date": "2007-10-31",
     "erp": -2.5553,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 3,
     "signal": "极度高估",
@@ -152,7 +152,7 @@
   {
     "date": "2007-11-30",
     "erp": -2.3677,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 4,
     "signal": "极度高估",
@@ -167,7 +167,7 @@
   {
     "date": "2007-12-28",
     "erp": -2.662,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 1,
     "signal": "极度高估",
@@ -182,7 +182,7 @@
   {
     "date": "2008-01-31",
     "erp": -2.3436,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 4,
     "signal": "极度高估",
@@ -197,7 +197,7 @@
   {
     "date": "2008-02-29",
     "erp": -2.3916,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 3,
     "signal": "极度高估",
@@ -212,9 +212,9 @@
   {
     "date": "2008-03-31",
     "erp": -1.8287,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 6,
+    "percentile": 5,
     "signal": "极度高估",
     "pe_ttm": 45.1,
     "pb": 3.95,
@@ -227,7 +227,7 @@
   {
     "date": "2008-04-30",
     "erp": -1.4885,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 7,
     "signal": "极度高估",
@@ -242,7 +242,7 @@
   {
     "date": "2008-05-30",
     "erp": -1.4944,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 7,
     "signal": "极度高估",
@@ -257,7 +257,7 @@
   {
     "date": "2008-06-30",
     "erp": -0.9899,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 15,
     "signal": "极度高估",
@@ -272,7 +272,7 @@
   {
     "date": "2008-07-31",
     "erp": -1.0572,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 14,
     "signal": "极度高估",
@@ -287,9 +287,9 @@
   {
     "date": "2008-08-29",
     "erp": 0.3512,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 47,
+    "percentile": 46,
     "signal": "均衡",
     "pe_ttm": 21.86,
     "pb": 2.24,
@@ -302,9 +302,9 @@
   {
     "date": "2008-09-26",
     "erp": 1.2494,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 60,
+    "percentile": 59,
     "signal": "均衡",
     "pe_ttm": 20.09,
     "pb": 2.08,
@@ -317,7 +317,7 @@
   {
     "date": "2008-10-31",
     "erp": 3.7369,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 98,
     "signal": "极度低估",
@@ -332,7 +332,7 @@
   {
     "date": "2008-11-28",
     "erp": 2.8167,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 86,
     "signal": "极度低估",
@@ -347,9 +347,9 @@
   {
     "date": "2008-12-31",
     "erp": 2.7094,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 83,
+    "percentile": 84,
     "signal": "极度低估",
     "pe_ttm": 18.31,
     "pb": 1.86,
@@ -362,9 +362,9 @@
   {
     "date": "2009-01-23",
     "erp": 1.5929,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 63,
+    "percentile": 62,
     "signal": "均衡",
     "pe_ttm": 21.6,
     "pb": 2.12,
@@ -377,9 +377,9 @@
   {
     "date": "2009-02-27",
     "erp": 1.0141,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 55,
+    "percentile": 54,
     "signal": "均衡",
     "pe_ttm": 24.01,
     "pb": 2.26,
@@ -392,7 +392,7 @@
   {
     "date": "2009-03-31",
     "erp": 0.0104,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 41,
     "signal": "均衡",
@@ -407,7 +407,7 @@
   {
     "date": "2009-04-30",
     "erp": -0.3371,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 33,
     "signal": "高估",
@@ -422,7 +422,7 @@
   {
     "date": "2009-05-27",
     "erp": -0.4274,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 30,
     "signal": "高估",
@@ -437,7 +437,7 @@
   {
     "date": "2009-06-30",
     "erp": -0.762,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 18,
     "signal": "高估",
@@ -452,7 +452,7 @@
   {
     "date": "2009-07-31",
     "erp": -1.3272,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 11,
     "signal": "极度高估",
@@ -467,7 +467,7 @@
   {
     "date": "2009-08-31",
     "erp": -0.7741,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 17,
     "signal": "高估",
@@ -482,9 +482,9 @@
   {
     "date": "2009-09-30",
     "erp": -0.9252,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 17,
+    "percentile": 16,
     "signal": "极度高估",
     "pe_ttm": 38.64,
     "pb": 3.2,
@@ -497,7 +497,7 @@
   {
     "date": "2009-10-30",
     "erp": -1.2029,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 14,
     "signal": "极度高估",
@@ -512,7 +512,7 @@
   {
     "date": "2009-11-30",
     "erp": -1.3764,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 9,
     "signal": "极度高估",
@@ -527,7 +527,7 @@
   {
     "date": "2009-12-31",
     "erp": -1.5312,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 6,
     "signal": "极度高估",
@@ -542,7 +542,7 @@
   {
     "date": "2010-01-29",
     "erp": -1.4051,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 8,
     "signal": "极度高估",
@@ -557,7 +557,7 @@
   {
     "date": "2010-02-26",
     "erp": -1.2696,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 12,
     "signal": "极度高估",
@@ -572,7 +572,7 @@
   {
     "date": "2010-03-31",
     "erp": -1.3229,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 11,
     "signal": "极度高估",
@@ -587,7 +587,7 @@
   {
     "date": "2010-04-30",
     "erp": -0.7194,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 18,
     "signal": "高估",
@@ -602,7 +602,7 @@
   {
     "date": "2010-05-31",
     "erp": -0.3972,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 32,
     "signal": "高估",
@@ -617,7 +617,7 @@
   {
     "date": "2010-06-30",
     "erp": -0.0973,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 38,
     "signal": "高估",
@@ -632,7 +632,7 @@
   {
     "date": "2010-07-30",
     "erp": -0.4795,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 27,
     "signal": "高估",
@@ -647,9 +647,9 @@
   {
     "date": "2010-08-31",
     "erp": -0.5142,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 25,
+    "percentile": 24,
     "signal": "高估",
     "pe_ttm": 36.82,
     "pb": 3.88,
@@ -662,7 +662,7 @@
   {
     "date": "2010-09-30",
     "erp": -0.6474,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 20,
     "signal": "高估",
@@ -677,7 +677,7 @@
   {
     "date": "2010-10-29",
     "erp": -1.1317,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 14,
     "signal": "极度高估",
@@ -692,7 +692,7 @@
   {
     "date": "2010-11-30",
     "erp": -1.4477,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 8,
     "signal": "极度高估",
@@ -707,7 +707,7 @@
   {
     "date": "2010-12-31",
     "erp": -1.2811,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 12,
     "signal": "极度高估",
@@ -722,7 +722,7 @@
   {
     "date": "2011-01-31",
     "erp": -1.2113,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 13,
     "signal": "极度高估",
@@ -737,7 +737,7 @@
   {
     "date": "2011-02-28",
     "erp": -1.3699,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 10,
     "signal": "极度高估",
@@ -752,7 +752,7 @@
   {
     "date": "2011-03-31",
     "erp": -1.2524,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 13,
     "signal": "极度高估",
@@ -767,7 +767,7 @@
   {
     "date": "2011-04-29",
     "erp": -0.987,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 15,
     "signal": "极度高估",
@@ -782,7 +782,7 @@
   {
     "date": "2011-05-31",
     "erp": -0.6765,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 19,
     "signal": "高估",
@@ -797,7 +797,7 @@
   {
     "date": "2011-06-30",
     "erp": -0.8397,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 17,
     "signal": "高估",
@@ -812,7 +812,7 @@
   {
     "date": "2011-07-29",
     "erp": -0.9363,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 16,
     "signal": "极度高估",
@@ -827,7 +827,7 @@
   {
     "date": "2011-08-31",
     "erp": -0.6496,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 20,
     "signal": "高估",
@@ -842,9 +842,9 @@
   {
     "date": "2011-09-30",
     "erp": 0.1204,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 44,
+    "percentile": 43,
     "signal": "均衡",
     "pe_ttm": 25.12,
     "pb": 2.75,
@@ -857,7 +857,7 @@
   {
     "date": "2011-10-31",
     "erp": 0.1825,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 44,
     "signal": "均衡",
@@ -872,7 +872,7 @@
   {
     "date": "2011-11-30",
     "erp": 0.5197,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 48,
     "signal": "均衡",
@@ -887,9 +887,9 @@
   {
     "date": "2011-12-30",
     "erp": 1.3271,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 61,
+    "percentile": 60,
     "signal": "均衡",
     "pe_ttm": 21.02,
     "pb": 2.29,
@@ -902,7 +902,7 @@
   {
     "date": "2012-01-31",
     "erp": 1.4292,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 61,
     "signal": "均衡",
@@ -917,7 +917,7 @@
   {
     "date": "2012-02-29",
     "erp": 0.7141,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 51,
     "signal": "均衡",
@@ -932,7 +932,7 @@
   {
     "date": "2012-03-30",
     "erp": 0.941,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 54,
     "signal": "均衡",
@@ -947,7 +947,7 @@
   {
     "date": "2012-04-27",
     "erp": 0.5494,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 49,
     "signal": "均衡",
@@ -962,9 +962,9 @@
   {
     "date": "2012-05-31",
     "erp": 0.624,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 50,
+    "percentile": 49,
     "signal": "均衡",
     "pe_ttm": 25.2,
     "pb": 2.52,
@@ -977,7 +977,7 @@
   {
     "date": "2012-06-29",
     "erp": 0.9228,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 53,
     "signal": "均衡",
@@ -992,7 +992,7 @@
   {
     "date": "2012-07-31",
     "erp": 1.2436,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 59,
     "signal": "均衡",
@@ -1007,7 +1007,7 @@
   {
     "date": "2012-08-31",
     "erp": 1.2497,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 60,
     "signal": "均衡",
@@ -1022,7 +1022,7 @@
   {
     "date": "2012-09-28",
     "erp": 1.0859,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 56,
     "signal": "均衡",
@@ -1037,9 +1037,9 @@
   {
     "date": "2012-10-31",
     "erp": 0.8627,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 53,
+    "percentile": 52,
     "signal": "均衡",
     "pe_ttm": 22.54,
     "pb": 2.14,
@@ -1052,7 +1052,7 @@
   {
     "date": "2012-11-30",
     "erp": 1.4593,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 62,
     "signal": "均衡",
@@ -1067,7 +1067,7 @@
   {
     "date": "2012-12-31",
     "erp": 0.6438,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 50,
     "signal": "均衡",
@@ -1082,7 +1082,7 @@
   {
     "date": "2013-01-31",
     "erp": 0.3803,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 47,
     "signal": "均衡",
@@ -1097,7 +1097,7 @@
   {
     "date": "2013-02-28",
     "erp": 0.1951,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 45,
     "signal": "均衡",
@@ -1112,7 +1112,7 @@
   {
     "date": "2013-03-29",
     "erp": 0.4785,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 47,
     "signal": "均衡",
@@ -1127,7 +1127,7 @@
   {
     "date": "2013-04-26",
     "erp": 0.7686,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 51,
     "signal": "均衡",
@@ -1142,7 +1142,7 @@
   {
     "date": "2013-05-31",
     "erp": 0.2956,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 46,
     "signal": "均衡",
@@ -1157,7 +1157,7 @@
   {
     "date": "2013-06-28",
     "erp": 0.8986,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 53,
     "signal": "均衡",
@@ -1172,7 +1172,7 @@
   {
     "date": "2013-07-31",
     "erp": 0.5503,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 49,
     "signal": "均衡",
@@ -1187,7 +1187,7 @@
   {
     "date": "2013-08-30",
     "erp": 0.133,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 44,
     "signal": "均衡",
@@ -1202,7 +1202,7 @@
   {
     "date": "2013-09-30",
     "erp": -0.0876,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 38,
     "signal": "高估",
@@ -1217,7 +1217,7 @@
   {
     "date": "2013-10-31",
     "erp": 0.0621,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 43,
     "signal": "均衡",
@@ -1232,7 +1232,7 @@
   {
     "date": "2013-11-29",
     "erp": -0.3851,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 32,
     "signal": "高估",
@@ -1247,7 +1247,7 @@
   {
     "date": "2013-12-31",
     "erp": -0.4735,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 28,
     "signal": "高估",
@@ -1262,7 +1262,7 @@
   {
     "date": "2014-01-30",
     "erp": -0.5099,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 25,
     "signal": "高估",
@@ -1277,7 +1277,7 @@
   {
     "date": "2014-02-28",
     "erp": -0.5122,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 25,
     "signal": "高估",
@@ -1292,7 +1292,7 @@
   {
     "date": "2014-03-31",
     "erp": -0.4584,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 28,
     "signal": "高估",
@@ -1307,7 +1307,7 @@
   {
     "date": "2014-04-30",
     "erp": -0.1714,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 36,
     "signal": "高估",
@@ -1322,7 +1322,7 @@
   {
     "date": "2014-05-30",
     "erp": -0.0179,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 40,
     "signal": "均衡",
@@ -1337,7 +1337,7 @@
   {
     "date": "2014-06-30",
     "erp": 0.0422,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 42,
     "signal": "均衡",
@@ -1352,7 +1352,7 @@
   {
     "date": "2014-07-31",
     "erp": -0.4311,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 29,
     "signal": "高估",
@@ -1367,7 +1367,7 @@
   {
     "date": "2014-08-29",
     "erp": -0.4809,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 27,
     "signal": "高估",
@@ -1382,7 +1382,7 @@
   {
     "date": "2014-09-30",
     "erp": -0.6131,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 21,
     "signal": "高估",
@@ -1397,9 +1397,9 @@
   {
     "date": "2014-10-31",
     "erp": -0.3534,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 33,
+    "percentile": 32,
     "signal": "高估",
     "pe_ttm": 29.39,
     "pb": 2.73,
@@ -1412,7 +1412,7 @@
   {
     "date": "2014-11-28",
     "erp": -0.2739,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 34,
     "signal": "高估",
@@ -1427,9 +1427,9 @@
   {
     "date": "2014-12-31",
     "erp": -0.4219,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 31,
+    "percentile": 30,
     "signal": "高估",
     "pe_ttm": 31.25,
     "pb": 2.88,
@@ -1442,7 +1442,7 @@
   {
     "date": "2015-01-30",
     "erp": -0.4989,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 26,
     "signal": "高估",
@@ -1457,7 +1457,7 @@
   {
     "date": "2015-02-27",
     "erp": -0.5867,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 22,
     "signal": "高估",
@@ -1472,7 +1472,7 @@
   {
     "date": "2015-03-31",
     "erp": -1.3894,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 9,
     "signal": "极度高估",
@@ -1487,7 +1487,7 @@
   {
     "date": "2015-04-30",
     "erp": -1.3721,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 10,
     "signal": "极度高估",
@@ -1502,7 +1502,7 @@
   {
     "date": "2015-05-29",
     "erp": -1.9243,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 5,
     "signal": "极度高估",
@@ -1517,7 +1517,7 @@
   {
     "date": "2015-06-30",
     "erp": -1.7168,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 6,
     "signal": "极度高估",
@@ -1532,7 +1532,7 @@
   {
     "date": "2015-07-31",
     "erp": -1.3256,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 11,
     "signal": "极度高估",
@@ -1547,7 +1547,7 @@
   {
     "date": "2015-08-31",
     "erp": -0.6929,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 19,
     "signal": "高估",
@@ -1562,7 +1562,7 @@
   {
     "date": "2015-09-30",
     "erp": -0.4193,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 31,
     "signal": "高估",
@@ -1577,7 +1577,7 @@
   {
     "date": "2015-10-30",
     "erp": -0.5724,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 22,
     "signal": "高估",
@@ -1592,7 +1592,7 @@
   {
     "date": "2015-11-30",
     "erp": -0.6819,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 19,
     "signal": "高估",
@@ -1607,7 +1607,7 @@
   {
     "date": "2015-12-31",
     "erp": -0.592,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 21,
     "signal": "高估",
@@ -1622,7 +1622,7 @@
   {
     "date": "2016-01-29",
     "erp": 0.2666,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 45,
     "signal": "均衡",
@@ -1637,7 +1637,7 @@
   {
     "date": "2016-02-29",
     "erp": 0.3396,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 46,
     "signal": "均衡",
@@ -1652,10 +1652,10 @@
   {
     "date": "2016-03-31",
     "erp": -0.0695,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 39,
-    "signal": "均衡",
+    "percentile": 38,
+    "signal": "高估",
     "pe_ttm": 36.07,
     "pb": 3.05,
     "dividend_yield": 1.109,
@@ -1667,7 +1667,7 @@
   {
     "date": "2016-04-29",
     "erp": 0.0131,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 41,
     "signal": "均衡",
@@ -1682,7 +1682,7 @@
   {
     "date": "2016-05-31",
     "erp": -0.0637,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 39,
     "signal": "均衡",
@@ -1697,7 +1697,7 @@
   {
     "date": "2016-06-30",
     "erp": -0.1471,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 37,
     "signal": "高估",
@@ -1712,7 +1712,7 @@
   {
     "date": "2016-07-29",
     "erp": -0.0987,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 37,
     "signal": "高估",
@@ -1727,7 +1727,7 @@
   {
     "date": "2016-08-31",
     "erp": -0.0383,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 39,
     "signal": "均衡",
@@ -1742,7 +1742,7 @@
   {
     "date": "2016-09-30",
     "erp": 0.0049,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 40,
     "signal": "均衡",
@@ -1757,7 +1757,7 @@
   {
     "date": "2016-10-31",
     "erp": 0.0618,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 42,
     "signal": "均衡",
@@ -1772,7 +1772,7 @@
   {
     "date": "2016-11-30",
     "erp": -0.209,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 36,
     "signal": "高估",
@@ -1787,7 +1787,7 @@
   {
     "date": "2016-12-30",
     "erp": -0.2822,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 34,
     "signal": "高估",
@@ -1802,7 +1802,7 @@
   {
     "date": "2017-01-26",
     "erp": -0.5879,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 22,
     "signal": "高估",
@@ -1817,7 +1817,7 @@
   {
     "date": "2017-02-28",
     "erp": -0.5486,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 23,
     "signal": "高估",
@@ -1832,7 +1832,7 @@
   {
     "date": "2017-03-31",
     "erp": -0.5431,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 24,
     "signal": "高估",
@@ -1847,7 +1847,7 @@
   {
     "date": "2017-04-28",
     "erp": -0.4227,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 30,
     "signal": "高估",
@@ -1862,7 +1862,7 @@
   {
     "date": "2017-05-31",
     "erp": -0.3326,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 33,
     "signal": "高估",
@@ -1877,9 +1877,9 @@
   {
     "date": "2017-06-30",
     "erp": -0.4762,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 28,
+    "percentile": 27,
     "signal": "高估",
     "pe_ttm": 32.34,
     "pb": 2.68,
@@ -1892,7 +1892,7 @@
   {
     "date": "2017-07-31",
     "erp": -0.5576,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 23,
     "signal": "高估",
@@ -1907,7 +1907,7 @@
   {
     "date": "2017-08-31",
     "erp": -0.4489,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 29,
     "signal": "高估",
@@ -1922,7 +1922,7 @@
   {
     "date": "2017-09-29",
     "erp": -0.4964,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 26,
     "signal": "高估",
@@ -1937,7 +1937,7 @@
   {
     "date": "2017-10-31",
     "erp": -0.4037,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 31,
     "signal": "高估",
@@ -1952,7 +1952,7 @@
   {
     "date": "2017-11-30",
     "erp": -0.2258,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 35,
     "signal": "高估",
@@ -1967,9 +1967,9 @@
   {
     "date": "2017-12-29",
     "erp": -0.215,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 36,
+    "percentile": 35,
     "signal": "高估",
     "pe_ttm": 27.28,
     "pb": 2.47,
@@ -1982,7 +1982,7 @@
   {
     "date": "2018-01-31",
     "erp": -0.2308,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 35,
     "signal": "高估",
@@ -1997,9 +1997,9 @@
   {
     "date": "2018-02-28",
     "erp": 0.0186,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 42,
+    "percentile": 41,
     "signal": "均衡",
     "pe_ttm": 26.05,
     "pb": 2.36,
@@ -2012,7 +2012,7 @@
   {
     "date": "2018-03-30",
     "erp": 0.1099,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 43,
     "signal": "均衡",
@@ -2027,7 +2027,7 @@
   {
     "date": "2018-04-27",
     "erp": 0.5442,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 48,
     "signal": "均衡",
@@ -2042,7 +2042,7 @@
   {
     "date": "2018-05-31",
     "erp": 0.6845,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 50,
     "signal": "均衡",
@@ -2057,9 +2057,9 @@
   {
     "date": "2018-06-29",
     "erp": 1.1777,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 58,
+    "percentile": 57,
     "signal": "均衡",
     "pe_ttm": 21.49,
     "pb": 2.02,
@@ -2072,7 +2072,7 @@
   {
     "date": "2018-07-31",
     "erp": 1.1873,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 58,
     "signal": "均衡",
@@ -2087,7 +2087,7 @@
   {
     "date": "2018-08-31",
     "erp": 1.8216,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 68,
     "signal": "低估",
@@ -2102,9 +2102,9 @@
   {
     "date": "2018-09-28",
     "erp": 1.8672,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 69,
+    "percentile": 68,
     "signal": "低估",
     "pe_ttm": 18.24,
     "pb": 1.81,
@@ -2117,7 +2117,7 @@
   {
     "date": "2018-10-31",
     "erp": 2.6415,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 81,
     "signal": "极度低估",
@@ -2132,7 +2132,7 @@
   {
     "date": "2018-11-30",
     "erp": 2.6655,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 82,
     "signal": "极度低估",
@@ -2147,7 +2147,7 @@
   {
     "date": "2018-12-28",
     "erp": 3.3087,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 94,
     "signal": "极度低估",
@@ -2162,7 +2162,7 @@
   {
     "date": "2019-01-31",
     "erp": 3.3646,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 95,
     "signal": "极度低估",
@@ -2177,7 +2177,7 @@
   {
     "date": "2019-02-28",
     "erp": 2.1207,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 74,
     "signal": "低估",
@@ -2192,7 +2192,7 @@
   {
     "date": "2019-03-29",
     "erp": 1.7487,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 66,
     "signal": "低估",
@@ -2207,7 +2207,7 @@
   {
     "date": "2019-04-30",
     "erp": 1.6534,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 64,
     "signal": "低估",
@@ -2222,7 +2222,7 @@
   {
     "date": "2019-05-31",
     "erp": 2.1538,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 75,
     "signal": "低估",
@@ -2237,7 +2237,7 @@
   {
     "date": "2019-06-28",
     "erp": 2.1023,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 73,
     "signal": "低估",
@@ -2252,9 +2252,9 @@
   {
     "date": "2019-07-31",
     "erp": 2.2211,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 75,
+    "percentile": 76,
     "signal": "低估",
     "pe_ttm": 18.6,
     "pb": 1.82,
@@ -2267,7 +2267,7 @@
   {
     "date": "2019-08-30",
     "erp": 2.2477,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 76,
     "signal": "低估",
@@ -2282,7 +2282,7 @@
   {
     "date": "2019-09-30",
     "erp": 2.1,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 72,
     "signal": "低估",
@@ -2297,7 +2297,7 @@
   {
     "date": "2019-10-31",
     "erp": 1.8271,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 68,
     "signal": "低估",
@@ -2312,9 +2312,9 @@
   {
     "date": "2019-11-29",
     "erp": 1.9475,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 71,
+    "percentile": 70,
     "signal": "低估",
     "pe_ttm": 19.56,
     "pb": 1.82,
@@ -2327,9 +2327,9 @@
   {
     "date": "2019-12-31",
     "erp": 1.7392,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 66,
+    "percentile": 65,
     "signal": "低估",
     "pe_ttm": 20.51,
     "pb": 1.88,
@@ -2342,7 +2342,7 @@
   {
     "date": "2020-01-23",
     "erp": 1.8076,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 67,
     "signal": "低估",
@@ -2357,7 +2357,7 @@
   {
     "date": "2020-02-28",
     "erp": 2.0379,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 72,
     "signal": "低估",
@@ -2372,7 +2372,7 @@
   {
     "date": "2020-03-31",
     "erp": 2.5069,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 78,
     "signal": "极度低估",
@@ -2387,7 +2387,7 @@
   {
     "date": "2020-04-30",
     "erp": 1.9084,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 69,
     "signal": "低估",
@@ -2402,7 +2402,7 @@
   {
     "date": "2020-05-29",
     "erp": 1.6539,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 64,
     "signal": "低估",
@@ -2417,7 +2417,7 @@
   {
     "date": "2020-06-30",
     "erp": 1.3893,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 61,
     "signal": "均衡",
@@ -2432,9 +2432,9 @@
   {
     "date": "2020-07-31",
     "erp": 0.7803,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 52,
+    "percentile": 51,
     "signal": "均衡",
     "pe_ttm": 26.69,
     "pb": 2.26,
@@ -2447,7 +2447,7 @@
   {
     "date": "2020-08-31",
     "erp": 0.8225,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 52,
     "signal": "均衡",
@@ -2462,7 +2462,7 @@
   {
     "date": "2020-09-30",
     "erp": 0.9755,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 54,
     "signal": "均衡",
@@ -2477,7 +2477,7 @@
   {
     "date": "2020-10-30",
     "erp": 1.1555,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 57,
     "signal": "均衡",
@@ -2492,9 +2492,9 @@
   {
     "date": "2020-11-30",
     "erp": 1.0345,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 56,
+    "percentile": 55,
     "signal": "均衡",
     "pe_ttm": 23.34,
     "pb": 2.12,
@@ -2507,7 +2507,7 @@
   {
     "date": "2020-12-31",
     "erp": 1.1398,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 57,
     "signal": "均衡",
@@ -2522,7 +2522,7 @@
   {
     "date": "2021-01-29",
     "erp": 1.1151,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 56,
     "signal": "均衡",
@@ -2537,7 +2537,7 @@
   {
     "date": "2021-02-26",
     "erp": 1.0343,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 55,
     "signal": "均衡",
@@ -2552,7 +2552,7 @@
   {
     "date": "2021-03-31",
     "erp": 1.203,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 58,
     "signal": "均衡",
@@ -2567,9 +2567,9 @@
   {
     "date": "2021-04-30",
     "erp": 1.7767,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 67,
+    "percentile": 66,
     "signal": "低估",
     "pe_ttm": 20.24,
     "pb": 2.07,
@@ -2582,7 +2582,7 @@
   {
     "date": "2021-05-31",
     "erp": 1.7101,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 65,
     "signal": "低估",
@@ -2597,9 +2597,9 @@
   {
     "date": "2021-06-30",
     "erp": 2.1009,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 72,
+    "percentile": 73,
     "signal": "低估",
     "pe_ttm": 19.31,
     "pb": 2.01,
@@ -2612,7 +2612,7 @@
   {
     "date": "2021-07-30",
     "erp": 2.402,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 76,
     "signal": "低估",
@@ -2627,7 +2627,7 @@
   {
     "date": "2021-08-31",
     "erp": 2.4883,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 77,
     "signal": "极度低估",
@@ -2642,7 +2642,7 @@
   {
     "date": "2021-09-30",
     "erp": 2.5074,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 78,
     "signal": "极度低估",
@@ -2657,7 +2657,7 @@
   {
     "date": "2021-10-29",
     "erp": 2.7706,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 85,
     "signal": "极度低估",
@@ -2672,7 +2672,7 @@
   {
     "date": "2021-11-30",
     "erp": 2.7522,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 84,
     "signal": "极度低估",
@@ -2687,7 +2687,7 @@
   {
     "date": "2021-12-31",
     "erp": 2.6891,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 83,
     "signal": "极度低估",
@@ -2702,7 +2702,7 @@
   {
     "date": "2022-01-28",
     "erp": 3.3917,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 96,
     "signal": "极度低估",
@@ -2717,7 +2717,7 @@
   {
     "date": "2022-02-28",
     "erp": 3.0322,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 91,
     "signal": "极度低估",
@@ -2732,7 +2732,7 @@
   {
     "date": "2022-03-31",
     "erp": 3.5055,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 97,
     "signal": "极度低估",
@@ -2747,7 +2747,7 @@
   {
     "date": "2022-04-29",
     "erp": 4.1593,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 100,
     "signal": "极度低估",
@@ -2762,7 +2762,7 @@
   {
     "date": "2022-05-31",
     "erp": 3.7299,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 98,
     "signal": "极度低估",
@@ -2777,7 +2777,7 @@
   {
     "date": "2022-06-30",
     "erp": 3.0792,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 92,
     "signal": "极度低估",
@@ -2792,7 +2792,7 @@
   {
     "date": "2022-07-29",
     "erp": 3.3416,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 94,
     "signal": "极度低估",
@@ -2807,7 +2807,7 @@
   {
     "date": "2022-08-31",
     "erp": 3.4676,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 97,
     "signal": "极度低估",
@@ -2822,7 +2822,7 @@
   {
     "date": "2022-09-30",
     "erp": 3.7588,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 99,
     "signal": "极度低估",
@@ -2837,7 +2837,7 @@
   {
     "date": "2022-10-31",
     "erp": 3.6421,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 97,
     "signal": "极度低估",
@@ -2852,7 +2852,7 @@
   {
     "date": "2022-11-30",
     "erp": 3.0322,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 91,
     "signal": "极度低估",
@@ -2867,7 +2867,7 @@
   {
     "date": "2022-12-30",
     "erp": 3.0024,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 90,
     "signal": "极度低估",
@@ -2882,7 +2882,7 @@
   {
     "date": "2023-01-31",
     "erp": 2.5788,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 80,
     "signal": "极度低估",
@@ -2897,7 +2897,7 @@
   {
     "date": "2023-02-28",
     "erp": 2.5096,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 78,
     "signal": "极度低估",
@@ -2912,7 +2912,7 @@
   {
     "date": "2023-03-31",
     "erp": 2.4919,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 77,
     "signal": "极度低估",
@@ -2927,7 +2927,7 @@
   {
     "date": "2023-04-28",
     "erp": 2.5291,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 79,
     "signal": "极度低估",
@@ -2942,7 +2942,7 @@
   {
     "date": "2023-05-31",
     "erp": 2.7765,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 86,
     "signal": "极度低估",
@@ -2957,7 +2957,7 @@
   {
     "date": "2023-06-30",
     "erp": 2.6198,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 81,
     "signal": "极度低估",
@@ -2972,7 +2972,7 @@
   {
     "date": "2023-07-31",
     "erp": 2.5109,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 79,
     "signal": "极度低估",
@@ -2987,7 +2987,7 @@
   {
     "date": "2023-08-31",
     "erp": 2.7758,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 86,
     "signal": "极度低估",
@@ -3002,7 +3002,7 @@
   {
     "date": "2023-09-28",
     "erp": 2.6811,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 83,
     "signal": "极度低估",
@@ -3017,7 +3017,7 @@
   {
     "date": "2023-10-31",
     "erp": 2.8648,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 88,
     "signal": "极度低估",
@@ -3032,7 +3032,7 @@
   {
     "date": "2023-11-30",
     "erp": 2.8691,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 88,
     "signal": "极度低估",
@@ -3047,7 +3047,7 @@
   {
     "date": "2023-12-29",
     "erp": 3.1623,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 93,
     "signal": "极度低估",
@@ -3062,7 +3062,7 @@
   {
     "date": "2024-01-31",
     "erp": 4.0521,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 100,
     "signal": "极度低估",
@@ -3077,9 +3077,9 @@
   {
     "date": "2024-02-29",
     "erp": 3.3443,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 94,
+    "percentile": 95,
     "signal": "极度低估",
     "pe_ttm": 17.6,
     "pb": 1.68,
@@ -3092,7 +3092,7 @@
   {
     "date": "2024-03-29",
     "erp": 3.3917,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 95,
     "signal": "极度低估",
@@ -3107,7 +3107,7 @@
   {
     "date": "2024-04-30",
     "erp": 2.8228,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 87,
     "signal": "极度低估",
@@ -3122,7 +3122,7 @@
   {
     "date": "2024-05-31",
     "erp": 2.9184,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 89,
     "signal": "极度低估",
@@ -3137,7 +3137,7 @@
   {
     "date": "2024-06-28",
     "erp": 3.2917,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 93,
     "signal": "极度低估",
@@ -3152,7 +3152,7 @@
   {
     "date": "2024-07-31",
     "erp": 3.456,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 96,
     "signal": "极度低估",
@@ -3167,7 +3167,7 @@
   {
     "date": "2024-08-30",
     "erp": 3.782,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 99,
     "signal": "极度低估",
@@ -3182,7 +3182,7 @@
   {
     "date": "2024-09-30",
     "erp": 2.6675,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 82,
     "signal": "极度低估",
@@ -3197,7 +3197,7 @@
   {
     "date": "2024-10-31",
     "erp": 2.6143,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 81,
     "signal": "极度低估",
@@ -3212,7 +3212,7 @@
   {
     "date": "2024-11-29",
     "erp": 2.7756,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 85,
     "signal": "极度低估",
@@ -3227,7 +3227,7 @@
   {
     "date": "2024-12-31",
     "erp": 2.9331,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 89,
     "signal": "极度低估",
@@ -3242,7 +3242,7 @@
   {
     "date": "2025-01-27",
     "erp": 3.0191,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 90,
     "signal": "极度低估",
@@ -3257,7 +3257,7 @@
   {
     "date": "2025-02-28",
     "erp": 2.8303,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 87,
     "signal": "极度低估",
@@ -3272,7 +3272,7 @@
   {
     "date": "2025-03-31",
     "erp": 2.7161,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 84,
     "signal": "极度低估",
@@ -3287,7 +3287,7 @@
   {
     "date": "2025-04-30",
     "erp": 3.1353,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 92,
     "signal": "极度低估",
@@ -3302,7 +3302,7 @@
   {
     "date": "2025-05-30",
     "erp": 3.0369,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 92,
     "signal": "极度低估",
@@ -3317,7 +3317,7 @@
   {
     "date": "2025-06-30",
     "erp": 2.8719,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 89,
     "signal": "极度低估",
@@ -3332,7 +3332,7 @@
   {
     "date": "2025-07-31",
     "erp": 2.6059,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 80,
     "signal": "极度低估",
@@ -3347,7 +3347,7 @@
   {
     "date": "2025-08-29",
     "erp": 2.1256,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 74,
     "signal": "低估",
@@ -3362,7 +3362,7 @@
   {
     "date": "2025-09-30",
     "erp": 1.9202,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 70,
     "signal": "低估",
@@ -3377,7 +3377,7 @@
   {
     "date": "2025-10-31",
     "erp": 2.1017,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 73,
     "signal": "低估",
@@ -3392,7 +3392,7 @@
   {
     "date": "2025-11-28",
     "erp": 2.2107,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 75,
     "signal": "低估",
@@ -3407,7 +3407,7 @@
   {
     "date": "2025-12-31",
     "erp": 2.0033,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 71,
     "signal": "低估",
@@ -3422,7 +3422,7 @@
   {
     "date": "2026-01-30",
     "erp": 1.6264,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 63,
     "signal": "低估",
@@ -3437,7 +3437,7 @@
   {
     "date": "2026-02-27",
     "erp": 1.5467,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 62,
     "signal": "均衡",
@@ -3452,7 +3452,7 @@
   {
     "date": "2026-03-31",
     "erp": 1.8921,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 69,
     "signal": "低估",
@@ -3467,9 +3467,9 @@
   {
     "date": "2026-04-30",
     "erp": 1.6517,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
-    "percentile": 64,
+    "percentile": 63,
     "signal": "低估",
     "pe_ttm": 29.42,
     "pb": 2.51,
@@ -3482,7 +3482,7 @@
   {
     "date": "2026-05-29",
     "erp": 1.6591,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 65,
     "signal": "低估",
@@ -3497,7 +3497,7 @@
   {
     "date": "2026-06-30",
     "erp": 1.2247,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 59,
     "signal": "均衡",
@@ -3512,7 +3512,7 @@
   {
     "date": "2026-07-31",
     "erp": 1.8095,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 67,
     "signal": "低估",
@@ -3527,7 +3527,7 @@
   {
     "date": "2026-08-31",
     "erp": 1.931,
-    "mean": 0.77,
+    "mean": 0.78,
     "sigma": 1.69,
     "percentile": 70,
     "signal": "低估",
@@ -3538,5 +3538,20 @@
     "index_value": 7952.1,
     "total_return": 9569.8,
     "tr_p": 3.62
+  },
+  {
+    "date": "2026-09-01",
+    "erp": 1.9783,
+    "mean": 0.78,
+    "sigma": 1.69,
+    "percentile": 71,
+    "signal": "低估",
+    "pe_ttm": 27.31,
+    "pb": 2.42,
+    "dividend_yield": 1.465,
+    "bond_10y": 1.6834,
+    "index_value": 7858.52,
+    "total_return": 9457.2,
+    "tr_p": 3.66
   }
 ]
