@@ -3199,7 +3199,7 @@
     "erp": 5.9833,
     "mean": 4.54,
     "sigma": 2.32,
-    "percentile": 73,
+    "percentile": 72,
     "signal": "低估",
     "pe_ttm": 11.26,
     "pb": 1.39,
@@ -3229,7 +3229,7 @@
     "erp": 6.0203,
     "mean": 4.54,
     "sigma": 2.32,
-    "percentile": 74,
+    "percentile": 73,
     "signal": "低估",
     "pe_ttm": 11.27,
     "pb": 1.37,
@@ -3855,18 +3855,18 @@
     "tr_p": 7.67
   },
   {
-    "date": "2026-09-01",
-    "erp": 5.9736,
+    "date": "2026-09-02",
+    "erp": 6.0479,
     "mean": 4.54,
     "sigma": 2.32,
-    "percentile": 72,
+    "percentile": 74,
     "signal": "低估",
-    "pe_ttm": 13.06,
-    "pb": 1.44,
-    "dividend_yield": 3.063,
-    "bond_10y": 1.6834,
-    "index_value": 4611.44,
-    "total_return": 6436.0,
-    "tr_p": 7.66
+    "pe_ttm": 12.93,
+    "pb": 1.43,
+    "dividend_yield": 3.094,
+    "bond_10y": 1.6861,
+    "index_value": 4547.96,
+    "total_return": 6347.4,
+    "tr_p": 7.73
   }
 ]
