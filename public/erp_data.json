@@ -3855,8 +3855,8 @@
     "tr_p": 7.67
   },
   {
-    "date": "2026-09-03",
-    "erp": 6.0661,
+    "date": "2026-09-04",
+    "erp": 6.0655,
     "mean": 4.54,
     "sigma": 2.32,
     "percentile": 74,
@@ -3864,9 +3864,9 @@
     "pe_ttm": 12.91,
     "pb": 1.43,
     "dividend_yield": 3.098,
-    "bond_10y": 1.6798,
-    "index_value": 4552.58,
-    "total_return": 6353.8,
+    "bond_10y": 1.6804,
+    "index_value": 4548.05,
+    "total_return": 6347.5,
     "tr_p": 7.75
   }
 ]
