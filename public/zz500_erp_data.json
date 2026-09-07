@@ -11,7 +11,7 @@
     "dividend_yield": 1.01,
     "bond_10y": 3.0671,
     "index_value": 2142.89,
-    "total_return": 3214.3,
+    "total_return": 6493.8,
     "tr_p": 2.52
   },
   {
@@ -26,7 +26,7 @@
     "dividend_yield": 0.878,
     "bond_10y": 3.1466,
     "index_value": 2513.53,
-    "total_return": 3770.3,
+    "total_return": 6493.8,
     "tr_p": 2.19
   },
   {
@@ -41,7 +41,7 @@
     "dividend_yield": 0.794,
     "bond_10y": 3.4338,
     "index_value": 2926.06,
-    "total_return": 4389.1,
+    "total_return": 6493.8,
     "tr_p": 1.99
   },
   {
@@ -56,7 +56,7 @@
     "dividend_yield": 0.679,
     "bond_10y": 3.5916,
     "index_value": 3903.69,
-    "total_return": 5855.5,
+    "total_return": 6493.8,
     "tr_p": 1.7
   },
   {
@@ -71,7 +71,7 @@
     "dividend_yield": 0.62,
     "bond_10y": 4.06,
     "index_value": 4267.78,
-    "total_return": 6401.7,
+    "total_return": 6493.8,
     "tr_p": 1.55
   },
   {
@@ -86,7 +86,7 @@
     "dividend_yield": 0.72,
     "bond_10y": 4.45,
     "index_value": 3585.49,
-    "total_return": 5378.2,
+    "total_return": 6493.8,
     "tr_p": 1.8
   },
   {
@@ -101,7 +101,7 @@
     "dividend_yield": 0.645,
     "bond_10y": 4.3401,
     "index_value": 4403.58,
-    "total_return": 6605.4,
+    "total_return": 6493.8,
     "tr_p": 1.61
   },
   {
@@ -116,7 +116,7 @@
     "dividend_yield": 0.651,
     "bond_10y": 4.2743,
     "index_value": 4897.64,
-    "total_return": 7346.5,
+    "total_return": 6493.8,
     "tr_p": 1.63
   },
   {
@@ -131,7 +131,7 @@
     "dividend_yield": 0.622,
     "bond_10y": 4.39,
     "index_value": 5083.65,
-    "total_return": 7625.5,
+    "total_return": 6493.8,
     "tr_p": 1.56
   },
   {
@@ -146,7 +146,7 @@
     "dividend_yield": 0.775,
     "bond_10y": 4.4937,
     "index_value": 4550.18,
-    "total_return": 6825.3,
+    "total_return": 6493.8,
     "tr_p": 1.94
   },
   {
@@ -161,7 +161,7 @@
     "dividend_yield": 0.856,
     "bond_10y": 4.5086,
     "index_value": 4122.93,
-    "total_return": 6184.4,
+    "total_return": 6493.8,
     "tr_p": 2.14
   },
   {
@@ -176,7 +176,7 @@
     "dividend_yield": 0.709,
     "bond_10y": 4.4357,
     "index_value": 4947.6,
-    "total_return": 7421.4,
+    "total_return": 6493.8,
     "tr_p": 1.77
   },
   {
@@ -191,7 +191,7 @@
     "dividend_yield": 0.74,
     "bond_10y": 4.1937,
     "index_value": 4663.42,
-    "total_return": 6995.1,
+    "total_return": 6493.8,
     "tr_p": 1.85
   },
   {
@@ -206,7 +206,7 @@
     "dividend_yield": 0.695,
     "bond_10y": 4.1283,
     "index_value": 5057.62,
-    "total_return": 7586.4,
+    "total_return": 6493.8,
     "tr_p": 1.74
   },
   {
@@ -221,7 +221,7 @@
     "dividend_yield": 0.887,
     "bond_10y": 4.046,
     "index_value": 4044.1,
-    "total_return": 6066.2,
+    "total_return": 6493.8,
     "tr_p": 2.22
   },
   {
@@ -236,7 +236,7 @@
     "dividend_yield": 1.034,
     "bond_10y": 4.0725,
     "index_value": 3903.18,
-    "total_return": 5854.8,
+    "total_return": 6493.8,
     "tr_p": 2.58
   },
   {
@@ -251,7 +251,7 @@
     "dividend_yield": 1.066,
     "bond_10y": 4.1589,
     "index_value": 3755.63,
-    "total_return": 5633.4,
+    "total_return": 6493.8,
     "tr_p": 2.66
   },
   {
@@ -266,7 +266,7 @@
     "dividend_yield": 1.415,
     "bond_10y": 4.5285,
     "index_value": 2813.72,
-    "total_return": 4220.6,
+    "total_return": 6493.8,
     "tr_p": 3.54
   },
   {
@@ -281,7 +281,7 @@
     "dividend_yield": 1.353,
     "bond_10y": 4.4401,
     "index_value": 3017.22,
-    "total_return": 4525.8,
+    "total_return": 6493.8,
     "tr_p": 3.38
   },
   {
@@ -296,7 +296,7 @@
     "dividend_yield": 1.83,
     "bond_10y": 4.2234,
     "index_value": 2307.16,
-    "total_return": 3460.7,
+    "total_return": 6493.8,
     "tr_p": 4.57
   },
   {
@@ -311,7 +311,7 @@
     "dividend_yield": 1.991,
     "bond_10y": 3.7282,
     "index_value": 2136.0,
-    "total_return": 3204.0,
+    "total_return": 6493.8,
     "tr_p": 4.98
   },
   {
@@ -326,7 +326,7 @@
     "dividend_yield": 2.725,
     "bond_10y": 3.0751,
     "index_value": 1562.02,
-    "total_return": 2343.0,
+    "total_return": 6493.8,
     "tr_p": 6.81
   },
   {
@@ -341,7 +341,7 @@
     "dividend_yield": 2.323,
     "bond_10y": 2.9905,
     "index_value": 1841.45,
-    "total_return": 2762.2,
+    "total_return": 6493.8,
     "tr_p": 5.81
   },
   {
@@ -356,7 +356,7 @@
     "dividend_yield": 2.185,
     "bond_10y": 2.7521,
     "index_value": 1939.43,
-    "total_return": 2909.1,
+    "total_return": 6493.8,
     "tr_p": 5.46
   },
   {
@@ -371,7 +371,7 @@
     "dividend_yield": 1.852,
     "bond_10y": 3.0367,
     "index_value": 2238.08,
-    "total_return": 3357.1,
+    "total_return": 6493.8,
     "tr_p": 4.63
   },
   {
@@ -386,7 +386,7 @@
     "dividend_yield": 1.666,
     "bond_10y": 3.1508,
     "index_value": 2416.95,
-    "total_return": 3625.4,
+    "total_return": 6493.8,
     "tr_p": 4.16
   },
   {
@@ -401,7 +401,7 @@
     "dividend_yield": 1.269,
     "bond_10y": 3.1612,
     "index_value": 2914.13,
-    "total_return": 4371.2,
+    "total_return": 6493.8,
     "tr_p": 3.17
   },
   {
@@ -416,7 +416,7 @@
     "dividend_yield": 1.108,
     "bond_10y": 3.1072,
     "index_value": 3086.22,
-    "total_return": 4629.3,
+    "total_return": 6493.8,
     "tr_p": 2.77
   },
   {
@@ -431,7 +431,7 @@
     "dividend_yield": 1.045,
     "bond_10y": 3.039,
     "index_value": 3276.75,
-    "total_return": 4915.1,
+    "total_return": 6493.8,
     "tr_p": 2.61
   },
   {
@@ -446,7 +446,7 @@
     "dividend_yield": 0.991,
     "bond_10y": 3.2403,
     "index_value": 3452.26,
-    "total_return": 5178.4,
+    "total_return": 6493.8,
     "tr_p": 2.48
   },
   {
@@ -461,7 +461,7 @@
     "dividend_yield": 0.87,
     "bond_10y": 3.503,
     "index_value": 3928.58,
-    "total_return": 5892.9,
+    "total_return": 6493.8,
     "tr_p": 2.18
   },
   {
@@ -476,7 +476,7 @@
     "dividend_yield": 1.083,
     "bond_10y": 3.4805,
     "index_value": 3278.0,
-    "total_return": 4917.0,
+    "total_return": 6493.8,
     "tr_p": 2.71
   },
   {
@@ -491,7 +491,7 @@
     "dividend_yield": 1.035,
     "bond_10y": 3.5132,
     "index_value": 3400.62,
-    "total_return": 5100.9,
+    "total_return": 6493.8,
     "tr_p": 2.59
   },
   {
@@ -506,7 +506,7 @@
     "dividend_yield": 0.994,
     "bond_10y": 3.6886,
     "index_value": 3827.68,
-    "total_return": 5741.5,
+    "total_return": 6493.8,
     "tr_p": 2.49
   },
   {
@@ -521,7 +521,7 @@
     "dividend_yield": 0.872,
     "bond_10y": 3.5569,
     "index_value": 4405.33,
-    "total_return": 6608.0,
+    "total_return": 6493.8,
     "tr_p": 2.18
   },
   {
@@ -536,7 +536,7 @@
     "dividend_yield": 0.844,
     "bond_10y": 3.6422,
     "index_value": 4485.26,
-    "total_return": 6727.9,
+    "total_return": 6493.8,
     "tr_p": 2.11
   },
   {
@@ -551,7 +551,7 @@
     "dividend_yield": 0.87,
     "bond_10y": 3.58,
     "index_value": 4374.65,
-    "total_return": 6562.0,
+    "total_return": 6493.8,
     "tr_p": 2.17
   },
   {
@@ -566,7 +566,7 @@
     "dividend_yield": 0.842,
     "bond_10y": 3.3753,
     "index_value": 4634.67,
-    "total_return": 6952.0,
+    "total_return": 6493.8,
     "tr_p": 2.11
   },
   {
@@ -581,7 +581,7 @@
     "dividend_yield": 0.864,
     "bond_10y": 3.4818,
     "index_value": 4756.16,
-    "total_return": 7134.2,
+    "total_return": 6493.8,
     "tr_p": 2.16
   },
   {
@@ -596,7 +596,7 @@
     "dividend_yield": 1.055,
     "bond_10y": 3.3565,
     "index_value": 4438.68,
-    "total_return": 6658.0,
+    "total_return": 6493.8,
     "tr_p": 2.64
   },
   {
@@ -611,7 +611,7 @@
     "dividend_yield": 1.138,
     "bond_10y": 3.243,
     "index_value": 4104.36,
-    "total_return": 6156.5,
+    "total_return": 6493.8,
     "tr_p": 2.85
   },
   {
@@ -626,7 +626,7 @@
     "dividend_yield": 1.273,
     "bond_10y": 3.279,
     "index_value": 3664.46,
-    "total_return": 5496.7,
+    "total_return": 6493.8,
     "tr_p": 3.18
   },
   {
@@ -641,7 +641,7 @@
     "dividend_yield": 1.128,
     "bond_10y": 3.2996,
     "index_value": 4191.13,
-    "total_return": 6286.7,
+    "total_return": 6493.8,
     "tr_p": 2.82
   },
   {
@@ -656,7 +656,7 @@
     "dividend_yield": 1.086,
     "bond_10y": 3.2301,
     "index_value": 4589.29,
-    "total_return": 6883.9,
+    "total_return": 6493.8,
     "tr_p": 2.72
   },
   {
@@ -671,7 +671,7 @@
     "dividend_yield": 1.068,
     "bond_10y": 3.3183,
     "index_value": 4660.61,
-    "total_return": 6990.9,
+    "total_return": 6493.8,
     "tr_p": 2.67
   },
   {
@@ -686,7 +686,7 @@
     "dividend_yield": 1.02,
     "bond_10y": 3.6821,
     "index_value": 5055.49,
-    "total_return": 7583.2,
+    "total_return": 6493.8,
     "tr_p": 2.55
   },
   {
@@ -701,7 +701,7 @@
     "dividend_yield": 1.009,
     "bond_10y": 3.971,
     "index_value": 5110.88,
-    "total_return": 7666.3,
+    "total_return": 6493.8,
     "tr_p": 2.52
   },
   {
@@ -716,7 +716,7 @@
     "dividend_yield": 1.04,
     "bond_10y": 3.8799,
     "index_value": 4936.72,
-    "total_return": 7405.1,
+    "total_return": 6493.8,
     "tr_p": 2.6
   },
   {
@@ -731,7 +731,7 @@
     "dividend_yield": 1.123,
     "bond_10y": 4.0187,
     "index_value": 4610.86,
-    "total_return": 6916.3,
+    "total_return": 6493.8,
     "tr_p": 2.81
   },
   {
@@ -746,7 +746,7 @@
     "dividend_yield": 1.025,
     "bond_10y": 3.9314,
     "index_value": 5095.21,
-    "total_return": 7642.8,
+    "total_return": 6493.8,
     "tr_p": 2.56
   },
   {
@@ -761,7 +761,7 @@
     "dividend_yield": 1.064,
     "bond_10y": 3.912,
     "index_value": 5000.4,
-    "total_return": 7500.6,
+    "total_return": 6493.8,
     "tr_p": 2.66
   },
   {
@@ -776,7 +776,7 @@
     "dividend_yield": 1.154,
     "bond_10y": 3.8713,
     "index_value": 4836.87,
-    "total_return": 7255.3,
+    "total_return": 6493.8,
     "tr_p": 2.88
   },
   {
@@ -791,7 +791,7 @@
     "dividend_yield": 1.262,
     "bond_10y": 3.8311,
     "index_value": 4444.28,
-    "total_return": 6666.4,
+    "total_return": 6493.8,
     "tr_p": 3.15
   },
   {
@@ -806,7 +806,7 @@
     "dividend_yield": 1.218,
     "bond_10y": 3.8857,
     "index_value": 4579.33,
-    "total_return": 6869.0,
+    "total_return": 6493.8,
     "tr_p": 3.05
   },
   {
@@ -821,7 +821,7 @@
     "dividend_yield": 1.245,
     "bond_10y": 4.0477,
     "index_value": 4628.32,
-    "total_return": 6942.5,
+    "total_return": 6493.8,
     "tr_p": 3.11
   },
   {
@@ -836,7 +836,7 @@
     "dividend_yield": 1.382,
     "bond_10y": 4.105,
     "index_value": 4430.54,
-    "total_return": 6645.8,
+    "total_return": 6493.8,
     "tr_p": 3.46
   },
   {
@@ -851,7 +851,7 @@
     "dividend_yield": 1.592,
     "bond_10y": 3.8605,
     "index_value": 3856.83,
-    "total_return": 5785.2,
+    "total_return": 6493.8,
     "tr_p": 3.98
   },
   {
@@ -866,7 +866,7 @@
     "dividend_yield": 1.577,
     "bond_10y": 3.7607,
     "index_value": 3999.36,
-    "total_return": 5999.0,
+    "total_return": 6493.8,
     "tr_p": 3.94
   },
   {
@@ -881,7 +881,7 @@
     "dividend_yield": 1.652,
     "bond_10y": 3.6091,
     "index_value": 3819.94,
-    "total_return": 5729.9,
+    "total_return": 6493.8,
     "tr_p": 4.13
   },
   {
@@ -896,7 +896,7 @@
     "dividend_yield": 1.903,
     "bond_10y": 3.4303,
     "index_value": 3266.78,
-    "total_return": 4900.2,
+    "total_return": 6493.8,
     "tr_p": 4.76
   },
   {
@@ -911,7 +911,7 @@
     "dividend_yield": 1.934,
     "bond_10y": 3.4064,
     "index_value": 3294.49,
-    "total_return": 4941.7,
+    "total_return": 6493.8,
     "tr_p": 4.84
   },
   {
@@ -926,7 +926,7 @@
     "dividend_yield": 1.699,
     "bond_10y": 3.534,
     "index_value": 3696.14,
-    "total_return": 5544.2,
+    "total_return": 6493.8,
     "tr_p": 4.25
   },
   {
@@ -941,7 +941,7 @@
     "dividend_yield": 1.779,
     "bond_10y": 3.5054,
     "index_value": 3416.86,
-    "total_return": 5125.3,
+    "total_return": 6493.8,
     "tr_p": 4.45
   },
   {
@@ -956,7 +956,7 @@
     "dividend_yield": 1.635,
     "bond_10y": 3.5389,
     "index_value": 3664.64,
-    "total_return": 5497.0,
+    "total_return": 6493.8,
     "tr_p": 4.09
   },
   {
@@ -971,7 +971,7 @@
     "dividend_yield": 1.587,
     "bond_10y": 3.3443,
     "index_value": 3753.59,
-    "total_return": 5630.4,
+    "total_return": 6493.8,
     "tr_p": 3.97
   },
   {
@@ -986,7 +986,7 @@
     "dividend_yield": 1.699,
     "bond_10y": 3.3253,
     "index_value": 3470.97,
-    "total_return": 5206.5,
+    "total_return": 6493.8,
     "tr_p": 4.25
   },
   {
@@ -1001,7 +1001,7 @@
     "dividend_yield": 1.814,
     "bond_10y": 3.2915,
     "index_value": 3159.19,
-    "total_return": 4738.8,
+    "total_return": 6493.8,
     "tr_p": 4.54
   },
   {
@@ -1016,7 +1016,7 @@
     "dividend_yield": 1.857,
     "bond_10y": 3.3928,
     "index_value": 3139.5,
-    "total_return": 4709.2,
+    "total_return": 6493.8,
     "tr_p": 4.64
   },
   {
@@ -1031,7 +1031,7 @@
     "dividend_yield": 1.817,
     "bond_10y": 3.4575,
     "index_value": 3199.75,
-    "total_return": 4799.6,
+    "total_return": 6493.8,
     "tr_p": 4.54
   },
   {
@@ -1046,7 +1046,7 @@
     "dividend_yield": 1.775,
     "bond_10y": 3.5739,
     "index_value": 3168.1,
-    "total_return": 4752.2,
+    "total_return": 6493.8,
     "tr_p": 4.44
   },
   {
@@ -1061,7 +1061,7 @@
     "dividend_yield": 1.997,
     "bond_10y": 3.5332,
     "index_value": 2816.62,
-    "total_return": 4224.9,
+    "total_return": 6493.8,
     "tr_p": 4.99
   },
   {
@@ -1076,7 +1076,7 @@
     "dividend_yield": 1.687,
     "bond_10y": 3.5738,
     "index_value": 3275.86,
-    "total_return": 4913.8,
+    "total_return": 6493.8,
     "tr_p": 4.22
   },
   {
@@ -1091,7 +1091,7 @@
     "dividend_yield": 1.594,
     "bond_10y": 3.6054,
     "index_value": 3479.64,
-    "total_return": 5219.5,
+    "total_return": 6493.8,
     "tr_p": 3.99
   },
   {
@@ -1106,7 +1106,7 @@
     "dividend_yield": 1.516,
     "bond_10y": 3.5957,
     "index_value": 3608.2,
-    "total_return": 5412.3,
+    "total_return": 6493.8,
     "tr_p": 3.79
   },
   {
@@ -1121,7 +1121,7 @@
     "dividend_yield": 1.607,
     "bond_10y": 3.5392,
     "index_value": 3447.29,
-    "total_return": 5170.9,
+    "total_return": 6493.8,
     "tr_p": 4.02
   },
   {
@@ -1136,7 +1136,7 @@
     "dividend_yield": 1.68,
     "bond_10y": 3.4313,
     "index_value": 3367.77,
-    "total_return": 5051.7,
+    "total_return": 6493.8,
     "tr_p": 4.2
   },
   {
@@ -1151,7 +1151,7 @@
     "dividend_yield": 1.494,
     "bond_10y": 3.4399,
     "index_value": 3841.22,
-    "total_return": 5761.8,
+    "total_return": 6493.8,
     "tr_p": 3.74
   },
   {
@@ -1166,7 +1166,7 @@
     "dividend_yield": 1.764,
     "bond_10y": 3.5125,
     "index_value": 3235.98,
-    "total_return": 4854.0,
+    "total_return": 6493.8,
     "tr_p": 4.41
   },
   {
@@ -1181,7 +1181,7 @@
     "dividend_yield": 1.709,
     "bond_10y": 3.7214,
     "index_value": 3430.74,
-    "total_return": 5146.1,
+    "total_return": 6493.8,
     "tr_p": 4.27
   },
   {
@@ -1196,7 +1196,7 @@
     "dividend_yield": 1.667,
     "bond_10y": 4.0354,
     "index_value": 3664.15,
-    "total_return": 5496.2,
+    "total_return": 6493.8,
     "tr_p": 4.17
   },
   {
@@ -1211,7 +1211,7 @@
     "dividend_yield": 1.563,
     "bond_10y": 3.9954,
     "index_value": 3872.89,
-    "total_return": 5809.3,
+    "total_return": 6493.8,
     "tr_p": 3.91
   },
   {
@@ -1226,7 +1226,7 @@
     "dividend_yield": 1.697,
     "bond_10y": 4.1806,
     "index_value": 3713.83,
-    "total_return": 5570.7,
+    "total_return": 6493.8,
     "tr_p": 4.24
   },
   {
@@ -1241,7 +1241,7 @@
     "dividend_yield": 1.59,
     "bond_10y": 4.3612,
     "index_value": 3946.38,
-    "total_return": 5919.6,
+    "total_return": 6493.8,
     "tr_p": 3.98
   },
   {
@@ -1256,7 +1256,7 @@
     "dividend_yield": 1.631,
     "bond_10y": 4.5518,
     "index_value": 3829.1,
-    "total_return": 5743.6,
+    "total_return": 6493.8,
     "tr_p": 4.08
   },
   {
@@ -1271,7 +1271,7 @@
     "dividend_yield": 1.597,
     "bond_10y": 4.5019,
     "index_value": 3885.42,
-    "total_return": 5828.1,
+    "total_return": 6493.8,
     "tr_p": 3.99
   },
   {
@@ -1286,7 +1286,7 @@
     "dividend_yield": 1.566,
     "bond_10y": 4.4276,
     "index_value": 3975.93,
-    "total_return": 5963.9,
+    "total_return": 6493.8,
     "tr_p": 3.92
   },
   {
@@ -1301,7 +1301,7 @@
     "dividend_yield": 1.617,
     "bond_10y": 4.5004,
     "index_value": 3840.54,
-    "total_return": 5760.8,
+    "total_return": 6493.8,
     "tr_p": 4.04
   },
   {
@@ -1316,7 +1316,7 @@
     "dividend_yield": 1.652,
     "bond_10y": 4.3002,
     "index_value": 3766.17,
-    "total_return": 5649.3,
+    "total_return": 6493.8,
     "tr_p": 4.13
   },
   {
@@ -1331,7 +1331,7 @@
     "dividend_yield": 1.621,
     "bond_10y": 4.0714,
     "index_value": 3829.24,
-    "total_return": 5743.9,
+    "total_return": 6493.8,
     "tr_p": 4.05
   },
   {
@@ -1346,7 +1346,7 @@
     "dividend_yield": 1.641,
     "bond_10y": 4.0612,
     "index_value": 3924.9,
-    "total_return": 5887.4,
+    "total_return": 6493.8,
     "tr_p": 4.1
   },
   {
@@ -1361,7 +1361,7 @@
     "dividend_yield": 1.534,
     "bond_10y": 4.2655,
     "index_value": 4257.05,
-    "total_return": 6385.6,
+    "total_return": 6493.8,
     "tr_p": 3.83
   },
   {
@@ -1376,7 +1376,7 @@
     "dividend_yield": 1.502,
     "bond_10y": 4.2361,
     "index_value": 4427.88,
-    "total_return": 6641.8,
+    "total_return": 6493.8,
     "tr_p": 3.76
   },
   {
@@ -1391,7 +1391,7 @@
     "dividend_yield": 1.348,
     "bond_10y": 3.9824,
     "index_value": 4916.12,
-    "total_return": 7374.2,
+    "total_return": 6493.8,
     "tr_p": 3.37
   },
   {
@@ -1406,7 +1406,7 @@
     "dividend_yield": 1.361,
     "bond_10y": 3.7559,
     "index_value": 4986.42,
-    "total_return": 7479.6,
+    "total_return": 6493.8,
     "tr_p": 3.4
   },
   {
@@ -1421,7 +1421,7 @@
     "dividend_yield": 1.3,
     "bond_10y": 3.5249,
     "index_value": 5245.27,
-    "total_return": 7867.9,
+    "total_return": 6493.8,
     "tr_p": 3.25
   },
   {
@@ -1436,7 +1436,7 @@
     "dividend_yield": 1.28,
     "bond_10y": 3.6219,
     "index_value": 5322.71,
-    "total_return": 7984.1,
+    "total_return": 6493.8,
     "tr_p": 3.2
   },
   {
@@ -1451,7 +1451,7 @@
     "dividend_yield": 1.201,
     "bond_10y": 3.5019,
     "index_value": 5632.73,
-    "total_return": 8449.1,
+    "total_return": 6493.8,
     "tr_p": 3.0
   },
   {
@@ -1466,7 +1466,7 @@
     "dividend_yield": 1.115,
     "bond_10y": 3.3745,
     "index_value": 6018.46,
-    "total_return": 9027.7,
+    "total_return": 6493.8,
     "tr_p": 2.79
   },
   {
@@ -1481,7 +1481,7 @@
     "dividend_yield": 0.904,
     "bond_10y": 3.6483,
     "index_value": 7253.1,
-    "total_return": 10879.7,
+    "total_return": 6493.8,
     "tr_p": 2.26
   },
   {
@@ -1496,7 +1496,7 @@
     "dividend_yield": 0.791,
     "bond_10y": 3.3503,
     "index_value": 8469.67,
-    "total_return": 12704.5,
+    "total_return": 6493.8,
     "tr_p": 1.98
   },
   {
@@ -1511,7 +1511,7 @@
     "dividend_yield": 0.668,
     "bond_10y": 3.5954,
     "index_value": 9966.85,
-    "total_return": 14950.3,
+    "total_return": 6493.8,
     "tr_p": 1.67
   },
   {
@@ -1526,7 +1526,7 @@
     "dividend_yield": 0.752,
     "bond_10y": 3.5976,
     "index_value": 8906.02,
-    "total_return": 13359.0,
+    "total_return": 6493.8,
     "tr_p": 1.88
   },
   {
@@ -1541,7 +1541,7 @@
     "dividend_yield": 0.86,
     "bond_10y": 3.4752,
     "index_value": 7727.06,
-    "total_return": 11590.6,
+    "total_return": 6493.8,
     "tr_p": 2.15
   },
   {
@@ -1556,7 +1556,7 @@
     "dividend_yield": 1.053,
     "bond_10y": 3.3252,
     "index_value": 6581.31,
-    "total_return": 9872.0,
+    "total_return": 6493.8,
     "tr_p": 2.63
   },
   {
@@ -1571,7 +1571,7 @@
     "dividend_yield": 1.127,
     "bond_10y": 3.2362,
     "index_value": 6123.73,
-    "total_return": 9185.6,
+    "total_return": 6493.8,
     "tr_p": 2.82
   },
   {
@@ -1586,7 +1586,7 @@
     "dividend_yield": 0.995,
     "bond_10y": 3.06,
     "index_value": 7084.97,
-    "total_return": 10627.5,
+    "total_return": 6493.8,
     "tr_p": 2.49
   },
   {
@@ -1601,7 +1601,7 @@
     "dividend_yield": 0.943,
     "bond_10y": 3.0404,
     "index_value": 7408.4,
-    "total_return": 11112.6,
+    "total_return": 6493.8,
     "tr_p": 2.36
   },
   {
@@ -1616,7 +1616,7 @@
     "dividend_yield": 0.892,
     "bond_10y": 2.8212,
     "index_value": 7617.69,
-    "total_return": 11426.5,
+    "total_return": 6493.8,
     "tr_p": 2.23
   },
   {
@@ -1631,7 +1631,7 @@
     "dividend_yield": 1.243,
     "bond_10y": 2.8419,
     "index_value": 5469.13,
-    "total_return": 8203.7,
+    "total_return": 6493.8,
     "tr_p": 3.11
   },
   {
@@ -1646,7 +1646,7 @@
     "dividend_yield": 1.276,
     "bond_10y": 2.8502,
     "index_value": 5350.43,
-    "total_return": 8025.6,
+    "total_return": 6493.8,
     "tr_p": 3.19
   },
   {
@@ -1661,7 +1661,7 @@
     "dividend_yield": 1.109,
     "bond_10y": 2.8419,
     "index_value": 6155.81,
-    "total_return": 9233.7,
+    "total_return": 6493.8,
     "tr_p": 2.77
   },
   {
@@ -1676,7 +1676,7 @@
     "dividend_yield": 1.162,
     "bond_10y": 2.8913,
     "index_value": 5985.59,
-    "total_return": 8978.4,
+    "total_return": 6493.8,
     "tr_p": 2.9
   },
   {
@@ -1691,7 +1691,7 @@
     "dividend_yield": 1.169,
     "bond_10y": 2.9851,
     "index_value": 5947.32,
-    "total_return": 8921.0,
+    "total_return": 6493.8,
     "tr_p": 2.92
   },
   {
@@ -1706,7 +1706,7 @@
     "dividend_yield": 1.078,
     "bond_10y": 2.8411,
     "index_value": 6123.49,
-    "total_return": 9185.2,
+    "total_return": 6493.8,
     "tr_p": 2.69
   },
   {
@@ -1721,7 +1721,7 @@
     "dividend_yield": 1.071,
     "bond_10y": 2.7768,
     "index_value": 6202.89,
-    "total_return": 9304.3,
+    "total_return": 6493.8,
     "tr_p": 2.68
   },
   {
@@ -1736,7 +1736,7 @@
     "dividend_yield": 1.082,
     "bond_10y": 2.7425,
     "index_value": 6434.21,
-    "total_return": 9651.3,
+    "total_return": 6493.8,
     "tr_p": 2.7
   },
   {
@@ -1751,7 +1751,7 @@
     "dividend_yield": 1.092,
     "bond_10y": 2.7258,
     "index_value": 6328.09,
-    "total_return": 9492.1,
+    "total_return": 6493.8,
     "tr_p": 2.73
   },
   {
@@ -1766,7 +1766,7 @@
     "dividend_yield": 1.122,
     "bond_10y": 2.7425,
     "index_value": 6452.21,
-    "total_return": 9678.3,
+    "total_return": 6493.8,
     "tr_p": 2.8
   },
   {
@@ -1781,7 +1781,7 @@
     "dividend_yield": 1.096,
     "bond_10y": 2.9502,
     "index_value": 6585.58,
-    "total_return": 9878.4,
+    "total_return": 6493.8,
     "tr_p": 2.74
   },
   {
@@ -1796,7 +1796,7 @@
     "dividend_yield": 1.092,
     "bond_10y": 3.0115,
     "index_value": 6263.63,
-    "total_return": 9395.4,
+    "total_return": 6493.8,
     "tr_p": 2.73
   },
   {
@@ -1811,7 +1811,7 @@
     "dividend_yield": 1.103,
     "bond_10y": 3.3465,
     "index_value": 6223.71,
-    "total_return": 9335.6,
+    "total_return": 6493.8,
     "tr_p": 2.76
   },
   {
@@ -1826,7 +1826,7 @@
     "dividend_yield": 1.097,
     "bond_10y": 3.2921,
     "index_value": 6450.97,
-    "total_return": 9676.5,
+    "total_return": 6493.8,
     "tr_p": 2.74
   },
   {
@@ -1841,7 +1841,7 @@
     "dividend_yield": 1.096,
     "bond_10y": 3.2828,
     "index_value": 6401.65,
-    "total_return": 9602.5,
+    "total_return": 6493.8,
     "tr_p": 2.74
   },
   {
@@ -1856,7 +1856,7 @@
     "dividend_yield": 1.218,
     "bond_10y": 3.4668,
     "index_value": 6211.86,
-    "total_return": 9317.8,
+    "total_return": 6493.8,
     "tr_p": 3.04
   },
   {
@@ -1871,7 +1871,7 @@
     "dividend_yield": 1.311,
     "bond_10y": 3.6102,
     "index_value": 5824.1,
-    "total_return": 8736.2,
+    "total_return": 6493.8,
     "tr_p": 3.28
   },
   {
@@ -1886,7 +1886,7 @@
     "dividend_yield": 1.237,
     "bond_10y": 3.5683,
     "index_value": 6138.16,
-    "total_return": 9207.2,
+    "total_return": 6493.8,
     "tr_p": 3.09
   },
   {
@@ -1901,7 +1901,7 @@
     "dividend_yield": 1.227,
     "bond_10y": 3.626,
     "index_value": 6298.0,
-    "total_return": 9447.0,
+    "total_return": 6493.8,
     "tr_p": 3.07
   },
   {
@@ -1916,7 +1916,7 @@
     "dividend_yield": 1.271,
     "bond_10y": 3.6265,
     "index_value": 6470.43,
-    "total_return": 9705.6,
+    "total_return": 6493.8,
     "tr_p": 3.18
   },
   {
@@ -1931,7 +1931,7 @@
     "dividend_yield": 1.247,
     "bond_10y": 3.6136,
     "index_value": 6603.26,
-    "total_return": 9904.9,
+    "total_return": 6493.8,
     "tr_p": 3.12
   },
   {
@@ -1946,7 +1946,7 @@
     "dividend_yield": 1.395,
     "bond_10y": 3.8917,
     "index_value": 6560.21,
-    "total_return": 9840.3,
+    "total_return": 6493.8,
     "tr_p": 3.49
   },
   {
@@ -1961,7 +1961,7 @@
     "dividend_yield": 1.466,
     "bond_10y": 3.8901,
     "index_value": 6263.42,
-    "total_return": 9395.1,
+    "total_return": 6493.8,
     "tr_p": 3.66
   },
   {
@@ -1976,7 +1976,7 @@
     "dividend_yield": 1.466,
     "bond_10y": 3.8807,
     "index_value": 6250.82,
-    "total_return": 9376.2,
+    "total_return": 6493.8,
     "tr_p": 3.67
   },
   {
@@ -1991,7 +1991,7 @@
     "dividend_yield": 1.473,
     "bond_10y": 3.914,
     "index_value": 6189.34,
-    "total_return": 9284.0,
+    "total_return": 6493.8,
     "tr_p": 3.68
   },
   {
@@ -2006,7 +2006,7 @@
     "dividend_yield": 1.536,
     "bond_10y": 3.8202,
     "index_value": 6023.68,
-    "total_return": 9035.5,
+    "total_return": 6493.8,
     "tr_p": 3.84
   },
   {
@@ -2021,7 +2021,7 @@
     "dividend_yield": 1.54,
     "bond_10y": 3.7407,
     "index_value": 6114.74,
-    "total_return": 9172.1,
+    "total_return": 6493.8,
     "tr_p": 3.85
   },
   {
@@ -2036,7 +2036,7 @@
     "dividend_yield": 1.672,
     "bond_10y": 3.6364,
     "index_value": 5860.98,
-    "total_return": 8791.5,
+    "total_return": 6493.8,
     "tr_p": 4.18
   },
   {
@@ -2051,7 +2051,7 @@
     "dividend_yield": 1.719,
     "bond_10y": 3.6129,
     "index_value": 5754.47,
-    "total_return": 8631.7,
+    "total_return": 6345.0,
     "tr_p": 4.3
   },
   {
@@ -2066,7 +2066,7 @@
     "dividend_yield": 1.861,
     "bond_10y": 3.4756,
     "index_value": 5217.76,
-    "total_return": 7826.6,
+    "total_return": 5774.4,
     "tr_p": 4.65
   },
   {
@@ -2081,7 +2081,7 @@
     "dividend_yield": 1.867,
     "bond_10y": 3.4812,
     "index_value": 5188.72,
-    "total_return": 7783.1,
+    "total_return": 5760.8,
     "tr_p": 4.67
   },
   {
@@ -2096,7 +2096,7 @@
     "dividend_yield": 2.159,
     "bond_10y": 3.5751,
     "index_value": 4814.82,
-    "total_return": 7222.2,
+    "total_return": 5351.4,
     "tr_p": 5.4
   },
   {
@@ -2111,7 +2111,7 @@
     "dividend_yield": 2.193,
     "bond_10y": 3.6153,
     "index_value": 4800.73,
-    "total_return": 7201.1,
+    "total_return": 5336.7,
     "tr_p": 5.48
   },
   {
@@ -2126,7 +2126,7 @@
     "dividend_yield": 2.46,
     "bond_10y": 3.5086,
     "index_value": 4272.55,
-    "total_return": 6408.8,
+    "total_return": 4750.0,
     "tr_p": 6.15
   },
   {
@@ -2141,7 +2141,7 @@
     "dividend_yield": 2.408,
     "bond_10y": 3.355,
     "index_value": 4376.65,
-    "total_return": 6565.0,
+    "total_return": 4866.0,
     "tr_p": 6.02
   },
   {
@@ -2156,7 +2156,7 @@
     "dividend_yield": 2.616,
     "bond_10y": 3.2315,
     "index_value": 4168.04,
-    "total_return": 6252.1,
+    "total_return": 4634.5,
     "tr_p": 6.54
   },
   {
@@ -2171,7 +2171,7 @@
     "dividend_yield": 2.587,
     "bond_10y": 3.1037,
     "index_value": 4176.47,
-    "total_return": 6264.7,
+    "total_return": 4644.1,
     "tr_p": 6.47
   },
   {
@@ -2186,7 +2186,7 @@
     "dividend_yield": 2.118,
     "bond_10y": 3.1731,
     "index_value": 5025.29,
-    "total_return": 7537.9,
+    "total_return": 5587.9,
     "tr_p": 5.29
   },
   {
@@ -2201,7 +2201,7 @@
     "dividend_yield": 1.927,
     "bond_10y": 3.0683,
     "index_value": 5547.66,
-    "total_return": 8321.5,
+    "total_return": 6168.8,
     "tr_p": 4.82
   },
   {
@@ -2216,7 +2216,7 @@
     "dividend_yield": 2.016,
     "bond_10y": 3.3869,
     "index_value": 5307.56,
-    "total_return": 7961.3,
+    "total_return": 5906.8,
     "tr_p": 5.04
   },
   {
@@ -2231,7 +2231,7 @@
     "dividend_yield": 2.172,
     "bond_10y": 3.2751,
     "index_value": 4912.0,
-    "total_return": 7368.0,
+    "total_return": 5486.5,
     "tr_p": 5.43
   },
   {
@@ -2246,7 +2246,7 @@
     "dividend_yield": 2.131,
     "bond_10y": 3.2254,
     "index_value": 4950.48,
-    "total_return": 7425.7,
+    "total_return": 5557.2,
     "tr_p": 5.33
   },
   {
@@ -2261,7 +2261,7 @@
     "dividend_yield": 2.151,
     "bond_10y": 3.1552,
     "index_value": 4903.2,
-    "total_return": 7354.8,
+    "total_return": 5521.2,
     "tr_p": 5.38
   },
   {
@@ -2276,7 +2276,7 @@
     "dividend_yield": 2.122,
     "bond_10y": 3.0573,
     "index_value": 4886.49,
-    "total_return": 7329.7,
+    "total_return": 5506.4,
     "tr_p": 5.31
   },
   {
@@ -2291,7 +2291,7 @@
     "dividend_yield": 2.096,
     "bond_10y": 3.1411,
     "index_value": 4940.9,
-    "total_return": 7411.4,
+    "total_return": 5568.3,
     "tr_p": 5.24
   },
   {
@@ -2306,7 +2306,7 @@
     "dividend_yield": 2.046,
     "bond_10y": 3.288,
     "index_value": 4917.42,
-    "total_return": 7376.1,
+    "total_return": 5542.7,
     "tr_p": 5.12
   },
   {
@@ -2321,7 +2321,7 @@
     "dividend_yield": 2.045,
     "bond_10y": 3.165,
     "index_value": 4894.94,
-    "total_return": 7342.4,
+    "total_return": 5517.9,
     "tr_p": 5.11
   },
   {
@@ -2336,7 +2336,7 @@
     "dividend_yield": 1.95,
     "bond_10y": 3.1365,
     "index_value": 5267.66,
-    "total_return": 7901.5,
+    "total_return": 5938.6,
     "tr_p": 4.88
   },
   {
@@ -2351,7 +2351,7 @@
     "dividend_yield": 1.92,
     "bond_10y": 2.9932,
     "index_value": 5377.74,
-    "total_return": 8066.6,
+    "total_return": 6062.7,
     "tr_p": 4.8
   },
   {
@@ -2366,7 +2366,7 @@
     "dividend_yield": 1.91,
     "bond_10y": 2.7376,
     "index_value": 5451.29,
-    "total_return": 8176.9,
+    "total_return": 6145.6,
     "tr_p": 4.78
   },
   {
@@ -2381,7 +2381,7 @@
     "dividend_yield": 2.039,
     "bond_10y": 2.5899,
     "index_value": 5041.45,
-    "total_return": 7562.2,
+    "total_return": 5683.6,
     "tr_p": 5.1
   },
   {
@@ -2396,7 +2396,7 @@
     "dividend_yield": 1.779,
     "bond_10y": 2.538,
     "index_value": 5353.86,
-    "total_return": 8030.8,
+    "total_return": 6037.5,
     "tr_p": 4.45
   },
   {
@@ -2411,7 +2411,7 @@
     "dividend_yield": 1.744,
     "bond_10y": 2.7053,
     "index_value": 5406.34,
-    "total_return": 8109.5,
+    "total_return": 6111.7,
     "tr_p": 4.36
   },
   {
@@ -2426,7 +2426,7 @@
     "dividend_yield": 1.685,
     "bond_10y": 2.823,
     "index_value": 5864.42,
-    "total_return": 8796.6,
+    "total_return": 6660.9,
     "tr_p": 4.21
   },
   {
@@ -2441,7 +2441,7 @@
     "dividend_yield": 1.499,
     "bond_10y": 2.9664,
     "index_value": 6579.67,
-    "total_return": 9869.5,
+    "total_return": 7497.4,
     "tr_p": 3.75
   },
   {
@@ -2456,7 +2456,7 @@
     "dividend_yield": 1.536,
     "bond_10y": 3.0177,
     "index_value": 6668.43,
-    "total_return": 10002.6,
+    "total_return": 7602.0,
     "tr_p": 3.84
   },
   {
@@ -2471,7 +2471,7 @@
     "dividend_yield": 1.649,
     "bond_10y": 3.1482,
     "index_value": 6192.5,
-    "total_return": 9288.8,
+    "total_return": 7060.2,
     "tr_p": 4.12
   },
   {
@@ -2486,7 +2486,7 @@
     "dividend_yield": 1.735,
     "bond_10y": 3.181,
     "index_value": 6111.48,
-    "total_return": 9167.2,
+    "total_return": 6968.3,
     "tr_p": 4.34
   },
   {
@@ -2501,7 +2501,7 @@
     "dividend_yield": 1.714,
     "bond_10y": 3.25,
     "index_value": 6320.94,
-    "total_return": 9481.4,
+    "total_return": 7207.4,
     "tr_p": 4.28
   },
   {
@@ -2516,7 +2516,7 @@
     "dividend_yield": 1.713,
     "bond_10y": 3.1429,
     "index_value": 6367.11,
-    "total_return": 9550.7,
+    "total_return": 7260.3,
     "tr_p": 4.28
   },
   {
@@ -2531,7 +2531,7 @@
     "dividend_yield": 1.717,
     "bond_10y": 3.1786,
     "index_value": 6346.14,
-    "total_return": 9519.2,
+    "total_return": 7237.1,
     "tr_p": 4.29
   },
   {
@@ -2546,7 +2546,7 @@
     "dividend_yield": 1.726,
     "bond_10y": 3.2798,
     "index_value": 6364.35,
-    "total_return": 9546.5,
+    "total_return": 7257.9,
     "tr_p": 4.31
   },
   {
@@ -2561,7 +2561,7 @@
     "dividend_yield": 1.757,
     "bond_10y": 3.1887,
     "index_value": 6254.07,
-    "total_return": 9381.1,
+    "total_return": 7133.1,
     "tr_p": 4.39
   },
   {
@@ -2576,7 +2576,7 @@
     "dividend_yield": 1.976,
     "bond_10y": 3.164,
     "index_value": 6485.71,
-    "total_return": 9728.6,
+    "total_return": 7401.5,
     "tr_p": 4.94
   },
   {
@@ -2591,7 +2591,7 @@
     "dividend_yield": 1.902,
     "bond_10y": 3.045,
     "index_value": 6728.99,
-    "total_return": 10093.5,
+    "total_return": 7698.7,
     "tr_p": 4.76
   },
   {
@@ -2606,7 +2606,7 @@
     "dividend_yield": 2.071,
     "bond_10y": 3.0778,
     "index_value": 6808.18,
-    "total_return": 10212.3,
+    "total_return": 7831.1,
     "tr_p": 5.18
   },
   {
@@ -2621,7 +2621,7 @@
     "dividend_yield": 2.095,
     "bond_10y": 2.8363,
     "index_value": 6767.32,
-    "total_return": 10151.0,
+    "total_return": 7817.6,
     "tr_p": 5.24
   },
   {
@@ -2636,7 +2636,7 @@
     "dividend_yield": 2.133,
     "bond_10y": 2.845,
     "index_value": 7255.34,
-    "total_return": 10883.0,
+    "total_return": 8385.3,
     "tr_p": 5.33
   },
   {
@@ -2651,7 +2651,7 @@
     "dividend_yield": 2.154,
     "bond_10y": 2.8776,
     "index_value": 7103.61,
-    "total_return": 10655.4,
+    "total_return": 8211.2,
     "tr_p": 5.39
   },
   {
@@ -2666,7 +2666,7 @@
     "dividend_yield": 2.298,
     "bond_10y": 2.9732,
     "index_value": 7022.5,
-    "total_return": 10533.8,
+    "total_return": 8117.7,
     "tr_p": 5.74
   },
   {
@@ -2681,7 +2681,7 @@
     "dividend_yield": 2.231,
     "bond_10y": 2.825,
     "index_value": 7252.76,
-    "total_return": 10879.1,
+    "total_return": 8388.4,
     "tr_p": 5.58
   },
   {
@@ -2696,7 +2696,7 @@
     "dividend_yield": 2.186,
     "bond_10y": 2.7754,
     "index_value": 7359.4,
-    "total_return": 11039.1,
+    "total_return": 8512.3,
     "tr_p": 5.46
   },
   {
@@ -2711,7 +2711,7 @@
     "dividend_yield": 2.438,
     "bond_10y": 2.7021,
     "index_value": 6580.53,
-    "total_return": 9870.8,
+    "total_return": 7611.4,
     "tr_p": 6.09
   },
   {
@@ -2726,7 +2726,7 @@
     "dividend_yield": 2.323,
     "bond_10y": 2.775,
     "index_value": 6853.31,
-    "total_return": 10280.0,
+    "total_return": 7926.9,
     "tr_p": 5.81
   },
   {
@@ -2741,7 +2741,7 @@
     "dividend_yield": 2.517,
     "bond_10y": 2.7878,
     "index_value": 6324.96,
-    "total_return": 9487.4,
+    "total_return": 7315.8,
     "tr_p": 6.29
   },
   {
@@ -2756,7 +2756,7 @@
     "dividend_yield": 2.799,
     "bond_10y": 2.8386,
     "index_value": 5627.9,
-    "total_return": 8441.8,
+    "total_return": 6513.9,
     "tr_p": 7.0
   },
   {
@@ -2771,7 +2771,7 @@
     "dividend_yield": 2.589,
     "bond_10y": 2.7426,
     "index_value": 6026.24,
-    "total_return": 9039.4,
+    "total_return": 7003.0,
     "tr_p": 6.47
   },
   {
@@ -2786,7 +2786,7 @@
     "dividend_yield": 2.36,
     "bond_10y": 2.8205,
     "index_value": 6454.08,
-    "total_return": 9681.1,
+    "total_return": 7554.0,
     "tr_p": 5.9
   },
   {
@@ -2801,7 +2801,7 @@
     "dividend_yield": 2.439,
     "bond_10y": 2.756,
     "index_value": 6294.11,
-    "total_return": 9441.2,
+    "total_return": 7397.9,
     "tr_p": 6.1
   },
   {
@@ -2816,7 +2816,7 @@
     "dividend_yield": 2.436,
     "bond_10y": 2.6225,
     "index_value": 6155.75,
-    "total_return": 9233.6,
+    "total_return": 7241.8,
     "tr_p": 6.09
   },
   {
@@ -2831,7 +2831,7 @@
     "dividend_yield": 2.608,
     "bond_10y": 2.7601,
     "index_value": 5714.06,
-    "total_return": 8571.1,
+    "total_return": 6723.9,
     "tr_p": 6.52
   },
   {
@@ -2846,7 +2846,7 @@
     "dividend_yield": 2.514,
     "bond_10y": 2.6433,
     "index_value": 5807.11,
-    "total_return": 8710.7,
+    "total_return": 6833.8,
     "tr_p": 6.29
   },
   {
@@ -2861,7 +2861,7 @@
     "dividend_yield": 2.367,
     "bond_10y": 2.885,
     "index_value": 6156.15,
-    "total_return": 9234.2,
+    "total_return": 7245.4,
     "tr_p": 5.92
   },
   {
@@ -2876,7 +2876,7 @@
     "dividend_yield": 2.335,
     "bond_10y": 2.8353,
     "index_value": 5864.47,
-    "total_return": 8796.7,
+    "total_return": 6902.9,
     "tr_p": 5.84
   },
   {
@@ -2891,7 +2891,7 @@
     "dividend_yield": 2.191,
     "bond_10y": 2.8977,
     "index_value": 6289.15,
-    "total_return": 9433.7,
+    "total_return": 7402.8,
     "tr_p": 5.48
   },
   {
@@ -2906,7 +2906,7 @@
     "dividend_yield": 2.165,
     "bond_10y": 2.9017,
     "index_value": 6357.54,
-    "total_return": 9536.3,
+    "total_return": 7483.3,
     "tr_p": 5.41
   },
   {
@@ -2921,7 +2921,7 @@
     "dividend_yield": 2.138,
     "bond_10y": 2.8528,
     "index_value": 6339.82,
-    "total_return": 9509.7,
+    "total_return": 7463.2,
     "tr_p": 5.34
   },
   {
@@ -2936,7 +2936,7 @@
     "dividend_yield": 2.123,
     "bond_10y": 2.7788,
     "index_value": 6241.24,
-    "total_return": 9361.9,
+    "total_return": 7349.6,
     "tr_p": 5.31
   },
   {
@@ -2951,7 +2951,7 @@
     "dividend_yield": 2.185,
     "bond_10y": 2.685,
     "index_value": 6047.8,
-    "total_return": 9071.7,
+    "total_return": 7153.7,
     "tr_p": 5.46
   },
   {
@@ -2966,7 +2966,7 @@
     "dividend_yield": 2.102,
     "bond_10y": 2.6351,
     "index_value": 5998.73,
-    "total_return": 8998.1,
+    "total_return": 7143.8,
     "tr_p": 5.25
   },
   {
@@ -2981,7 +2981,7 @@
     "dividend_yield": 2.068,
     "bond_10y": 2.6597,
     "index_value": 6088.24,
-    "total_return": 9132.4,
+    "total_return": 7274.0,
     "tr_p": 5.17
   },
   {
@@ -2996,7 +2996,7 @@
     "dividend_yield": 2.133,
     "bond_10y": 2.5575,
     "index_value": 5739.4,
-    "total_return": 8609.1,
+    "total_return": 6862.3,
     "tr_p": 5.33
   },
   {
@@ -3011,7 +3011,7 @@
     "dividend_yield": 2.142,
     "bond_10y": 2.6751,
     "index_value": 5690.77,
-    "total_return": 8536.2,
+    "total_return": 6805.7,
     "tr_p": 5.36
   },
   {
@@ -3026,7 +3026,7 @@
     "dividend_yield": 2.223,
     "bond_10y": 2.6938,
     "index_value": 5528.24,
-    "total_return": 8292.4,
+    "total_return": 6612.8,
     "tr_p": 5.56
   },
   {
@@ -3041,7 +3041,7 @@
     "dividend_yield": 2.215,
     "bond_10y": 2.668,
     "index_value": 5545.05,
-    "total_return": 8317.6,
+    "total_return": 6634.0,
     "tr_p": 5.54
   },
   {
@@ -3056,7 +3056,7 @@
     "dividend_yield": 2.287,
     "bond_10y": 2.5553,
     "index_value": 5429.23,
-    "total_return": 8143.8,
+    "total_return": 6495.6,
     "tr_p": 5.72
   },
   {
@@ -3071,7 +3071,7 @@
     "dividend_yield": 2.594,
     "bond_10y": 2.433,
     "index_value": 4696.98,
-    "total_return": 7045.5,
+    "total_return": 5619.7,
     "tr_p": 6.49
   },
   {
@@ -3086,7 +3086,7 @@
     "dividend_yield": 2.273,
     "bond_10y": 2.3375,
     "index_value": 5346.79,
-    "total_return": 8020.2,
+    "total_return": 6397.2,
     "tr_p": 5.68
   },
   {
@@ -3101,7 +3101,7 @@
     "dividend_yield": 2.273,
     "bond_10y": 2.2901,
     "index_value": 5286.16,
-    "total_return": 7929.2,
+    "total_return": 6324.9,
     "tr_p": 5.68
   },
   {
@@ -3116,7 +3116,7 @@
     "dividend_yield": 2.05,
     "bond_10y": 2.3028,
     "index_value": 5441.14,
-    "total_return": 8161.7,
+    "total_return": 6512.7,
     "tr_p": 5.13
   },
   {
@@ -3131,7 +3131,7 @@
     "dividend_yield": 2.084,
     "bond_10y": 2.2926,
     "index_value": 5308.54,
-    "total_return": 7962.8,
+    "total_return": 6388.5,
     "tr_p": 5.21
   },
   {
@@ -3146,7 +3146,7 @@
     "dividend_yield": 2.199,
     "bond_10y": 2.2058,
     "index_value": 4942.78,
-    "total_return": 7414.2,
+    "total_return": 5948.3,
     "tr_p": 5.5
   },
   {
@@ -3161,7 +3161,7 @@
     "dividend_yield": 2.242,
     "bond_10y": 2.1494,
     "index_value": 4886.41,
-    "total_return": 7329.6,
+    "total_return": 5880.5,
     "tr_p": 5.61
   },
   {
@@ -3176,7 +3176,7 @@
     "dividend_yield": 2.381,
     "bond_10y": 2.1704,
     "index_value": 4639.11,
-    "total_return": 6958.7,
+    "total_return": 5582.9,
     "tr_p": 5.95
   },
   {
@@ -3191,7 +3191,7 @@
     "dividend_yield": 1.928,
     "bond_10y": 2.1518,
     "index_value": 5743.22,
-    "total_return": 8614.8,
+    "total_return": 6911.6,
     "tr_p": 4.82
   },
   {
@@ -3206,7 +3206,7 @@
     "dividend_yield": 1.905,
     "bond_10y": 2.1476,
     "index_value": 5901.29,
-    "total_return": 8851.9,
+    "total_return": 7101.8,
     "tr_p": 4.76
   },
   {
@@ -3221,7 +3221,7 @@
     "dividend_yield": 1.918,
     "bond_10y": 2.0206,
     "index_value": 5851.94,
-    "total_return": 8777.9,
+    "total_return": 7042.4,
     "tr_p": 4.8
   },
   {
@@ -3236,7 +3236,7 @@
     "dividend_yield": 1.843,
     "bond_10y": 1.6752,
     "index_value": 5725.73,
-    "total_return": 8588.6,
+    "total_return": 6890.5,
     "tr_p": 4.61
   },
   {
@@ -3251,7 +3251,7 @@
     "dividend_yield": 1.86,
     "bond_10y": 1.6299,
     "index_value": 5589.34,
-    "total_return": 8384.0,
+    "total_return": 6726.4,
     "tr_p": 4.65
   },
   {
@@ -3266,7 +3266,7 @@
     "dividend_yield": 1.818,
     "bond_10y": 1.7152,
     "index_value": 5859.87,
-    "total_return": 8789.8,
+    "total_return": 7051.9,
     "tr_p": 4.55
   },
   {
@@ -3281,7 +3281,7 @@
     "dividend_yield": 1.812,
     "bond_10y": 1.8129,
     "index_value": 5857.77,
-    "total_return": 8786.7,
+    "total_return": 7049.4,
     "tr_p": 4.53
   },
   {
@@ -3296,7 +3296,7 @@
     "dividend_yield": 1.904,
     "bond_10y": 1.6243,
     "index_value": 5631.82,
-    "total_return": 8447.7,
+    "total_return": 6777.5,
     "tr_p": 4.76
   },
   {
@@ -3311,7 +3311,7 @@
     "dividend_yield": 1.883,
     "bond_10y": 1.6712,
     "index_value": 5671.07,
-    "total_return": 8506.6,
+    "total_return": 6824.7,
     "tr_p": 4.71
   },
   {
@@ -3326,7 +3326,7 @@
     "dividend_yield": 1.808,
     "bond_10y": 1.6469,
     "index_value": 5915.39,
-    "total_return": 8873.1,
+    "total_return": 7118.8,
     "tr_p": 4.52
   },
   {
@@ -3341,7 +3341,7 @@
     "dividend_yield": 1.724,
     "bond_10y": 1.7044,
     "index_value": 6226.34,
-    "total_return": 9339.5,
+    "total_return": 7493.0,
     "tr_p": 4.31
   },
   {
@@ -3356,7 +3356,7 @@
     "dividend_yield": 1.585,
     "bond_10y": 1.8379,
     "index_value": 7043.94,
-    "total_return": 10565.9,
+    "total_return": 8476.9,
     "tr_p": 3.96
   },
   {
@@ -3371,7 +3371,7 @@
     "dividend_yield": 1.512,
     "bond_10y": 1.8605,
     "index_value": 7412.37,
-    "total_return": 11118.6,
+    "total_return": 8920.3,
     "tr_p": 3.78
   },
   {
@@ -3386,7 +3386,7 @@
     "dividend_yield": 1.559,
     "bond_10y": 1.7954,
     "index_value": 7331.0,
-    "total_return": 10996.5,
+    "total_return": 8822.4,
     "tr_p": 3.9
   },
   {
@@ -3401,7 +3401,7 @@
     "dividend_yield": 1.621,
     "bond_10y": 1.8412,
     "index_value": 7031.55,
-    "total_return": 10547.3,
+    "total_return": 8462.0,
     "tr_p": 4.05
   },
   {
@@ -3416,7 +3416,7 @@
     "dividend_yield": 1.54,
     "bond_10y": 1.8473,
     "index_value": 7465.57,
-    "total_return": 11198.4,
+    "total_return": 8984.3,
     "tr_p": 3.85
   },
   {
@@ -3431,7 +3431,7 @@
     "dividend_yield": 1.375,
     "bond_10y": 1.8112,
     "index_value": 8370.52,
-    "total_return": 12555.8,
+    "total_return": 10073.3,
     "tr_p": 3.44
   },
   {
@@ -3446,7 +3446,7 @@
     "dividend_yield": 1.334,
     "bond_10y": 1.7877,
     "index_value": 8658.45,
-    "total_return": 12987.7,
+    "total_return": 10419.8,
     "tr_p": 3.33
   },
   {
@@ -3461,7 +3461,7 @@
     "dividend_yield": 1.484,
     "bond_10y": 1.8171,
     "index_value": 7617.33,
-    "total_return": 11426.0,
+    "total_return": 9166.9,
     "tr_p": 3.71
   },
   {
@@ -3476,7 +3476,7 @@
     "dividend_yield": 1.36,
     "bond_10y": 1.7473,
     "index_value": 8349.51,
-    "total_return": 12524.3,
+    "total_return": 10048.1,
     "tr_p": 3.4
   },
   {
@@ -3491,7 +3491,7 @@
     "dividend_yield": 1.347,
     "bond_10y": 1.709,
     "index_value": 8359.56,
-    "total_return": 12539.3,
+    "total_return": 10060.2,
     "tr_p": 3.37
   },
   {
@@ -3506,7 +3506,7 @@
     "dividend_yield": 1.183,
     "bond_10y": 1.733,
     "index_value": 9031.38,
-    "total_return": 13547.1,
+    "total_return": 10868.6,
     "tr_p": 2.96
   },
   {
@@ -3521,7 +3521,7 @@
     "dividend_yield": 1.409,
     "bond_10y": 1.7141,
     "index_value": 7493.99,
-    "total_return": 11241.0,
+    "total_return": 9018.5,
     "tr_p": 3.52
   },
   {
@@ -3536,7 +3536,7 @@
     "dividend_yield": 1.448,
     "bond_10y": 1.6883,
     "index_value": 7952.1,
-    "total_return": 11928.2,
+    "total_return": 9569.8,
     "tr_p": 3.62
   },
   {
@@ -3551,7 +3551,7 @@
     "dividend_yield": 1.502,
     "bond_10y": 1.6804,
     "index_value": 7652.69,
-    "total_return": 11479.0,
+    "total_return": 9209.5,
     "tr_p": 3.76
   }
 ]
