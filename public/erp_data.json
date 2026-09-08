@@ -3855,18 +3855,18 @@
     "tr_p": 7.67
   },
   {
-    "date": "2026-09-04",
-    "erp": 6.0655,
+    "date": "2026-09-07",
+    "erp": 6.0902,
     "mean": 4.54,
     "sigma": 2.32,
     "percentile": 74,
     "signal": "低估",
-    "pe_ttm": 12.91,
-    "pb": 1.43,
-    "dividend_yield": 3.098,
-    "bond_10y": 1.6804,
-    "index_value": 4548.05,
-    "total_return": 6347.5,
-    "tr_p": 7.75
+    "pe_ttm": 12.87,
+    "pb": 1.42,
+    "dividend_yield": 3.108,
+    "bond_10y": 1.6798,
+    "index_value": 4575.02,
+    "total_return": 6385.1,
+    "tr_p": 7.77
   }
 ]
