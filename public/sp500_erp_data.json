@@ -5044,7 +5044,7 @@
     "erp": -1.3206,
     "mean": 0.25,
     "sigma": 2.1,
-    "percentile": 26,
+    "percentile": 27,
     "signal": "高估",
     "pe_ttm": 15.13,
     "pb": 5.05,
@@ -5794,7 +5794,7 @@
     "erp": -1.3828,
     "mean": 0.25,
     "sigma": 2.1,
-    "percentile": 25,
+    "percentile": 26,
     "signal": "高估",
     "pe_ttm": 20.42,
     "pb": 5.05,
@@ -10435,8 +10435,8 @@
     "pb": 3.53,
     "dividend_yield": 1.86,
     "bond_10y": 1.78,
-    "index_value": 3230.78,
-    "total_return": 3230.8,
+    "index_value": 3176.75,
+    "total_return": 3176.8,
     "tr_p": 4.39
   },
   {
@@ -10525,8 +10525,8 @@
     "pb": 3.79,
     "dividend_yield": 2.04,
     "bond_10y": 0.66,
-    "index_value": 3055.73,
-    "total_return": 3055.7,
+    "index_value": 3094.82,
+    "total_return": 3094.8,
     "tr_p": 3.2
   },
   {
@@ -10540,8 +10540,8 @@
     "pb": 3.83,
     "dividend_yield": 1.92,
     "bond_10y": 0.69,
-    "index_value": 3115.86,
-    "total_return": 3115.9,
+    "index_value": 3271.12,
+    "total_return": 3271.1,
     "tr_p": 3.08
   },
   {
@@ -10585,8 +10585,8 @@
     "pb": 3.96,
     "dividend_yield": 1.75,
     "bond_10y": 0.68,
-    "index_value": 3269.96,
-    "total_return": 3270.0,
+    "index_value": 3407.87,
+    "total_return": 3407.9,
     "tr_p": 2.83
   },
   {
@@ -10660,8 +10660,8 @@
     "pb": 4.22,
     "dividend_yield": 1.49,
     "bond_10y": 1.45,
-    "index_value": 3972.89,
-    "total_return": 3972.9,
+    "index_value": 3901.82,
+    "total_return": 3901.8,
     "tr_p": 3.28
   },
   {
@@ -10675,8 +10675,8 @@
     "pb": 4.28,
     "dividend_yield": 1.47,
     "bond_10y": 1.69,
-    "index_value": 4019.87,
-    "total_return": 4019.9,
+    "index_value": 4128.05,
+    "total_return": 4128.0,
     "tr_p": 3.34
   },
   {
@@ -10705,8 +10705,8 @@
     "pb": 4.39,
     "dividend_yield": 1.39,
     "bond_10y": 1.62,
-    "index_value": 4297.5,
-    "total_return": 4297.5,
+    "index_value": 4202.04,
+    "total_return": 4202.0,
     "tr_p": 3.75
   },
   {
@@ -10750,8 +10750,8 @@
     "pb": 4.56,
     "dividend_yield": 1.32,
     "bond_10y": 1.31,
-    "index_value": 4431.45,
-    "total_return": 4431.5,
+    "index_value": 4524.09,
+    "total_return": 4524.1,
     "tr_p": 3.94
   },
   {
@@ -10795,8 +10795,8 @@
     "pb": 4.73,
     "dividend_yield": 1.29,
     "bond_10y": 1.43,
-    "index_value": 4513.04,
-    "total_return": 4513.0,
+    "index_value": 4766.18,
+    "total_return": 4766.2,
     "tr_p": 4.23
   },
   {
@@ -11515,8 +11515,8 @@
     "pb": 5.39,
     "dividend_yield": 1.17,
     "bond_10y": 4.09,
-    "index_value": 6812.63,
-    "total_return": 6812.6,
+    "index_value": 6853.03,
+    "total_return": 6853.0,
     "tr_p": 3.51
   },
   {
@@ -11542,7 +11542,7 @@
     "percentile": 41,
     "signal": "均衡",
     "pe_ttm": 27.07,
-    "pb": 5.55,
+    "pb": 5.56,
     "dividend_yield": 1.15,
     "bond_10y": 4.26,
     "index_value": 6878.88,
@@ -11557,7 +11557,7 @@
     "percentile": 49,
     "signal": "均衡",
     "pe_ttm": 25.43,
-    "pb": 5.63,
+    "pb": 5.64,
     "dividend_yield": 1.16,
     "bond_10y": 3.97,
     "index_value": 6633.32,
@@ -11572,7 +11572,7 @@
     "percentile": 45,
     "signal": "均衡",
     "pe_ttm": 25.49,
-    "pb": 5.71,
+    "pb": 5.72,
     "dividend_yield": 1.21,
     "bond_10y": 4.33,
     "index_value": 6957.01,
@@ -11587,7 +11587,7 @@
     "percentile": 41,
     "signal": "均衡",
     "pe_ttm": 26.09,
-    "pb": 5.79,
+    "pb": 5.81,
     "dividend_yield": 1.16,
     "bond_10y": 4.39,
     "index_value": 7412.55,
@@ -11602,7 +11602,7 @@
     "percentile": 43,
     "signal": "均衡",
     "pe_ttm": 25.22,
-    "pb": 5.87,
+    "pb": 5.89,
     "dividend_yield": 1.1,
     "bond_10y": 4.47,
     "index_value": 7499.36,
@@ -11617,11 +11617,11 @@
     "percentile": 42,
     "signal": "均衡",
     "pe_ttm": 25.33,
-    "pb": 5.95,
+    "pb": 5.97,
     "dividend_yield": 1.1,
     "bond_10y": 4.48,
-    "index_value": 7483.23,
-    "total_return": 7483.2,
+    "index_value": 7481.34,
+    "total_return": 7481.3,
     "tr_p": 3.95
   },
   {
@@ -11632,7 +11632,7 @@
     "percentile": 33,
     "signal": "高估",
     "pe_ttm": 26.11,
-    "pb": 6.03,
+    "pb": 6.06,
     "dividend_yield": 1.09,
     "bond_10y": 4.75,
     "index_value": 7711.32,
@@ -11647,7 +11647,7 @@
     "percentile": 33,
     "signal": "高估",
     "pe_ttm": 26.04,
-    "pb": 6.11,
+    "pb": 6.14,
     "dividend_yield": 1.06,
     "bond_10y": 4.79,
     "index_value": 7691.1,
@@ -11655,18 +11655,18 @@
     "tr_p": 3.84
   },
   {
-    "date": "2026-09-24",
-    "erp": -1.3019,
+    "date": "2026-09-25",
+    "erp": -1.3921,
     "mean": 0.25,
     "sigma": 2.1,
-    "percentile": 27,
+    "percentile": 25,
     "signal": "高估",
-    "pe_ttm": 26.26,
-    "pb": 6.11,
+    "pe_ttm": 26.4,
+    "pb": 6.14,
     "dividend_yield": 1.05,
-    "bond_10y": 5.11,
-    "index_value": 7704.13,
-    "total_return": 7704.1,
-    "tr_p": 3.81
+    "bond_10y": 5.18,
+    "index_value": 7743.41,
+    "total_return": 7743.4,
+    "tr_p": 3.79
   }
 ]
