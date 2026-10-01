@@ -44,9 +44,28 @@ find_index_funcs.py
 generate_cache.py
 verify_cache.py
 
-# Build outputs
-*.log
+# Large data files (only html is needed, it embeds all data)
+daily_data.json
+dashboard_data.json
+bond_rate.json
+index_pe.json
+sh_monthly.json
+bond_data.json
+cache/
+backup/
+
+# WorkBuddy internal
+.workbuddy/
+.codebuddy/
 
 # Misc temp
 0
+nul
 Thumbs.db
+_*.png
+
+# Misc temp
+0
+nul
+Thumbs.db
+_*.png
